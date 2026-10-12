@@ -1,0 +1,74 @@
+/* Estilos específicos para la pantalla de bienvenida (Primer Vistazo) */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f1b; /* Fondo oscuro y romántico */
+    font-family: 'Press Start 2P', monospace; /* Estilo de videojuego retro */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.welcome-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Animación sutil del icono flotante */
+.pixel-icon-container {
+    font-size: 2.5rem;
+    animation: floatHeart 2s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.welcome-title {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: #ff477e;
+    text-shadow: 2px 2px #590d22;
+    margin: 10px 0;
+}
+
+.welcome-subtitle {
+    font-size: 0.65rem;
+    color: #b5b5c3;
+    margin-bottom: 20px;
+}
+
+/* Botón interactivo estilo retro */
+.pixel-btn {
+    background-color: #ff477e;
+    color: #fff;
+    border: 4px solid #fff;
+    padding: 12px 24px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #590d22;
+    transition: all 0.1s ease;
+}
+
+.pixel-btn:hover {
+    background-color: #ff6b97;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #590d22;
+}
+
+.pixel-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #590d22;
+}
