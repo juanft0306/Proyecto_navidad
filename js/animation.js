@@ -1,5 +1,5 @@
 /* ==========================================
-   Lógica de la Animación por Video
+   Lógica de la Animación por Video (Con respaldo)
    ========================================== */
 
 const CinematicAnimation = (() => {
@@ -10,19 +10,27 @@ const CinematicAnimation = (() => {
 
         if (!cinematicScreen || !introVideo) return;
 
-        // Mostrar pantalla en negro con el video
+        // Mostrar pantalla en negro
         cinematicScreen.classList.remove('hidden');
 
-        // Reproducir el video
-        introVideo.play().catch(error => {
-            console.log("El navegador requirió interacción o bloqueó el autoplay del video:", error);
-            // Si hay problemas de autoplay, mostramos el corazón de una vez o un botón de play
-        });
+        // Intentar reproducir el video
+        const playPromise = introVideo.play();
 
-        // Evento que se dispara automáticamente cuando el video TERMINA
-        introVideo.onended = () => {
-            showFinale(cinematicScreen, onCompleteCallback);
-        };
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // El video empezó a reproducirse correctamente
+                introVideo.onended = () => {
+                    showFinale(cinematicScreen, onCompleteCallback);
+                };
+            }).catch(error => {
+                // Si el video falla (porque el archivo no existe todavía), 
+                // simulamos 4 segundos de pantalla en negro y pasamos al corazón de prueba
+                console.log("Video no encontrado o bloqueado. Usando modo de prueba temporal...");
+                setTimeout(() => {
+                    showFinale(cinematicScreen, onCompleteCallback);
+                }, 4000);
+            });
+        }
     }
 
     function showFinale(container, onCompleteCallback) {
@@ -35,14 +43,16 @@ const CinematicAnimation = (() => {
         `;
 
         const btn = document.getElementById('to-next-btn');
-        btn.addEventListener('click', () => {
-            container.style.opacity = '0';
-            container.style.transition = 'opacity 0.8s ease';
-            setTimeout(() => {
-                container.classList.add('hidden');
-                if (onCompleteCallback) onCompleteCallback();
-            }, 800);
-        });
+        if (btn) {
+            btn.addEventListener('click', () => {
+                container.style.opacity = '0';
+                container.style.transition = 'opacity 0.8s ease';
+                setTimeout(() => {
+                    container.classList.add('hidden');
+                    if (onCompleteCallback) onCompleteCallback();
+                }, 800);
+            });
+        }
     }
 
     return {
