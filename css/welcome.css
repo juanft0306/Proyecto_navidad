@@ -1,5 +1,5 @@
 /* ==========================================
-   Estilos Avanzados - Pantalla de Bienvenida
+   Estilos de Bienvenida - Edición Especial
    ========================================== */
 
 * {
@@ -9,8 +9,8 @@
 }
 
 body {
-    background-color: #0a0a14;
-    font-family: 'Press Start 2P', monospace;
+    background-color: #05050b;
+    font-family: 'Quicksand', sans-serif;
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -20,147 +20,117 @@ body {
     position: relative;
 }
 
-/* Fondo de Estrellas Parpadeantes */
+.hidden {
+    display: none !important;
+}
+
+/* Fondo con gradiente vivo y destellos */
 .stars-bg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, #1a102f 0%, #05050a 100%);
+    background: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #05050b 100%);
     background-image: 
-        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 40px 70px, #ff477e, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 160px 120px, #ffb703, rgba(0,0,0,0));
+        radial-gradient(2px 2px at 20px 30px, #ff477e, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 60px 80px, #ffb703, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 140px 100px, #ffffff, rgba(0,0,0,0));
     background-repeat: repeat;
-    background-size: 200px 200px;
-    opacity: 0.8;
-    animation: twinkle 4s infinite alternate;
+    background-size: 250px 250px;
+    animation: twinkleBg 6s infinite alternate;
 }
 
-@keyframes twinkle {
-    0% { opacity: 0.5; transform: scale(1); }
-    100% { opacity: 0.9; transform: scale(1.02); }
+@keyframes twinkleBg {
+    0% { opacity: 0.6; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.03); }
 }
 
-/* Tarjeta / Marco Retro */
 .welcome-container {
     position: relative;
     z-index: 10;
     padding: 20px;
     width: 90%;
-    max-width: 460px;
+    max-width: 420px;
 }
 
 .welcome-card {
-    background: rgba(18, 14, 32, 0.92);
-    border: 4px solid #ff477e;
-    box-shadow: 0 0 25px rgba(255, 71, 126, 0.4), inset 0 0 15px rgba(255, 71, 126, 0.2);
-    border-radius: 12px;
-    padding: 30px 20px;
+    background: rgba(22, 16, 38, 0.85);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 71, 126, 0.5);
+    box-shadow: 0 0 40px rgba(255, 71, 126, 0.25), inset 0 0 20px rgba(255, 183, 3, 0.1);
+    border-radius: 20px;
+    padding: 35px 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    backdrop-filter: blur(5px);
+    gap: 20px;
+    animation: cardFloat 4s ease-in-out infinite;
 }
 
-/* Etiqueta Superior */
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
 .badge-tag {
-    font-size: 0.55rem;
-    background: #ff477e;
+    font-size: 0.7rem;
+    background: linear-gradient(135deg, #ff477e, #ffb703);
     color: #fff;
-    padding: 6px 12px;
+    padding: 6px 16px;
     border-radius: 20px;
-    letter-spacing: 1px;
-    box-shadow: 0 0 10px rgba(255, 71, 126, 0.6);
-}
-
-/* Corazón Flotante */
-.pixel-icon-container {
-    font-size: 3rem;
-    margin: 5px 0;
-    animation: floatHeart 2.2s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px #ff477e);
-}
-
-@keyframes floatHeart {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-10px) scale(1.08); }
-}
-
-/* Título Impactante */
-.welcome-title {
-    font-size: 1.1rem;
     letter-spacing: 2px;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(255, 71, 126, 0.5);
+}
+
+.welcome-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
     color: #ffffff;
-    line-height: 1.6;
-    text-shadow: 3px 3px 0px #590d22;
+    line-height: 1.3;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .welcome-title .highlight {
     color: #ffb703;
-    text-shadow: 3px 3px 0px #d00000;
+    text-shadow: 0 0 20px rgba(255, 183, 3, 0.6);
 }
 
-/* Subtítulo */
 .welcome-subtitle {
-    font-size: 0.6rem;
+    font-size: 0.9rem;
     color: #d1d5db;
-    line-height: 1.8;
+    line-height: 1.5;
     max-width: 320px;
 }
 
-/* Botón Neón Interactivo */
-.pixel-btn {
-    margin-top: 10px;
-    background: linear-gradient(180deg, #ff477e 0%, #c71585 100%);
+/* Botón Principal Animado */
+.main-start-btn {
+    background: linear-gradient(135deg, #ff477e 0%, #d00000 100%);
     color: #ffffff;
-    border: 3px solid #ffffff;
-    padding: 16px 24px;
-    font-family: 'Press Start 2P', monospace;
+    border: none;
+    padding: 16px 28px;
+    font-family: 'Quicksand', sans-serif;
     cursor: pointer;
-    box-shadow: 0 6px 0 #590d22, 0 0 15px rgba(255, 71, 126, 0.5);
-    transition: all 0.15s ease;
+    box-shadow: 0 6px 20px rgba(255, 71, 126, 0.5);
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    border-radius: 6px;
+    gap: 4px;
+    border-radius: 30px;
     width: 100%;
+    font-weight: 700;
 }
 
-.btn-text {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+.btn-text { font-size: 0.95rem; letter-spacing: 1px; }
+.btn-subtext { font-size: 0.75rem; color: #ffecd1; opacity: 0.9; }
+
+.main-start-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(255, 71, 126, 0.8);
 }
 
-.btn-subtext {
-    font-size: 0.45rem;
-    color: #ffecd1;
-    opacity: 0.8;
-}
-
-.pixel-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 0 #590d22, 0 0 25px rgba(255, 71, 126, 0.8);
-}
-
-.pixel-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #590d22;
-}
-
-/* Pie de página */
-.welcome-footer {
-    font-size: 0.5rem;
-    color: #888;
-    margin-top: 5px;
-    letter-spacing: 1px;
-    animation: blinkText 1.5s infinite;
-}
-
-@keyframes blinkText {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+.main-start-btn:active {
+    transform: translateY(1px);
 }
