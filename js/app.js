@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('start-btn');
     const welcomeScreen = document.getElementById('welcome-screen');
 
-    // Manejador del botón START
     if (startBtn) {
         startBtn.addEventListener('click', () => {
             // 1. Efecto de desvanecimiento de la pantalla de bienvenida
             welcomeScreen.style.opacity = '0';
-            welcomeScreen.style.transition = 'opacity 0.5s ease';
+            welcomeScreen.style.transition = 'opacity 0.6s ease';
 
             setTimeout(() => {
                 // Ocultar la pantalla de bienvenida por completo
@@ -21,12 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof CinematicAnimation !== 'undefined') {
                     CinematicAnimation.run(() => {
                         console.log("Gran Animación Finalizada -> Listo para la Sorpresa 2 (WhatsApp Puzzle)");
-                        // Aquí llamaremos al módulo del puzzle de WhatsApp cuando lo integremos
                     });
                 } else {
-                    console.error("Error: 'CinematicAnimation' no está definido. Revisa que js/animation.js esté bien cargado.");
+                    console.error("Error: 'CinematicAnimation' no está definido. Revisa que js/animation.js esté cargado.");
                 }
-            }, 500);
+            }, 600);
         });
     }
 });
