@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia de Amor</title>
     
+    <!-- Tus Estilos -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/welcome.css">
+    <link rel="stylesheet" href="css/whatsapp-puzzle.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* Estilos temporales para la pantalla del corazón */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: #06040a;
@@ -56,9 +62,7 @@
             line-height: 1.25;
             font-weight: 700;
         }
-        .highlight {
-            color: #ffb703;
-        }
+        .highlight { color: #ffb703; }
         .welcome-subtitle {
             font-size: 0.95rem;
             color: #b3b3c3;
@@ -82,7 +86,6 @@
         }
         .main-start-btn:hover { transform: translateY(-2px); }
 
-        /* Pantalla Cinemática / Final */
         .cinematic-container {
             position: fixed;
             top: 0;
@@ -152,30 +155,32 @@
     <div id="cinematic-screen" class="cinematic-container hidden">
         <div class="giant-heart">❤️</div>
         <div class="finale-text">Un año desde que empezó nuestra historia juntos y los que faltan...</div>
-        <button id="to-next-btn" class="next-surprise-btn">CONTINUAR A LA SORPRESA 2 ✨</button>
+        <button id="to-whatsapp-puzzle" class="next-surprise-btn">CONTINUAR A LA SORPRESA 2 ✨</button>
     </div>
 
-    <!-- Script directo para evitar fallos de carga de módulos externos en esta prueba -->
+    <!-- Scripts Modulares -->
+    <script src="js/whatsapp-puzzle.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const startBtn = document.getElementById('start-btn');
             const welcomeScreen = document.getElementById('welcome-screen');
             const cinematicScreen = document.getElementById('cinematic-screen');
-            const nextBtn = document.getElementById('to-next-btn');
+            const toWhatsappBtn = document.getElementById('to-whatsapp-puzzle');
 
+            // Paso 1: Al hacer clic en comenzar, se oculta la bienvenida y sale el corazón
             if (startBtn) {
                 startBtn.addEventListener('click', () => {
-                    console.log("Botón presionado con éxito");
-                    // Ocultar bienvenida
                     welcomeScreen.classList.add('hidden');
-                    // Mostrar pantalla del corazón
                     cinematicScreen.classList.remove('hidden');
                 });
             }
 
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    alert("¡Listo para pasar a la Sorpresa 2 (WhatsApp Puzzle)!");
+            // Paso 2: Al hacer clic en continuar desde el corazón, se oculta y arranca la Sorpresa 2 (WhatsApp)
+            if (toWhatsappBtn) {
+                toWhatsappBtn.addEventListener('click', () => {
+                    cinematicScreen.classList.add('hidden');
+                    // Inicializar el rompecabezas de WhatsApp
+                    WhatsappPuzzle.init();
                 });
             }
         });
