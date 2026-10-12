@@ -1,14 +1,32 @@
-function irASorpresa2() {
-    document.getElementById('screen-animation').classList.add('hidden');
-    document.getElementById('screen-puzzle').classList.remove('hidden');
-}
+/* ==========================================
+   app.js - Orquestador Principal del Proyecto
+   ========================================== */
 
-function irASorpresa3() {
-    document.getElementById('screen-puzzle').classList.add('hidden');
-    document.getElementById('screen-capsule').classList.remove('hidden');
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('start-btn');
+    const welcomeScreen = document.getElementById('welcome-screen');
 
-function irASorpresa4() {
-    document.getElementById('screen-capsule').classList.add('hidden');
-    document.getElementById('screen-finale').classList.remove('hidden');
-}
+    // Manejador del botón START
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            // 1. Efecto de desvanecimiento de la pantalla de bienvenida
+            welcomeScreen.style.opacity = '0';
+            welcomeScreen.style.transition = 'opacity 0.5s ease';
+
+            setTimeout(() => {
+                // Ocultar la pantalla de bienvenida por completo
+                welcomeScreen.classList.add('hidden');
+
+                // 2. Disparar la Gran Animación Cinematográfica (¡PAS!, Notificación y Recuerdos)
+                if (typeof CinematicAnimation !== 'undefined') {
+                    CinematicAnimation.run(() => {
+                        console.log("Gran Animación Finalizada -> Listo para la Sorpresa 2 (WhatsApp Puzzle)");
+                        // Aquí llamaremos al módulo del puzzle de WhatsApp cuando lo integremos
+                    });
+                } else {
+                    console.error("Error: 'CinematicAnimation' no está definido. Revisa que js/animation.js esté bien cargado.");
+                }
+            }, 500);
+        });
+    }
+});
