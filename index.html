@@ -4,41 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia de Amor</title>
-    
-    <!-- Estilos Modulares -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/welcome.css">
     <link rel="stylesheet" href="css/intro-animation.css">
-    
-    <!-- Tipografía -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Fondo de estrellas / atmósfera -->
-    <div class="stars-bg"></div>
+    <!-- Canvas de partículas en vivo para el fondo -->
+    <canvas id="bg-particles"></canvas>
 
-    <!-- 1. PANTALLA DE BIENVENIDA LIMPIA -->
+    <!-- Pantalla de Bienvenida Principal -->
     <main id="welcome-screen" class="welcome-container">
         <div class="welcome-card">
+            <div class="glow-orb"></div>
+            <span class="badge-tag">♥ NUESTRO ANIVERSARIO ♥</span>
             
-            <div class="badge-tag">♥ EDICIÓN ESPECIAL 2026 ♥</div>
-
             <div class="welcome-content-box">
-                <h1 class="welcome-title">NUESTRA HISTORIA<br><span class="highlight">DE AMOR</span></h1>
-                <p class="welcome-subtitle">Una sorpresa especial hecha con todo mi corazón ✨</p>
+                <h1 class="welcome-title">Nuestra Historia<br><span class="highlight">Juntos</span></h1>
+                <p class="welcome-subtitle">Una aventura interactiva creada segundo a segundo para ti ✨</p>
 
-                <!-- Botón de Inicio para activar la Gran Animación -->
                 <button id="start-btn" class="main-start-btn">
-                    <span class="btn-text">PRESIONAR PARA COMENZAR</span>
-                    <span class="btn-subtext">▶ PLAY</span>
+                    <span>COMENZAR LA EXPERIENCIA</span>
+                    <div class="btn-shine"></div>
                 </button>
             </div>
-
         </div>
     </main>
 
-    <!-- Scripts Modulares -->
     <script src="js/animation.js"></script>
     <script src="js/app.js"></script>
 </body>
