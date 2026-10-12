@@ -4,51 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia de Amor</title>
-    <!-- Estilos -->
+    
+    <!-- Estilos Modulares -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/welcome.css">
-    <!-- Fuente Retro Pixel -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/intro-animation.css">
+    
+    <!-- Tipografías: Retro Pixel (8-bits) y Quicksand (Cinemática) -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Fondo de estrellas animadas -->
+    <!-- Fondo de estrellas animadas para la pantalla de inicio -->
     <div class="stars-bg"></div>
 
-    <!-- Contenedor Principal con Marco Retro -->
+    <!-- 1. PANTALLA PRINCIPAL (BIENVENIDA CON VISTA PREVIA DE MARIO) -->
     <main id="welcome-screen" class="welcome-container">
         <div class="welcome-card">
             
-            <!-- Encabezado de Edición Especial -->
             <div class="badge-tag">♥ EDICIÓN ESPECIAL 2026 ♥</div>
 
-            <!-- Icono central vibrante -->
-            <div class="pixel-icon-container">
-                <div class="pixel-heart">❤️</div>
+            <!-- Canvas donde corre la vista previa sutil de Mario de 8-bits -->
+            <div class="mario-canvas-wrapper">
+                <canvas id="mario-welcome-canvas" width="300" height="150"></canvas>
             </div>
 
-            <!-- Título Principal -->
-            <h1 class="welcome-title">NUESTRA HISTORIA<br><span class="highlight">DE AMOR</span></h1>
-            
-            <!-- Subtítulo deslumbrante -->
-            <p class="welcome-subtitle">Una aventura interactiva creada con cada segundo de nuestro camino juntos ✨</p>
+            <!-- Contenido revelado al golpear el bloque '?' -->
+            <div id="welcome-revealed-content" class="revealed-content hidden">
+                <h1 class="welcome-title">NUESTRA HISTORIA<br><span class="highlight">DE AMOR</span></h1>
+                <p class="welcome-subtitle">Una sorpresa especial hecha con todo mi corazón ✨</p>
 
-            <!-- Botón interactivo principal -->
-            <button id="start-btn" class="pixel-btn">
-                <span class="btn-text">INICIAR AVENTURA</span>
-                <span class="btn-subtext">PRESS START</span>
-            </button>
-
-            <!-- Pie de página con detalle emotivo -->
-            <footer class="welcome-footer">
-                <span>PRESS START TO PLAY</span>
-            </footer>
+                <!-- Botón de Inicio para activar la Gran Animación -->
+                <button id="start-btn" class="pixel-btn">
+                    <span class="btn-text">PRESIONA START</span>
+                    <span class="btn-subtext">▶ PLAY</span>
+                </button>
+            </div>
 
         </div>
     </main>
 
     <!-- Scripts Modulares -->
-    <script src="js/welcome.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/welcome-mario.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/app.js"></script>
 </body>
-</html>
+    </html>
+    
