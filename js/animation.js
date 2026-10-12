@@ -4,7 +4,6 @@
 
 const CinematicAnimation = (() => {
     
-    // Lista de recuerdos ordenados cronológicamente según su historia
     const memories = [
         { tag: "El Inicio", text: "Cuando nos conocimos en aquel evento deportivo de nuestros equipos estudiantiles 🏟️✨" },
         { tag: "Días de UCV", text: "Las risas y los momentos compartidos saliendo de la universidad 📚❤️" },
@@ -16,12 +15,12 @@ const CinematicAnimation = (() => {
     ];
 
     function startSequence(onCompleteCallback) {
-        // 1. Efecto "¡PAS!" a negro total
+        // 1. Contenedor de la cinemática a pantalla completa
         const container = document.createElement('div');
         container.className = 'cinematic-container';
         document.body.appendChild(container);
 
-        // 2. Escena de la Notificación de Instagram
+        // 2. Escena de la Notificación de Instagram con vibración
         setTimeout(() => {
             container.innerHTML = `
                 <div class="notification-scene">
@@ -37,17 +36,16 @@ const CinematicAnimation = (() => {
                 </div>
             `;
             
-            // Simular vibración del dispositivo si está disponible
             if (navigator.vibrate) {
-                navigator.vibrate([200, 100, 200]);
+                navigator.vibrate([250, 150, 250]);
             }
-        }, 800);
+        }, 700);
 
-        // 3. Transición al carrusel de recuerdos (después de 3.5 segundos)
+        // 3. Pasar al carrusel de recuerdos después de 3.8 segundos
         let memoryIndex = 0;
         setTimeout(() => {
             showNextMemory(container, memoryIndex, onCompleteCallback);
-        }, 4300);
+        }, 4500);
     }
 
     function showNextMemory(container, index, onCompleteCallback) {
@@ -62,13 +60,13 @@ const CinematicAnimation = (() => {
                 </div>
             `;
 
-            // Duración que se muestra cada recuerdo en pantalla (4 segundos)
+            // Cada recuerdo dura 4.5 segundos en pantalla con zoom suave
             setTimeout(() => {
                 showNextMemory(container, index + 1, onCompleteCallback);
-            }, 4000);
+            }, 4500);
 
         } else {
-            // 4. Escena Final: El Gran Corazón Rojo
+            // 4. Escena Final: El Gran Corazón
             showFinale(container, onCompleteCallback);
         }
     }
@@ -78,18 +76,18 @@ const CinematicAnimation = (() => {
             <div class="finale-scene">
                 <div class="giant-heart">❤️</div>
                 <div class="finale-text">Un año desde que empezó nuestra historia juntos y los que faltan...</div>
-                <button id="to-puzzle-btn" class="pixel-btn">CONTINUAR A LA SORPRESA 2</button>
+                <button id="to-next-btn" class="next-surprise-btn">CONTINUAR A LA SORPRESA 2 ✨</button>
             </div>
         `;
 
-        const btn = document.getElementById('to-puzzle-btn');
+        const btn = document.getElementById('to-next-btn');
         btn.addEventListener('click', () => {
             container.style.opacity = '0';
-            container.style.transition = 'opacity 0.6s ease';
+            container.style.transition = 'opacity 0.8s ease';
             setTimeout(() => {
                 container.remove();
                 if (onCompleteCallback) onCompleteCallback();
-            }, 600);
+            }, 800);
         });
     }
 
