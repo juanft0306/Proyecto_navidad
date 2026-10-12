@@ -1,74 +1,28 @@
 /* ==========================================
-   Lógica de la Gran Animación Cinematográfica
+   Lógica de la Animación por Video
    ========================================== */
 
 const CinematicAnimation = (() => {
-    
-    const memories = [
-        { tag: "El Inicio", text: "Cuando nos conocimos en aquel evento deportivo de nuestros equipos estudiantiles 🏟️✨" },
-        { tag: "Días de UCV", text: "Las risas y los momentos compartidos saliendo de la universidad 📚❤️" },
-        { tag: "Nuestra Aventura", text: "Aquella hermosa caminata explorando los caminos del Ávila ⛰️🌿" },
-        { tag: "El Gran Día", text: "La pizzería perfecta donde te pedí que fueras mi novia 🍕💍" },
-        { tag: "Explorando Juntos", text: "Nuestra divertida cita recorriendo el zoológico 🦁🦜" },
-        { tag: "Proyectos a Futuro", text: "Las charlas nocturnas soñando e ideando sobre invertir juntos 💡📈" },
-        { tag: "Nuestras Pasiones", text: "Sentados en el estadio de béisbol disfrutando el momento ⚾🔥" }
-    ];
 
     function startSequence(onCompleteCallback) {
-        // 1. Contenedor de la cinemática a pantalla completa
-        const container = document.createElement('div');
-        container.className = 'cinematic-container';
-        document.body.appendChild(container);
+        const cinematicScreen = document.getElementById('cinematic-screen');
+        const introVideo = document.getElementById('intro-video');
 
-        // 2. Escena de la Notificación de Instagram con vibración
-        setTimeout(() => {
-            container.innerHTML = `
-                <div class="notification-scene">
-                    <div class="insta-notification">
-                        <div class="insta-header">
-                            <span class="insta-icon">📸</span>
-                            <span>Instagram • Ahora</span>
-                        </div>
-                        <div class="insta-body">
-                            <p>feliz navidad bb</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            if (navigator.vibrate) {
-                navigator.vibrate([250, 150, 250]);
-            }
-        }, 700);
+        if (!cinematicScreen || !introVideo) return;
 
-        // 3. Pasar al carrusel de recuerdos después de 3.8 segundos
-        let memoryIndex = 0;
-        setTimeout(() => {
-            showNextMemory(container, memoryIndex, onCompleteCallback);
-        }, 4500);
-    }
+        // Mostrar pantalla en negro con el video
+        cinematicScreen.classList.remove('hidden');
 
-    function showNextMemory(container, index, onCompleteCallback) {
-        if (index < memories.length) {
-            const memory = memories[index];
-            container.innerHTML = `
-                <div class="memory-scene active">
-                    <div class="memory-card-cinematic">
-                        <div class="memory-tag">${memory.tag}</div>
-                        <div class="memory-text">${memory.text}</div>
-                    </div>
-                </div>
-            `;
+        // Reproducir el video
+        introVideo.play().catch(error => {
+            console.log("El navegador requirió interacción o bloqueó el autoplay del video:", error);
+            // Si hay problemas de autoplay, mostramos el corazón de una vez o un botón de play
+        });
 
-            // Cada recuerdo dura 4.5 segundos en pantalla con zoom suave
-            setTimeout(() => {
-                showNextMemory(container, index + 1, onCompleteCallback);
-            }, 4500);
-
-        } else {
-            // 4. Escena Final: El Gran Corazón
-            showFinale(container, onCompleteCallback);
-        }
+        // Evento que se dispara automáticamente cuando el video TERMINA
+        introVideo.onended = () => {
+            showFinale(cinematicScreen, onCompleteCallback);
+        };
     }
 
     function showFinale(container, onCompleteCallback) {
@@ -85,7 +39,7 @@ const CinematicAnimation = (() => {
             container.style.opacity = '0';
             container.style.transition = 'opacity 0.8s ease';
             setTimeout(() => {
-                container.remove();
+                container.classList.add('hidden');
                 if (onCompleteCallback) onCompleteCallback();
             }, 800);
         });
