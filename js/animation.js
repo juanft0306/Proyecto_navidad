@@ -1,5 +1,5 @@
 /* ==========================================
-   Lógica de la Animación por Video (Con respaldo)
+   Lógica de la Animación por Video (A prueba de fallos)
    ========================================== */
 
 const CinematicAnimation = (() => {
@@ -8,32 +8,39 @@ const CinematicAnimation = (() => {
         const cinematicScreen = document.getElementById('cinematic-screen');
         const introVideo = document.getElementById('intro-video');
 
-        if (!cinematicScreen || !introVideo) return;
+        if (!cinematicScreen) return;
 
-        // Mostrar pantalla en negro
+        // 1. Mostrar la pantalla negra cinemática
         cinematicScreen.classList.remove('hidden');
 
-        // Intentar reproducir el video
+        // Si no hay elemento de video o no tiene fuente, ir directo al final de prueba
+        if (!introVideo || !introVideo.querySelector('source').getAttribute('src')) {
+            console.log("No hay video configurado. Mostrando escena final directamente.");
+            showFinale(cinematicScreen, onCompleteCallback);
+            return;
+        }
+
+        // 2. Intentar reproducir el video
         const playPromise = introVideo.play();
 
         if (playPromise !== undefined) {
-            playPromise.then(_ => {
-                // El video empezó a reproducirse correctamente
+            playPromise.then(() => {
+                // El video está corriendo con éxito
                 introVideo.onended = () => {
                     showFinale(cinematicScreen, onCompleteCallback);
                 };
             }).catch(error => {
-                // Si el video falla (porque el archivo no existe todavía), 
-                // simulamos 4 segundos de pantalla en negro y pasamos al corazón de prueba
-                console.log("Video no encontrado o bloqueado. Usando modo de prueba temporal...");
-                setTimeout(() => {
-                    showFinale(cinematicScreen, onCompleteCallback);
-                }, 4000);
+                // Si el navegador bloquea el video o el archivo no existe físicamente en assets/
+                console.warn("El video no se pudo reproducir (probablemente falta el archivo en assets/). Saltando al final de prueba.");
+                showFinale(cinematicScreen, onCompleteCallback);
             });
+        } else {
+            showFinale(cinematicScreen, onCompleteCallback);
         }
     }
 
     function showFinale(container, onCompleteCallback) {
+        // Asegurarnos de limpiar cualquier cosa previa e inyectar el HTML del corazón
         container.innerHTML = `
             <div class="finale-scene">
                 <div class="giant-heart">❤️</div>
@@ -49,6 +56,7 @@ const CinematicAnimation = (() => {
                 container.style.transition = 'opacity 0.8s ease';
                 setTimeout(() => {
                     container.classList.add('hidden');
+                    container.style.opacity = '1'; // Resetear opacidad para la próxima
                     if (onCompleteCallback) onCompleteCallback();
                 }, 800);
             });
