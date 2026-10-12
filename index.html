@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Princesa ❤️</title>
+    
+    <!-- Importación de Estilos Modulares -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/intro-animation.css">
+    <link rel="stylesheet" href="css/whatsapp-puzzle.css">
+    <link rel="stylesheet" href="css/capsule.css">
+    <link rel="stylesheet" href="css/epic-finale.css">
+</head>
+<body>
+
+    <!-- MÓDULO 1: INTRO Y ANIMACIÓN INICIAL -->
+    <section id="screen-intro" class="screen">
+        <div class="welcome-card">
+            <h1>Hola, mi vida ❤️</h1>
+            <p>Este regalo se empezó a construir el 11 de octubre de 2026. ¿Estás lista?</p>
+            <button id="start-btn" onclick="iniciarAnimacionIntro()">Abrir regalo 🎁</button>
+        </div>
+    </section>
+
+    <!-- Pantalla intermedia a negro ("PAS!!") -->
+    <div id="black-screen" class="screen hidden"></div>
+
+    <section id="screen-animation" class="screen hidden">
+        <div id="phone-container" class="phone">
+            <div id="instagram-notification" class="notification hidden">
+                <div class="noti-header">
+                    <span>📸 Instagram</span>
+                    <span class="time">Ahora</span>
+                </div>
+                <div class="noti-body">
+                    <strong>Nuevo mensaje</strong>
+                    <p>"Feliz navidad bb"</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="memories-container" class="hidden">
+            <div id="memory-card" class="memory-card"></div>
+        </div>
+
+        <div id="final-heart-container" class="hidden">
+            <div class="heart"></div>
+            <h2>Un año desde que empezó nuestra historia juntos...<br><span>y los que faltan.</span></h2>
+            <button onclick="irASorpresa2()">Continuar a tu segunda sorpresa 🎵</button>
+        </div>
+    </section>
+
+    <!-- MÓDULO 2: ROMPECABEZAS DE WHATSAPP -->
+    <section id="screen-puzzle" class="screen hidden">
+        <div class="puzzle-container">
+            <h2>🧩 Rompecabezas Secreto</h2>
+            <p>Introduce los números de los mensajes que te dejé en WhatsApp en orden:</p>
+            <div class="input-group">
+                <input type="number" id="puzzle-input" placeholder="Número de mensaje">
+                <button onclick="verificarPiezaWhatsApp()">Verificar</button>
+            </div>
+            <p id="puzzle-feedback"></p>
+            <div id="puzzle-message-box" class="hidden">
+                <h3>¡Mensaje Completo Descubierto!</h3>
+                <p id="full-whatsapp-message"></p>
+                <button onclick="irASorpresa3()">Ver regalos pasados 🎁</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÓDULO 3: GALERÍA DE REGALOS PASADOS -->
+    <section id="screen-capsule" class="screen hidden">
+        <div class="capsule-container">
+            <h2>✨ Nuestra Cápsula del Tiempo</h2>
+            <div class="gallery">
+                <div class="gift-card">
+                    <h3>Protocolo Flores Amarillas</h3>
+                    <p>El detalle del 21 de septiembre hecho web.</p>
+                </div>
+                <!-- Aquí agregaremos los demás links y fotos de regalos pasados -->
+            </div>
+            <button onclick="irASorpresa4()">Ir al gran final épico 🚀</button>
+        </div>
+    </section>
+
+    <!-- MÓDULO 4: EL GRAN CIERRE ÉPICO -->
+    <section id="screen-finale" class="screen hidden">
+        <div class="finale-container">
+            <h2>🌟 Nuestro Futuro y Refugio</h2>
+            <!-- 1. Mapa de Futuro -->
+            <div class="future-map">
+                <h3>Nuestras Metas</h3>
+                <p>🏠 Nuestra futura casa | ✈️ Próximos viajes | 💍 Nuestra boda</p>
+            </div>
+            <!-- 2. Botón de Emergencia de Audios -->
+            <div class="emergency-audio">
+                <h3>🎧 Botón de Emergencia (Días Cansados)</h3>
+                <button>🔴 Si estás muy cansada</button>
+                <button>🔵 Si me extrañas</button>
+                <button>🟢 Si necesitas sonreír</button>
+            </div>
+            <!-- 3. Contadores -->
+            <div class="counters-box">
+                <p>Tiempo juntos: <span id="time-together">Calculando...</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio de notificación -->
+    <audio id="vibro-sound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
+
+    <!-- Importación de Scripts Modulares -->
+    <script src="js/animation.js"></script>
+    <script src="js/whatsapp-puzzle.js"></script>
+    <script src="js/capsule.js"></script>
+    <script src="js/epic-finale.js"></script>
+    <script src="js/app.js"></script>
+</body>
+  </html>
+  
