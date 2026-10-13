@@ -1,5 +1,5 @@
 /* ==========================================
-   ESTILOS - MÓDULO 2 (VIDEO)
+   ESTILOS - MÓDULO 2 (VIDEO Y ENLACE)
    ========================================== */
 #modulo-video {
     position: fixed;
@@ -12,6 +12,7 @@
     display: none; /* Oculto al inicio */
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 #modulo-video.activo {
@@ -26,6 +27,7 @@
     padding: 0 20px;
 }
 
+/* Animación del corazón latiendo */
 .corazon-latido {
     font-size: 5rem;
     color: #e11d48;
@@ -44,4 +46,26 @@
     font-size: 1.6rem;
     margin-bottom: 30px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+}
+
+/* ==========================================
+   CAPA OSCURA PARA TRANSICIONES
+   ========================================== */
+#capa-oscura-final {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 999999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+}
+
+#capa-oscura-final.activo {
+    opacity: 1;
+    pointer-events: all;
 }
