@@ -2,188 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Historia de Amor</title>
-    
-    <!-- Tus Estilos -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/welcome.css">
-    <link rel="stylesheet" href="css/whatsapp-puzzle.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Estilos temporales para la pantalla del corazón */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background-color: #06040a;
-            font-family: 'Quicksand', sans-serif;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-        .hidden { display: none !important; }
-
-        .welcome-container {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            width: 90%;
-            max-width: 440px;
-        }
-        .welcome-card {
-            background: rgba(18, 12, 28, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 71, 126, 0.3);
-            border-radius: 28px;
-            padding: 40px 28px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 22px;
-        }
-        .badge-tag {
-            font-size: 0.75rem;
-            background: rgba(255, 71, 126, 0.2);
-            border: 1px solid rgba(255, 71, 126, 0.4);
-            color: #ff7597;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-weight: 700;
-        }
-        .welcome-title {
-            font-size: 2rem;
-            color: #ffffff;
-            line-height: 1.25;
-            font-weight: 700;
-        }
-        .highlight { color: #ffb703; }
-        .welcome-subtitle {
-            font-size: 0.95rem;
-            color: #b3b3c3;
-            line-height: 1.5;
-            margin-top: 10px;
-        }
-        .main-start-btn {
-            margin-top: 15px;
-            background: linear-gradient(135deg, #ff477e 0%, #e60049 100%);
-            color: #ffffff;
-            border: none;
-            padding: 18px 32px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 71, 126, 0.4);
-            border-radius: 50px;
-            width: 100%;
-            transition: transform 0.2s ease;
-        }
-        .main-start-btn:hover { transform: translateY(-2px); }
-
-        .cinematic-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000000;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-        .giant-heart {
-            font-size: 6rem;
-            animation: heartbeat 1.2s infinite ease-in-out;
-            margin-bottom: 25px;
-        }
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            15%, 45% { transform: scale(1.18); }
-            30%, 60% { transform: scale(1); }
-        }
-        .finale-text {
-            font-size: 1.4rem;
-            line-height: 1.6;
-            max-width: 420px;
-            color: #ffffff;
-            font-weight: 700;
-            margin-bottom: 35px;
-        }
-        .next-surprise-btn {
-            background: linear-gradient(135deg, #ffb703 0%, #ff477e 100%);
-            color: #ffffff;
-            border: none;
-            padding: 16px 32px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.4);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para ti...</title>
+    <!-- Enlace exclusivo al diseño del Módulo 1 -->
+    <link rel="stylesheet" href="css/intro.css">
 </head>
 <body>
 
-    <!-- 1. PANTALLA DE BIENVENIDA -->
-    <main id="welcome-screen" class="welcome-container">
-        <div class="welcome-card">
-            <span class="badge-tag">♥ NUESTRO ANIVERSARIO ♥</span>
-            
-            <div class="welcome-content-box">
-                <h1 class="welcome-title">Nuestra Historia <span class="highlight">Juntos</span></h1>
-                <p class="welcome-subtitle">Una aventura interactiva creada segundo a segundo para ti ✨</p>
+    <!-- ==========================================
+         MÓDULO 1: LA LINTERNA EN LA OSCURIDAD
+         ========================================== -->
+    <section id="modulo-intro" class="pantalla">
+        
+        <!-- La capa oscura que actúa como linterna (controlada por JS) -->
+        <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
 
-                <button id="start-btn" class="main-start-btn">
-                    COMENZAR LA EXPERIENCIA
-                </button>
-            </div>
+        <!-- Los 3 botones ocultos (puedes ajustar el top y left para moverlos) -->
+        <button class="btn-oculto" id="btn-1" style="top: 20%; left: 30%;"></button>
+        <button class="btn-oculto" id="btn-2" style="top: 75%; left: 70%;"></button>
+        <button class="btn-oculto" id="btn-3" style="top: 50%; left: 15%;"></button>
+
+        <!-- El contenido que aparece al encontrar los 3 botones -->
+        <div id="contenido-revelado" class="oculto">
+            <h1 class="mensaje-amor">Eres la luz que ilumina mi oscuridad...</h1>
+            <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
         </div>
-    </main>
 
-    <!-- 2. PANTALLA FINAL (CORAZÓN) -->
-    <div id="cinematic-screen" class="cinematic-container hidden">
-        <div class="giant-heart">❤️</div>
-        <div class="finale-text">Un año desde que empezó nuestra historia juntos y los que faltan...</div>
-        <button id="to-whatsapp-puzzle" class="next-surprise-btn">CONTINUAR A LA SORPRESA 2 ✨</button>
-    </div>
+        <!-- Contenedor vacío donde caerán los corazones -->
+        <div id="contenedor-corazones"></div>
 
-    <!-- Scripts Modulares -->
-    <script src="js/whatsapp-puzzle.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const startBtn = document.getElementById('start-btn');
-            const welcomeScreen = document.getElementById('welcome-screen');
-            const cinematicScreen = document.getElementById('cinematic-screen');
-            const toWhatsappBtn = document.getElementById('to-whatsapp-puzzle');
+    </section>
 
-            // Paso 1: Al hacer clic en comenzar, se oculta la bienvenida y sale el corazón
-            if (startBtn) {
-                startBtn.addEventListener('click', () => {
-                    welcomeScreen.classList.add('hidden');
-                    cinematicScreen.classList.remove('hidden');
-                });
-            }
+    <!-- Capa global para el fundido a negro final -->
+    <div id="capa-oscura-final"></div>
 
-            // Paso 2: Al hacer clic en continuar desde el corazón, se oculta y arranca la Sorpresa 2 (WhatsApp)
-            if (toWhatsappBtn) {
-                toWhatsappBtn.addEventListener('click', () => {
-                    cinematicScreen.classList.add('hidden');
-                    // Inicializar el rompecabezas de WhatsApp
-                    WhatsappPuzzle.init();
-                });
-            }
-        });
-    </script>
+    <!-- ==========================================
+         SCRIPTS 
+         ========================================== -->
+    <!-- Script exclusivo de la lógica del Módulo 1 -->
+    <script src="js/intro.js"></script>
+    
 </body>
 </html>
