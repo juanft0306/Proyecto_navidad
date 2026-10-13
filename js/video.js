@@ -9,38 +9,35 @@ const btnSiguienteTesoro = document.getElementById('btn-siguiente-tesoro');
 
 // Escuchamos el aviso de que el Módulo 1 terminó
 document.addEventListener('modulo1-terminado', () => {
-    // 1. Ocultamos el Módulo 1 (opcional, ya está bajo la capa negra)
-    document.getElementById('modulo-intro').style.display = 'none';
+    console.log("Módulo 1 terminó. Activando Módulo 2...");
 
-    // 2. Mostramos el Módulo 2
+    // 1. Ocultamos por completo el Módulo 1
+    const moduloIntro = document.getElementById('modulo-intro');
+    if (moduloIntro) moduloIntro.style.display = 'none';
+
+    // 2. Mostramos el Módulo 2 asegurando que tenga la clase activo y display flex
     moduloVideo.classList.add('activo');
+    moduloVideo.style.display = 'flex';
 
-    // 3. Quitamos la capa negra poco a poco para revelar el video que ya arrancará
-    setTimeout(() => {
-        capaOscuraFinal.classList.remove('activo');
-    }, 100);
+    // 3. Forzamos quitar la capa negra de transición
+    capaOscuraFinal.classList.remove('activo');
+    capaOscuraFinal.style.display = 'none'; // Por si acaso se queda bloqueada
 
-    // 4. Reproducimos el video automáticamente
-    videoSorpresa.play().catch(error => {
-        console.log("El navegador requirió interacción para el video:", error);
+    // 4. Intentamos reproducir el video
+    videoSorpresa.play().then(() => {
+        console.log("El video comenzó a reproducirse correctamente.");
+    }).catch(error => {
+        console.log("Error al reproducir el video:", error);
     });
 });
 
-// 5. Cuando el video termina exactamente...
+// Cuando el video termina exactamente...
 videoSorpresa.addEventListener('ended', () => {
-    // Ocultamos el video o lo dejamos de fondo y mostramos el corazón con la frase
+    console.log("El video ha terminado. Mostrando mensaje final...");
     contenedorFinalVideo.classList.add('activo');
 });
 
-// 6. Botón para pasar a la Parte 3 (La Búsqueda del Tesoro)
+// Botón para pasar a la siguiente parte
 btnSiguienteTesoro.addEventListener('click', () => {
-    // Aquí dispararemos el evento para la Parte 3 en el futuro
-    console.log("Fin de la Parte 2. Preparando la Búsqueda del Tesoro...");
-    
-    // Hacemos fundido a negro para la siguiente transición
-    capaOscuraFinal.classList.add('activo');
-    
-    setTimeout(() => {
-        document.dispatchEvent(new Event('modulo2-terminado'));
-    }, 2000);
+    console.log("Preparando siguiente módulo...");
 });
