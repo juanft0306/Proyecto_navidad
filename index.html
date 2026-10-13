@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
-    <!-- Enlace exclusivo al diseño del Módulo 1 -->
     <link rel="stylesheet" href="css/intro.css">
 </head>
 <body>
@@ -14,33 +13,32 @@
          ========================================== -->
     <section id="modulo-intro" class="pantalla">
         
-        <!-- La capa oscura que actúa como linterna (controlada por JS) -->
+        <!-- Pista para saber qué hacer -->
+        <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
+
+        <!-- Efecto de Luz (controlado por JS) -->
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
 
-        <!-- Los 3 botones ocultos (puedes ajustar el top y left para moverlos) -->
-        <button class="btn-oculto" id="btn-1" style="top: 20%; left: 30%;"></button>
-        <button class="btn-oculto" id="btn-2" style="top: 75%; left: 70%;"></button>
-        <button class="btn-oculto" id="btn-3" style="top: 50%; left: 15%;"></button>
+        <!-- 3 Botones Ocultos (No tienen 'top' y 'left' porque JS los pondrá al azar) -->
+        <button class="btn-oculto" id="btn-1"></button>
+        <button class="btn-oculto" id="btn-2"></button>
+        <button class="btn-oculto" id="btn-3"></button>
 
-        <!-- El contenido que aparece al encontrar los 3 botones -->
+        <!-- Etiqueta de audio pre-cargada para el sonido al presionar -->
+        <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
+
+        <!-- El contenido que aparece al final -->
         <div id="contenido-revelado" class="oculto">
-            <h1 class="mensaje-amor">Eres la luz que ilumina mi oscuridad...</h1>
+            <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
         </div>
 
-        <!-- Contenedor vacío donde caerán los corazones -->
         <div id="contenedor-corazones"></div>
-
     </section>
 
-    <!-- Capa global para el fundido a negro final -->
+    <!-- Capa negra global para transiciones modulares -->
     <div id="capa-oscura-final"></div>
 
-    <!-- ==========================================
-         SCRIPTS 
-         ========================================== -->
-    <!-- Script exclusivo de la lógica del Módulo 1 -->
     <script src="js/intro.js"></script>
-    
 </body>
 </html>
