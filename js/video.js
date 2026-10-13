@@ -7,37 +7,35 @@ const contenedorFinalVideo = document.getElementById('contenedor-final-video');
 const capaOscuraFinal = document.getElementById('capa-oscura-final');
 const btnSiguienteTesoro = document.getElementById('btn-siguiente-tesoro');
 
-// Escuchamos el aviso de que el Módulo 1 terminó
 document.addEventListener('modulo1-terminado', () => {
-    console.log("Módulo 1 terminó. Activando Módulo 2...");
+    console.log("Módulo 1 terminó. Mostrando Módulo 2...");
 
-    // 1. Ocultamos por completo el Módulo 1
+    // Ocultamos el Módulo 1
     const moduloIntro = document.getElementById('modulo-intro');
-    if (moduloIntro) moduloIntro.style.display = 'none';
+    if (moduloIntro) {
+        moduloIntro.style.opacity = '0';
+        setTimeout(() => moduloIntro.style.display = 'none', 1000);
+    }
 
-    // 2. Mostramos el Módulo 2 asegurando que tenga la clase activo y display flex
+    // Activamos el Módulo 2
     moduloVideo.classList.add('activo');
-    moduloVideo.style.display = 'flex';
 
-    // 3. Forzamos quitar la capa negra de transición
+    // Quitamos la capa negra de transición
     capaOscuraFinal.classList.remove('activo');
-    capaOscuraFinal.style.display = 'none'; // Por si acaso se queda bloqueada
 
-    // 4. Intentamos reproducir el video
+    // Reproducimos el video
     videoSorpresa.play().then(() => {
-        console.log("El video comenzó a reproducirse correctamente.");
+        console.log("Video reproduciéndose con éxito.");
     }).catch(error => {
-        console.log("Error al reproducir el video:", error);
+        console.log("Error de reproducción:", error);
     });
 });
 
-// Cuando el video termina exactamente...
 videoSorpresa.addEventListener('ended', () => {
-    console.log("El video ha terminado. Mostrando mensaje final...");
+    console.log("El video terminó.");
     contenedorFinalVideo.classList.add('activo');
 });
 
-// Botón para pasar a la siguiente parte
 btnSiguienteTesoro.addEventListener('click', () => {
-    console.log("Preparando siguiente módulo...");
+    console.log("Pasando a la siguiente parte...");
 });
