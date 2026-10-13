@@ -79,9 +79,18 @@ function crearCorazon() {
 }
 
 // ==========================================
-// 5. TRANSICIÓN DIRECTA AL VIDEO (INFALIBLE)
+// 5. TRANSICIÓN DIRECTA AL VIDEO Y PANTALLA COMPLETA
 // ==========================================
 btnEmpezar.addEventListener('click', () => {
+    
+    // 🔥 MAGIA: Pedir pantalla completa al navegador
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(e => console.log("Fullscreen bloqueado", e));
+    } else if (elem.webkitRequestFullscreen) { /* Safari en iPhone */
+        elem.webkitRequestFullscreen();
+    }
+
     // 1. Pantalla en negro
     capaOscuraFinal.classList.add('activo');
     clearInterval(intervaloCorazones);
@@ -100,13 +109,12 @@ btnEmpezar.addEventListener('click', () => {
             let playPromise = videoSorpresa.play();
             if (playPromise !== undefined) {
                 playPromise.catch(() => {
-                    // Si el celular bloquea el sonido, lo forzamos en silencio
                     videoSorpresa.muted = true;
                     videoSorpresa.play();
                 });
             }
             
-            // 🔥 SISTEMA ANTI-FALLOS: A los 11 segundos, sí o sí mostramos el botón final
+            // Sistema anti-fallos a los 11 segundos
             setTimeout(() => {
                 videoSorpresa.style.display = 'none';
                 const finalVideo = document.getElementById('contenedor-final-video');
@@ -118,8 +126,9 @@ btnEmpezar.addEventListener('click', () => {
                 }
             }, 11000);
         }
-    }, 1500); // 1.5s de transición en negro
+    }, 1500); 
 });
+
 
 // 6. Botón final para continuar a la búsqueda del tesoro
 const btnSiguiente = document.getElementById('btn-siguiente-tesoro');
