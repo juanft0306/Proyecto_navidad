@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Evitamos que el celular haga zoom y arruine la experiencia -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
     
-    <!-- Estilos modulares -->
     <link rel="stylesheet" href="css/intro.css">
     <link rel="stylesheet" href="css/video.css">
 </head>
@@ -33,20 +31,20 @@
         <div id="contenedor-corazones"></div>
     </section>
 
-
     <!-- ==========================================
-         MÓDULO 2: LA ANIMACIÓN PAPERCRAFT (VIDEO)
+         MÓDULO 2: VIDEO PROVISIONAL Y AVISO
          ========================================== -->
-    <!-- Inicia oculto para que no interfiera con la linterna -->
     <section id="modulo-video" style="display: none;">
         
-        <!-- Reproductor nativo ocupando toda la pantalla -->
-        <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: cover;">
-            <!-- Nota: Aquí está buscando 'sorpresa.mp4'. Si el video en GitHub sigue llamándose '1000261851.mp4', cambia el nombre aquí -->
+        <div id="aviso-giro">
+            <span style="font-size: 3rem; display: block; margin-bottom: 10px;">📱🔄</span>
+            <p>Gira tu teléfono en horizontal para verlo mejor...</p>
+        </div>
+
+        <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
         </video>
 
-        <!-- Contenedor que aparecerá forzosamente a los 11 segundos -->
         <div id="contenedor-final-video" style="display: none;">
             <div class="corazon-latido">❤️</div>
             <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
@@ -56,19 +54,15 @@
         </div>
     </section>
 
-
     <!-- ==========================================
          CAPA OSCURA GLOBAL PARA TRANSICIONES
          ========================================== -->
     <div id="capa-oscura-final"></div>
 
-
     <!-- ==========================================
          SCRIPTS UNIFICADOS
          ========================================== -->
-    <!-- Agregamos ?v=100 para obligar al celular a borrar la caché y leer el código nuevo -->
     <script src="js/intro.js?v=100"></script>
     
-    <!-- Eliminamos la llamada a video.js para evitar el choque de variables -->
 </body>
 </html>
