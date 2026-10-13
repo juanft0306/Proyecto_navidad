@@ -15,21 +15,15 @@
          ========================================== -->
     <section id="modulo-intro" class="pantalla">
         
-        <!-- Pista para saber qué hacer -->
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
-
-        <!-- Efecto de Luz (controlado por JS) -->
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
 
-        <!-- 3 Botones Ocultos (JS les asignará posiciones aleatorias) -->
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
 
-        <!-- Etiqueta de audio pre-cargada para el sonido al presionar -->
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
 
-        <!-- El contenido que aparece al final del Módulo 1 -->
         <div id="contenido-revelado" class="oculto">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
@@ -39,13 +33,12 @@
     </section>
 
     <!-- ==========================================
-         MÓDULO 2: LA ANIMACIÓN (VIDEO)
+         MÓDULO 2: LA ANIMACIÓN (VIDEO DE PRUEBA)
          ========================================== -->
     <section id="modulo-video" class="pantalla-oculta">
-        <!-- El video provisional con 'muted' y 'playsinline' para evitar bloqueo en celulares -->
-        <video id="video-sorpresa" src="assets/videos/video_provisional.mp4" playsinline muted></video>
+        <!-- Usamos el video de prueba universal para descartar problemas de códec -->
+        <video id="video-sorpresa" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" playsinline muted></video>
 
-        <!-- El corazón y la frase que aparecen exactamente al terminar el video -->
         <div id="contenedor-final-video" class="oculto">
             <div class="corazon-latido">❤️</div>
             <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
@@ -53,7 +46,7 @@
         </div>
     </section>
 
-    <!-- Capa negra global para transiciones modulares entre partes -->
+    <!-- Capa negra global para transiciones -->
     <div id="capa-oscura-final"></div>
 
     <!-- ==========================================
