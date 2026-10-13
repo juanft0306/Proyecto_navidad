@@ -18,49 +18,14 @@
     display: flex;
 }
 
-/* Contenedor responsivo para el iframe de Streamable */
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.video-container iframe {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: none;
-    pointer-events: none; /* Evita clics indeseados en el reproductor */
-}
-
-/* Contenedor del mensaje final */
 #contenedor-final-video {
     position: absolute;
     z-index: 100000;
     text-align: center;
-    background: rgba(0, 0, 0, 0.85);
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1.5s ease-in-out;
+    padding: 0 20px;
 }
 
-#contenedor-final-video.activo {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* Animación de latido */
 .corazon-latido {
     font-size: 5rem;
     color: #e11d48;
@@ -78,6 +43,5 @@
     color: white;
     font-size: 1.6rem;
     margin-bottom: 30px;
-    padding: 0 20px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
