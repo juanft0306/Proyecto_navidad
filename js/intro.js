@@ -15,15 +15,13 @@ let haMovidoLinterna = false;
 // 1. Asignar posiciones aleatorias a los botones
 function posicionarBotones() {
     botonesOcultos.forEach(boton => {
-        // Genera un porcentaje entre 10% y 85% para que no queden fuera de la pantalla
         const x = Math.floor(Math.random() * 75) + 10;
         const y = Math.floor(Math.random() * 75) + 10;
-        
         boton.style.left = `${x}%`;
         boton.style.top = `${y}%`;
     });
 }
-posicionarBotones(); // Se ejecuta apenas carga el script
+posicionarBotones();
 
 // 2. Lógica de la linterna y ocultar instrucciones
 function actualizarLinterna(e) {
@@ -33,7 +31,6 @@ function actualizarLinterna(e) {
     linterna.style.setProperty('--x', `${x}px`);
     linterna.style.setProperty('--y', `${y}px`);
 
-    // Si es la primera vez que mueve el dedo, ocultamos las instrucciones
     if (!haMovidoLinterna) {
         instrucciones.classList.add('oculto');
         haMovidoLinterna = true;
@@ -50,9 +47,8 @@ botonesOcultos.forEach(boton => {
             boton.classList.add('encontrado');
             botonesEncontrados++;
             
-            // Reproducir sonido (reinicia el audio si presiona rápido)
             sonidoBoton.currentTime = 0;
-            sonidoBoton.play().catch(e => console.log("El navegador bloqueó el audio", e));
+            sonidoBoton.play().catch(e => console.log("Audio bloqueado", e));
             
             if (botonesEncontrados === 3) {
                 iniciarRevelacion();
@@ -79,17 +75,59 @@ function crearCorazon() {
     corazon.style.animationDuration = Math.random() * 3 + 3 + 's';
     
     contenedorCorazones.appendChild(corazon);
-    
     setTimeout(() => { corazon.remove(); }, 6000);
 }
 
-// 5. Botón final y modularidad
+// ==========================================
+// 5. TRANSICIÓN DIRECTA AL VIDEO (INFALIBLE)
+// ==========================================
 btnEmpezar.addEventListener('click', () => {
+    // 1. Pantalla en negro
     capaOscuraFinal.classList.add('activo');
     clearInterval(intervaloCorazones);
     
-    // Le avisamos al resto de la aplicación que el Módulo 1 terminó
+    // 2. Esperamos a que la pantalla esté negra y cambiamos de módulo
     setTimeout(() => {
-        document.dispatchEvent(new Event('modulo1-terminado'));
-    }, 2500); // Espera 2.5s a que el fundido a negro termine
+        document.getElementById('modulo-intro').style.display = 'none';
+        document.getElementById('modulo-video').style.display = 'flex';
+        
+        // 3. Quitamos la pantalla negra
+        capaOscuraFinal.classList.remove('activo');
+        
+        // 4. Reproducimos el video directamente
+        const videoSorpresa = document.getElementById('video-sorpresa');
+        if (videoSorpresa) {
+            let playPromise = videoSorpresa.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Si el celular bloquea el sonido, lo forzamos en silencio
+                    videoSorpresa.muted = true;
+                    videoSorpresa.play();
+                });
+            }
+            
+            // 🔥 SISTEMA ANTI-FALLOS: A los 11 segundos, sí o sí mostramos el botón final
+            setTimeout(() => {
+                videoSorpresa.style.display = 'none';
+                const finalVideo = document.getElementById('contenedor-final-video');
+                if (finalVideo) {
+                    finalVideo.style.display = 'block';
+                    setTimeout(() => {
+                        finalVideo.classList.add('activo');
+                    }, 50);
+                }
+            }, 11000);
+        }
+    }, 1500); // 1.5s de transición en negro
 });
+
+// 6. Botón final para continuar a la búsqueda del tesoro
+const btnSiguiente = document.getElementById('btn-siguiente-tesoro');
+if (btnSiguiente) {
+    btnSiguiente.addEventListener('click', () => {
+        capaOscuraFinal.classList.add('activo');
+        setTimeout(() => {
+            alert("¡Próximamente: Módulo 3 - La búsqueda del tesoro!");
+        }, 1000);
+    });
+}
