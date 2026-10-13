@@ -12,38 +12,29 @@
 
     <!-- ==========================================
          MÓDULO 1: LA LINTERNA EN LA OSCURIDAD
+         (Oculto temporalmente para la prueba)
          ========================================== -->
-    <section id="modulo-intro" class="pantalla">
-        
+    <section id="modulo-intro" class="pantalla" style="display: none;">
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
-
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
-
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
-
         <div id="contenido-revelado" class="oculto">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
         </div>
-
         <div id="contenedor-corazones"></div>
     </section>
 
     <!-- ==========================================
-         MÓDULO 2: LA ANIMACIÓN (VIDEO DE PRUEBA)
+         MÓDULO 2: PRUEBA DIRECTA DE VIDEO
          ========================================== -->
-    <section id="modulo-video" class="pantalla-oculta">
-        <!-- Usamos el video de prueba universal para descartar problemas de códec -->
-        <video id="video-sorpresa" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" playsinline muted></video>
-
-        <div id="contenedor-final-video" class="oculto">
-            <div class="corazon-latido">❤️</div>
-            <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
-            <button id="btn-siguiente-tesoro" class="btn-romantico">Continuar la aventura</button>
-        </div>
+    <section id="modulo-video" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: blue; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h2 style="color: white; margin-bottom: 20px; text-align: center; padding: 0 10px;">Si ves esto, el módulo cargó</h2>
+        <!-- Añadimos 'controls' para ver los botones de reproducción y descartar bloqueos de autoplay -->
+        <video id="video-sorpresa" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" controls width="300" playsinline muted></video>
     </section>
 
     <!-- Capa negra global para transiciones -->
