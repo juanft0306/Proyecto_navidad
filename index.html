@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
+    <!-- Estilos modulares -->
     <link rel="stylesheet" href="css/intro.css">
+    <link rel="stylesheet" href="css/video.css">
 </head>
 <body>
 
@@ -19,7 +21,7 @@
         <!-- Efecto de Luz (controlado por JS) -->
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
 
-        <!-- 3 Botones Ocultos (No tienen 'top' y 'left' porque JS los pondrá al azar) -->
+        <!-- 3 Botones Ocultos (JS les asignará posiciones aleatorias) -->
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
@@ -27,7 +29,7 @@
         <!-- Etiqueta de audio pre-cargada para el sonido al presionar -->
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
 
-        <!-- El contenido que aparece al final -->
+        <!-- El contenido que aparece al final del Módulo 1 -->
         <div id="contenido-revelado" class="oculto">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
@@ -36,25 +38,28 @@
         <div id="contenedor-corazones"></div>
     </section>
 
-    <!-- Capa negra global para transiciones modulares -->
-    <div id="capa-oscura-final"></div>
-
-    <script src="js/intro.js"></script>
-</body>
-</html>
-
     <!-- ==========================================
          MÓDULO 2: LA ANIMACIÓN (VIDEO)
          ========================================== -->
     <section id="modulo-video" class="pantalla-oculta">
-        <!-- El video provisional -->
-        <video id="video-sorpresa" src="assets/videos/video_provisional.mp4" playsinline></video>
+        <!-- El video provisional con 'muted' y 'playsinline' para evitar bloqueo en celulares -->
+        <video id="video-sorpresa" src="assets/videos/video_provisional.mp4" playsinline muted></video>
 
-        <!-- El corazón y la frase que aparecen al terminar el video -->
+        <!-- El corazón y la frase que aparecen exactamente al terminar el video -->
         <div id="contenedor-final-video" class="oculto">
             <div class="corazon-latido">❤️</div>
             <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
             <button id="btn-siguiente-tesoro" class="btn-romantico">Continuar la aventura</button>
         </div>
     </section>
-    
+
+    <!-- Capa negra global para transiciones modulares entre partes -->
+    <div id="capa-oscura-final"></div>
+
+    <!-- ==========================================
+         SCRIPTS MODULARES
+         ========================================== -->
+    <script src="js/intro.js"></script>
+    <script src="js/video.js" defer></script>
+</body>
+</html>
