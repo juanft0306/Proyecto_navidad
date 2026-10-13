@@ -1,72 +1,72 @@
 // ==========================================
 // MÓDULO 2: REPRODUCCIÓN Y SISTEMA ANTI-FALLOS
 // ==========================================
-const moduloIntro = document.getElementById('modulo-intro');
-const moduloVideo = document.getElementById('modulo-video');
-const videoSorpresa = document.getElementById('video-sorpresa');
-const contenedorFinalVideo = document.getElementById('contenedor-final-video');
-const capaOscuraFinal = document.getElementById('capa-oscura-final');
-const btnSiguienteTesoro = document.getElementById('btn-siguiente-tesoro');
 
-let videoTerminado = false; // Bandera de seguridad para que no se duplique
+// Usamos nombres únicos para evitar choques con js/intro.js
+const modIntroV = document.getElementById('modulo-intro');
+const modVideoV = document.getElementById('modulo-video');
+const vidSorpresa = document.getElementById('video-sorpresa');
+const contFinalV = document.getElementById('contenedor-final-video');
+const capaOscuraV = document.getElementById('capa-oscura-final');
+const btnSiguienteV = document.getElementById('btn-siguiente-tesoro');
+
+let videoTerminado = false; // Bandera de seguridad
 
 // Escuchamos cuando la linterna termina
 document.addEventListener('modulo1-terminado', () => {
-    if (moduloIntro) moduloIntro.style.display = 'none';
-    if (moduloVideo) moduloVideo.style.display = 'flex';
+    // 1. Ocultamos la intro y mostramos la sección del video
+    if (modIntroV) modIntroV.style.display = 'none';
+    if (modVideoV) modVideoV.style.display = 'flex';
 
+    // 2. Quitamos la pantalla negra y damos "Play"
     setTimeout(() => {
-        if (capaOscuraFinal) capaOscuraFinal.classList.remove('activo');
+        if (capaOscuraV) capaOscuraV.classList.remove('activo');
         
-        if (videoSorpresa) {
-            // Intentamos reproducir el video
-            let playPromise = videoSorpresa.play();
+        if (vidSorpresa) {
+            let playPromise = vidSorpresa.play();
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
-                    console.log("Audio bloqueado por el celular. Forzando sin sonido...");
-                    videoSorpresa.muted = true; // Lo silencia para obligarlo a reproducir
-                    videoSorpresa.play().catch(e => forzarFinal());
+                    console.log("Audio bloqueado. Forzando sin sonido...");
+                    vidSorpresa.muted = true;
+                    vidSorpresa.play().catch(e => forzarFinal());
                 });
             }
         }
     }, 500);
 
     // 🔥 SISTEMA ANTI-FALLOS: 
-    // Como el video dura 10 segundos, si a los 11 segundos no ha terminado (o si la pantalla se quedó en negro),
-    // forzamos a que aparezca el corazón y el botón final sí o sí.
+    // Como el video dura 10 segundos, si a los 11 segundos no ha aparecido el botón, lo forzamos.
     setTimeout(() => {
         forzarFinal();
     }, 11000); 
 });
 
-// Eventos normales del video (si termina bien o si da error de carga)
-if (videoSorpresa) {
-    videoSorpresa.addEventListener('ended', forzarFinal);
-    videoSorpresa.addEventListener('error', forzarFinal);
+// Eventos normales del video
+if (vidSorpresa) {
+    vidSorpresa.addEventListener('ended', forzarFinal);
+    vidSorpresa.addEventListener('error', forzarFinal);
 }
 
-// Función maestra que muestra el botón y el corazón
+// Función maestra que muestra el botón final y el corazón
 function forzarFinal() {
-    if (videoTerminado) return; // Si ya se ejecutó, no hace nada
+    if (videoTerminado) return;
     videoTerminado = true;
     
-    if (videoSorpresa) videoSorpresa.style.display = 'none';
-    if (contenedorFinalVideo) {
-        contenedorFinalVideo.style.display = 'block';
-        // Pequeño retraso para la animación suave
+    if (vidSorpresa) vidSorpresa.style.display = 'none';
+    if (contFinalV) {
+        contFinalV.style.display = 'block';
         setTimeout(() => {
-            contenedorFinalVideo.classList.add('activo');
+            contFinalV.classList.add('activo');
         }, 50);
     }
 }
 
 // Botón para avanzar a la Búsqueda del Tesoro
-if (btnSiguienteTesoro) {
-    btnSiguienteTesoro.addEventListener('click', () => {
-        if (capaOscuraFinal) capaOscuraFinal.classList.add('activo');
+if (btnSiguienteV) {
+    btnSiguienteV.addEventListener('click', () => {
+        if (capaOscuraV) capaOscuraV.classList.add('activo');
         setTimeout(() => {
             console.log("¡Iniciando Módulo 3!");
-            // Preparado para la siguiente parte
             document.dispatchEvent(new Event('modulo2-terminado'));
         }, 1500);
     });
