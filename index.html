@@ -12,28 +12,31 @@
 
     <!-- ==========================================
          MÓDULO 1: LA LINTERNA EN LA OSCURIDAD
-         (Oculto temporalmente para la prueba)
          ========================================== -->
-    <section id="modulo-intro" class="pantalla" style="display: none;">
+    <section id="modulo-intro" class="pantalla">
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
+
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
+
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
+
         <div id="contenido-revelado" class="oculto">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
         </div>
+
         <div id="contenedor-corazones"></div>
     </section>
 
-        <!-- ==========================================
+    <!-- ==========================================
          MÓDULO 2: LA ANIMACIÓN (VIDEO)
          ========================================== -->
     <section id="modulo-video">
         <video id="video-sorpresa" playsinline muted autoplay controls>
-            <!-- Ruta exacta de tu video en la carpeta assets -->
+            <!-- Asegúrate de que el archivo en GitHub esté exactamente en assets/videos/video_provisional.mp4 -->
             <source src="assets/videos/video_provisional.mp4" type="video/mp4">
             Tu navegador no soporta la reproducción de video.
         </video>
@@ -44,7 +47,6 @@
             <button id="btn-siguiente-tesoro" class="btn-romantico">Continuar la aventura</button>
         </div>
     </section>
-    
 
     <!-- Capa negra global para transiciones -->
     <div id="capa-oscura-final"></div>
