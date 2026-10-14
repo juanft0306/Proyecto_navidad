@@ -1,21 +1,21 @@
 // ==========================================
-// PANTALLA COMPLETA AL PRIMER TOQUE
+// PANTALLA COMPLETA CONTINUA (RECUPERABLE)
 // ==========================================
-function activarPantallaCompleta() {
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch(() => {});
-    } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
+function asegurarPantallaCompleta() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen().catch(() => {});
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        }
     }
 }
-// Con esto, apenas ella deslice el dedo para usar la linterna, la barra de Chrome desaparecerá.
-['click', 'touchstart'].forEach(evt => 
-    document.addEventListener(evt, activarPantallaCompleta, { once: true })
-);
+document.addEventListener('click', asegurarPantallaCompleta);
+document.addEventListener('touchstart', asegurarPantallaCompleta);
 
 // ==========================================
-// RESTO DEL CÓDIGO
+// MÓDULO 1: LINTERNA
 // ==========================================
 const linterna = document.getElementById('linterna');
 const pantalla = document.getElementById('modulo-intro');
@@ -94,37 +94,23 @@ function crearCorazon() {
 }
 
 // ==========================================
-// TRANSICIÓN AL VIDEO (CON ANIMACIÓN DE CARGA)
+// TRANSICIONES
 // ==========================================
 btnEmpezar.addEventListener('click', () => {
-    // Forzamos pantalla completa por si no se activó antes
-    activarPantallaCompleta();
-
-    // 1. Activamos la pantalla negra
     capaOscuraFinal.classList.add('activo');
-    
-    // 2. Mostramos el mensaje de carga romántico
     const mensajeCarga = document.getElementById('mensaje-carga');
-    if (mensajeCarga) {
-        mensajeCarga.style.display = 'flex';
-    }
-    
+    if (mensajeCarga) mensajeCarga.style.display = 'flex';
     clearInterval(intervaloCorazones);
     
-    // 3. Esperamos 4 SEGUNDOS para que el aviso de Chrome desaparezca
     setTimeout(() => {
         document.getElementById('modulo-intro').style.display = 'none';
         document.getElementById('modulo-video').style.display = 'flex';
-        
-        // Quitamos la pantalla negra
         capaOscuraFinal.classList.remove('activo');
         
-        // Ocultamos el mensaje de carga suavemente
         setTimeout(() => {
             if (mensajeCarga) mensajeCarga.style.display = 'none';
         }, 1000);
         
-        // 4. Reproducimos el video directamente sin interrupciones visuales
         const videoSorpresa = document.getElementById('video-sorpresa');
         if (videoSorpresa) {
             let playPromise = videoSorpresa.play();
@@ -153,17 +139,26 @@ const btnSiguiente = document.getElementById('btn-siguiente-tesoro');
 if (btnSiguiente) {
     btnSiguiente.addEventListener('click', () => {
         capaOscuraFinal.classList.add('activo');
-        
         setTimeout(() => {
             document.getElementById('modulo-video').style.display = 'none';
             document.getElementById('modulo-tesoro').style.display = 'flex';
+            
+            // Si ya había encontrado las llaves en esta sesión, muestra la carta directo
+            if (llavesEncontradas.length === 10) {
+                document.getElementById('interfaz-tesoro').style.display = 'none';
+                document.getElementById('carta-final').style.display = 'block';
+            } else {
+                document.getElementById('interfaz-tesoro').style.display = 'block';
+                document.getElementById('carta-final').style.display = 'none';
+            }
+            
             capaOscuraFinal.classList.remove('activo');
         }, 1500);
     });
 }
 
 // ==========================================
-// LÓGICA DE LAS 10 LLAVES SECRETAS
+// MÓDULO 3: LLAVES SECRETAS
 // ==========================================
 const llavesSecretas = [7, 23, 2, 4, 69, 11, 50, 48, 37, 22];
 let llavesEncontradas = [];
@@ -227,12 +222,128 @@ teclas.forEach(tecla => {
 
 function revelarCartaFinal() {
     capaOscuraFinal.classList.add('activo');
-    
     setTimeout(() => {
         document.getElementById('interfaz-tesoro').style.display = 'none';
         document.getElementById('carta-final').style.display = 'block';
         capaOscuraFinal.classList.remove('activo');
-        
         setInterval(crearCorazon, 400); 
     }, 1500);
 }
+
+// ==========================================
+// BOTÓN DE AYUDA: MOSTRAR REGISTRO DE LLAVES
+// ==========================================
+const btnVerLlaves = document.getElementById('btn-ver-llaves');
+const registroLlaves = document.getElementById('registro-llaves');
+
+if (btnVerLlaves) {
+    btnVerLlaves.addEventListener('click', () => {
+        if (registroLlaves.style.display === 'none') {
+            registroLlaves.style.display = 'block';
+            btnVerLlaves.innerText = 'Ocultar registro de llaves';
+        } else {
+            registroLlaves.style.display = 'none';
+            btnVerLlaves.innerText = '🗝️ Mostrar registro de llaves (Ayuda)';
+        }
+    });
+}
+
+// ==========================================
+// BOTONES DENTRO DE LA CARTA
+// ==========================================
+const btnCandados = document.getElementById('btn-candados');
+const btnSiguienteSorpresa = document.getElementById('btn-siguiente');
+
+if (btnCandados) {
+    btnCandados.addEventListener('click', () => {
+        document.getElementById('carta-final').style.display = 'none';
+        document.getElementById('interfaz-tesoro').style.display = 'block';
+    });
+}
+
+if (btnSiguienteSorpresa) {
+    btnSiguienteSorpresa.addEventListener('click', () => {
+        alert("¡Próximamente: Módulo 4! Aquí irá la siguiente sorpresa.");
+    });
+}
+
+// ==========================================
+// LÓGICA DEL MENÚ DE NAVEGACIÓN RÁPIDA
+// ==========================================
+const btnMenuFlotante = document.getElementById('btn-menu-flotante');
+const pantallaMenu = document.getElementById('pantalla-menu');
+const btnCerrarMenu = document.querySelector('.btn-cerrar-menu');
+const botonesNavMenu = document.querySelectorAll('.btn-nav-menu');
+
+if (btnMenuFlotante) {
+    btnMenuFlotante.addEventListener('click', () => {
+        pantallaMenu.classList.add('activo');
+        asegurarPantallaCompleta();
+    });
+}
+
+if (btnCerrarMenu) {
+    btnCerrarMenu.addEventListener('click', () => {
+        pantallaMenu.classList.remove('activo');
+    });
+}
+
+botonesNavMenu.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const destino = e.target.getAttribute('data-destino');
+        
+        pantallaMenu.classList.remove('activo');
+        
+        document.getElementById('modulo-intro').style.display = 'none';
+        document.getElementById('modulo-video').style.display = 'none';
+        document.getElementById('modulo-tesoro').style.display = 'none';
+        document.getElementById('interfaz-tesoro').style.display = 'none';
+        document.getElementById('carta-final').style.display = 'none';
+        
+        clearInterval(intervaloCorazones);
+        
+        const video = document.getElementById('video-sorpresa');
+        const finalVideo = document.getElementById('contenedor-final-video');
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+            video.style.display = 'block'; 
+        }
+        if (finalVideo) {
+            finalVideo.style.display = 'none';
+            finalVideo.classList.remove('activo');
+        }
+
+        if (destino === 'linterna') {
+            document.getElementById('modulo-intro').style.display = 'flex';
+            
+        } else if (destino === 'video') {
+            document.getElementById('modulo-video').style.display = 'flex';
+            if (video) video.play().catch(() => {});
+            
+            setTimeout(() => {
+                if(document.getElementById('modulo-video').style.display === 'flex') {
+                    video.style.display = 'none';
+                    if (finalVideo) {
+                        finalVideo.style.display = 'block';
+                        setTimeout(() => finalVideo.classList.add('activo'), 50);
+                    }
+                }
+            }, 11000);
+            
+        } else if (destino === 'tesoro') {
+            document.getElementById('modulo-tesoro').style.display = 'flex';
+            
+            // LÓGICA INTELIGENTE: Si ya lo resolvió, muestra la carta, sino, el teclado.
+            if (llavesEncontradas.length === 10) {
+                document.getElementById('interfaz-tesoro').style.display = 'none';
+                document.getElementById('carta-final').style.display = 'block';
+            } else {
+                document.getElementById('interfaz-tesoro').style.display = 'block';
+                document.getElementById('carta-final').style.display = 'none';
+            }
+        }
+        
+        asegurarPantallaCompleta();
+    });
+});
