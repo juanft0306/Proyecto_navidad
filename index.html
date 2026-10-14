@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
     
+    <!-- Estilos modulares -->
     <link rel="stylesheet" href="css/intro.css">
     <link rel="stylesheet" href="css/video.css">
+    <link rel="stylesheet" href="css/tesoro.css">
 </head>
 <body>
 
@@ -37,7 +39,7 @@
     </section>
 
     <!-- ==========================================
-         MÓDULO 2: VIDEO PROVISIONAL
+         MÓDULO 2: VIDEO Y TRANSICIÓN
          ========================================== -->
     <section id="modulo-video" style="display: none;">
         
@@ -61,14 +63,70 @@
     </section>
 
     <!-- ==========================================
+         MÓDULO 3: LA BÚSQUEDA DEL TESORO
+         ========================================== -->
+    <section id="modulo-tesoro" style="display: none;">
+        
+        <!-- Interfaz del candado y teclado -->
+        <div id="interfaz-tesoro">
+            <h2 class="titulo-tesoro">Las 10 Llaves Secretas</h2>
+            <p class="texto-tesoro">Revisa nuestros mensajes de las 11:11. Ingresa los números ocultos (en cualquier orden) para desbloquear la sorpresa final.</p>
+            
+            <!-- Indicadores de llaves (10 candados) -->
+            <div id="contenedor-llaves">
+                <div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div>
+                <div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div>
+            </div>
+
+            <!-- Pantalla donde se ve el número que escribe -->
+            <div id="pantalla-codigo-tesoro">
+                <span id="codigo-actual"></span>
+            </div>
+            <p id="mensaje-feedback"></p>
+
+            <!-- Teclado Numérico -->
+            <div id="teclado">
+                <button class="btn-tecla">1</button>
+                <button class="btn-tecla">2</button>
+                <button class="btn-tecla">3</button>
+                <button class="btn-tecla">4</button>
+                <button class="btn-tecla">5</button>
+                <button class="btn-tecla">6</button>
+                <button class="btn-tecla">7</button>
+                <button class="btn-tecla">8</button>
+                <button class="btn-tecla">9</button>
+                <button class="btn-tecla btn-borrar">⌫</button>
+                <button class="btn-tecla">0</button>
+                <button class="btn-tecla btn-ok">OK</button>
+            </div>
+        </div>
+
+        <!-- CARTA FINAL OCULTA -->
+        <div id="carta-final" style="display: none;">
+            <div class="pergamino">
+                <p>Solo quiero decirte que te amo con todo mi corazón y que eres el mejor regalo que Dios me pudo haber dado hoy.</p>
+                <p>Quiero que sepas que eres el regalo más bonito que tengo en cada momento y más específicamente hoy.</p>
+                <p>Eres lo más maravilloso que me ha podido pasar en la vida, eres la mujer con la que siempre soñé y la mujer a la que quiero hacer feliz por el resto de mi vida.</p>
+                <p>Antes de la noche en que nos conocimos no sabía nada de ti, y ahora no me imagino mi vida sin ti.</p>
+                <p>Admiro tanto tu forma de ser, tu madurez y la paciencia con la que me escuchas, apoyas y cuidas cada día.</p>
+                <p>Sé que no todo es perfecto y que a veces hay días cansados o difíciles, pero resolverlo todo juntos nos hace más fuertes.</p>
+                <p>Cada sonrisa tuya, cada abrazo y cada momento que pasamos juntos son mis tesoros más preciados.</p>
+                <p>Me encanta soñar con todo lo que nos espera, los proyectos por construir y la vida que estamos creando.</p>
+                <p>Gracias por elegirme todos los días como tu compañero de vida y por ser mi refugio seguro.</p>
+                <p class="firma">Te amo con cada fibra de mi ser, hoy, mañana y por toda la eternidad. ❤️</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
          CAPA OSCURA GLOBAL PARA TRANSICIONES
          ========================================== -->
     <div id="capa-oscura-final"></div>
 
     <!-- ==========================================
-         SCRIPTS UNIFICADOS
+         SCRIPTS UNIFICADOS (v=102 fuerza recarga)
          ========================================== -->
-    <script src="js/intro.js?v=101"></script>
+    <script src="js/intro.js?v=102"></script>
     
 </body>
 </html>
