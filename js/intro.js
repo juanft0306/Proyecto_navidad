@@ -1,5 +1,5 @@
 // ==========================================
-// PANTALLA COMPLETA CONTINUA (RECUPERABLE)
+// PANTALLA COMPLETA CONTINUA
 // ==========================================
 function asegurarPantallaCompleta() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -233,21 +233,25 @@ function revelarCartaFinal() {
 }
 
 // ==========================================
-// BOTÓN DE AYUDA Y REGRESAR A CARTA
+// VENTANA FLOTANTE DE AYUDA (MODAL)
 // ==========================================
-const btnVerLlaves = document.getElementById('btn-ver-llaves');
+const btnAbrirAyuda = document.getElementById('btn-abrir-ayuda');
+const btnCerrarAyuda = document.getElementById('btn-cerrar-ayuda');
 const registroLlaves = document.getElementById('registro-llaves');
+const capaOscuraAyuda = document.getElementById('capa-oscura-ayuda');
 const btnRegresarCarta = document.getElementById('btn-regresar-carta'); 
 
-if (btnVerLlaves) {
-    btnVerLlaves.addEventListener('click', () => {
-        if (registroLlaves.style.display === 'none') {
-            registroLlaves.style.display = 'block';
-            btnVerLlaves.innerText = 'Ocultar registro de llaves';
-        } else {
-            registroLlaves.style.display = 'none';
-            btnVerLlaves.innerText = '🗝️ Mostrar registro de llaves';
-        }
+if (btnAbrirAyuda) {
+    btnAbrirAyuda.addEventListener('click', () => {
+        registroLlaves.style.display = 'block';
+        capaOscuraAyuda.style.display = 'block';
+    });
+}
+
+if (btnCerrarAyuda) {
+    btnCerrarAyuda.addEventListener('click', () => {
+        registroLlaves.style.display = 'none';
+        capaOscuraAyuda.style.display = 'none';
     });
 }
 
@@ -268,7 +272,6 @@ if (btnCandados) {
     btnCandados.addEventListener('click', () => {
         document.getElementById('carta-final').style.display = 'none';
         document.getElementById('interfaz-tesoro').style.display = 'block';
-        
         if (btnRegresarCarta) {
             btnRegresarCarta.style.display = 'block';
         }
@@ -282,19 +285,61 @@ if (btnSiguienteSorpresa) {
 }
 
 // ==========================================
-// LÓGICA DEL MENÚ DE NAVEGACIÓN RÁPIDA
+// LÓGICA DEL MENÚ DE NAVEGACIÓN Y ARRASTRE
 // ==========================================
 const btnMenuFlotante = document.getElementById('btn-menu-flotante');
 const pantallaMenu = document.getElementById('pantalla-menu');
 const btnCerrarMenu = document.querySelector('.btn-cerrar-menu');
 const botonesNavMenu = document.querySelectorAll('.btn-nav-menu');
 
+// --- Lógica para arrastrar el botón flotante ---
+let arrastrando = false;
+let offsetX, offsetY;
+let movido = false;
+
 if (btnMenuFlotante) {
-    btnMenuFlotante.addEventListener('click', () => {
-        pantallaMenu.classList.add('activo');
-        asegurarPantallaCompleta();
+    btnMenuFlotante.addEventListener('touchstart', (e) => {
+        arrastrando = true;
+        movido = false; // Asumimos que es un toque normal hasta que se mueva
+        const touch = e.touches[0];
+        const rect = btnMenuFlotante.getBoundingClientRect();
+        offsetX = touch.clientX - rect.left;
+        offsetY = touch.clientY - rect.top;
+        btnMenuFlotante.classList.add('arrastrando');
+    }, {passive: false});
+
+    document.addEventListener('touchmove', (e) => {
+        if (!arrastrando) return;
+        movido = true; // Si se movió, ya no es un "clic"
+        e.preventDefault(); // Evita que la pantalla se desplace
+        const touch = e.touches[0];
+        let nuevaX = touch.clientX - offsetX;
+        let nuevaY = touch.clientY - offsetY;
+        
+        // Límites para que no se salga de la pantalla
+        if (nuevaX < 0) nuevaX = 0;
+        if (nuevaY < 0) nuevaY = 0;
+        if (nuevaX + btnMenuFlotante.offsetWidth > window.innerWidth) nuevaX = window.innerWidth - btnMenuFlotante.offsetWidth;
+        if (nuevaY + btnMenuFlotante.offsetHeight > window.innerHeight) nuevaY = window.innerHeight - btnMenuFlotante.offsetHeight;
+        
+        btnMenuFlotante.style.left = nuevaX + 'px';
+        btnMenuFlotante.style.top = nuevaY + 'px';
+        btnMenuFlotante.style.bottom = 'auto'; // Resetea el bottom original
+        btnMenuFlotante.style.right = 'auto';
+    }, {passive: false});
+
+    document.addEventListener('touchend', () => {
+        arrastrando = false;
+        btnMenuFlotante.classList.remove('arrastrando');
+        
+        // Si no se movió casi nada, se considera un clic para abrir el menú
+        if (!movido) {
+            pantallaMenu.classList.add('activo');
+            asegurarPantallaCompleta();
+        }
     });
 }
+// -----------------------------------------------
 
 if (btnCerrarMenu) {
     btnCerrarMenu.addEventListener('click', () => {
@@ -305,7 +350,6 @@ if (btnCerrarMenu) {
 botonesNavMenu.forEach(btn => {
     btn.addEventListener('click', (e) => {
         const destino = e.target.getAttribute('data-destino');
-        
         pantallaMenu.classList.remove('activo');
         
         document.getElementById('modulo-intro').style.display = 'none';
@@ -331,14 +375,11 @@ botonesNavMenu.forEach(btn => {
         if (destino === 'linterna') {
             document.getElementById('modulo-intro').style.display = 'flex';
             
-            // === ESTO ES LO NUEVO: RESETEA LA LINTERNA AL ESTADO INICIAL ===
             botonesEncontrados = 0;
             haMovidoLinterna = false;
-            
             linterna.classList.remove('desactivada');
             linterna.style.setProperty('--x', `-1000px`);
             linterna.style.setProperty('--y', `-1000px`);
-            
             contenidoRevelado.classList.remove('activo');
             instrucciones.classList.remove('oculto');
             
@@ -346,10 +387,8 @@ botonesNavMenu.forEach(btn => {
                 b.classList.remove('encontrado');
                 b.style.opacity = '1';
             });
-            posicionarBotones(); // Volver a esconderlos en lugares nuevos
-            
-            contenedorCorazones.innerHTML = ''; // Limpiar corazones viejos
-            // ===============================================================
+            posicionarBotones(); 
+            contenedorCorazones.innerHTML = ''; 
             
         } else if (destino === 'video') {
             document.getElementById('modulo-video').style.display = 'flex';
@@ -376,8 +415,7 @@ botonesNavMenu.forEach(btn => {
                 document.getElementById('carta-final').style.display = 'none';
             }
         }
-        
         asegurarPantallaCompleta();
     });
 });
-                                                 
+            
