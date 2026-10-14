@@ -25,12 +25,12 @@
             font-weight: bold;
             font-size: 0.9rem;
             z-index: 100000;
-            cursor: move; /* Indica que se puede mover */
+            cursor: move;
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.2);
-            user-select: none; /* Evita que el texto se seleccione al arrastrar */
-            touch-action: none; /* Previene scroll nativo al arrastrar */
+            user-select: none;
+            touch-action: none;
         }
         
         #btn-menu-flotante.arrastrando {
@@ -50,11 +50,13 @@
             justify-content: center;
             align-items: center;
             opacity: 0;
+            visibility: hidden; /* BLOQUEA LOS BOTONES FANTASMA */
             pointer-events: none;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, visibility 0.3s;
         }
         #pantalla-menu.activo {
             opacity: 1;
+            visibility: visible; /* ACTIVA LOS BOTONES SOLO AL ABRIR */
             pointer-events: all;
         }
         
@@ -209,8 +211,8 @@
         </div>
     </div>
 
-    <!-- Cambié a v=111 -->
-    <script src="js/intro.js?v=111"></script>
+    <!-- Cambié a v=113 -->
+    <script src="js/intro.js?v=113"></script>
     
 </body>
 </html>
