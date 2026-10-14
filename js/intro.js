@@ -83,7 +83,7 @@ function crearCorazon() {
 // ==========================================
 btnEmpezar.addEventListener('click', () => {
     
-    // 🔥 MAGIA: Pedir pantalla completa al navegador
+    // Pedir pantalla completa al navegador
     const elem = document.documentElement;
     if (elem.requestFullscreen) {
         elem.requestFullscreen().catch(e => console.log("Fullscreen bloqueado", e));
@@ -129,14 +129,105 @@ btnEmpezar.addEventListener('click', () => {
     }, 1500); 
 });
 
-
-// 6. Botón final para continuar a la búsqueda del tesoro
+// ==========================================
+// 6. TRANSICIÓN A LA BÚSQUEDA DEL TESORO
+// ==========================================
 const btnSiguiente = document.getElementById('btn-siguiente-tesoro');
 if (btnSiguiente) {
     btnSiguiente.addEventListener('click', () => {
         capaOscuraFinal.classList.add('activo');
+        
         setTimeout(() => {
-            alert("¡Próximamente: Módulo 3 - La búsqueda del tesoro!");
-        }, 1000);
+            // Ocultamos video, mostramos tesoro. Mantenemos pantalla completa para inmersión
+            document.getElementById('modulo-video').style.display = 'none';
+            document.getElementById('modulo-tesoro').style.display = 'flex';
+            capaOscuraFinal.classList.remove('activo');
+        }, 1500);
     });
 }
+
+// ==========================================
+// 7. LÓGICA DE LAS 10 LLAVES SECRETAS
+// ==========================================
+const llavesSecretas = [7, 23, 2, 4, 69, 11, 50, 48, 37, 22];
+let llavesEncontradas = [];
+let inputActual = "";
+
+const teclas = document.querySelectorAll('.btn-tecla');
+const displayCodigo = document.getElementById('codigo-actual');
+const slotsLlaves = document.querySelectorAll('.llave-slot');
+const mensajeFeedback = document.getElementById('mensaje-feedback');
+
+function mostrarMensaje(texto, color) {
+    mensajeFeedback.innerText = texto;
+    mensajeFeedback.style.color = color;
+    mensajeFeedback.style.opacity = '1';
+    setTimeout(() => mensajeFeedback.style.opacity = '0', 2500);
+}
+
+teclas.forEach(tecla => {
+    tecla.addEventListener('click', () => {
+        const valor = tecla.innerText;
+
+        if (valor === "⌫") {
+            inputActual = inputActual.slice(0, -1);
+            displayCodigo.innerText = inputActual;
+        } 
+        else if (valor === "OK") {
+            if (inputActual === "") return;
+            
+            let numeroIngresado = parseInt(inputActual);
+
+            if (llavesSecretas.includes(numeroIngresado)) {
+                if (llavesEncontradas.includes(numeroIngresado)) {
+                    mostrarMensaje("Ya usaste esta llave, busca otra.", "#fbbf24"); // Amarillo
+                } else {
+                    // ¡Llave correcta!
+                    llavesEncontradas.push(numeroIngresado);
+                    mostrarMensaje("¡Llave correcta! 🔓", "#4ade80"); // Verde
+                    
+                    // Actualizar candadito a corazón
+                    slotsLlaves[llavesEncontradas.length - 1].innerText = '❤️';
+                    slotsLlaves[llavesEncontradas.length - 1].style.transform = 'scale(1.3)';
+                    setTimeout(() => slotsLlaves[llavesEncontradas.length - 1].style.transform = 'scale(1)', 300);
+
+                    // ¿Ganó? Si ya encontró las 10
+                    if (llavesEncontradas.length === 10) {
+                        setTimeout(revelarCartaFinal, 1500);
+                    }
+                }
+            } else {
+                mostrarMensaje("Número incorrecto. Revisa bien.", "#f87171"); // Rojo
+            }
+            
+            // Limpiar input tras presionar OK
+            inputActual = "";
+            displayCodigo.innerText = "";
+        } 
+        else {
+            // Limitar a máximo 2 dígitos (las llaves son máximo el número 69)
+            if (inputActual.length < 2) {
+                inputActual += valor;
+                displayCodigo.innerText = inputActual;
+            }
+        }
+    });
+});
+
+// ==========================================
+// 8. REVELACIÓN DE LA CARTA FINAL
+// ==========================================
+function revelarCartaFinal() {
+    // Transición mágica final
+    capaOscuraFinal.classList.add('activo');
+    
+    setTimeout(() => {
+        document.getElementById('interfaz-tesoro').style.display = 'none';
+        document.getElementById('carta-final').style.display = 'block';
+        capaOscuraFinal.classList.remove('activo');
+        
+        // Lluvia de corazones para celebrar el final
+        setInterval(crearCorazon, 400); 
+    }, 1500);
+    }
+            
