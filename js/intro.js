@@ -1,3 +1,22 @@
+// ==========================================
+// PANTALLA COMPLETA AL PRIMER TOQUE
+// ==========================================
+function activarPantallaCompleta() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {});
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    }
+}
+// Con esto, apenas ella deslice el dedo para usar la linterna, la barra de Chrome desaparecerá.
+['click', 'touchstart'].forEach(evt => 
+    document.addEventListener(evt, activarPantallaCompleta, { once: true })
+);
+
+// ==========================================
+// RESTO DEL CÓDIGO
+// ==========================================
 const linterna = document.getElementById('linterna');
 const pantalla = document.getElementById('modulo-intro');
 const botonesOcultos = document.querySelectorAll('.btn-oculto');
@@ -12,7 +31,6 @@ let botonesEncontrados = 0;
 let intervaloCorazones;
 let haMovidoLinterna = false;
 
-// 1. Asignar posiciones aleatorias a los botones
 function posicionarBotones() {
     botonesOcultos.forEach(boton => {
         const x = Math.floor(Math.random() * 75) + 10;
@@ -23,7 +41,6 @@ function posicionarBotones() {
 }
 posicionarBotones();
 
-// 2. Lógica de la linterna y ocultar instrucciones
 function actualizarLinterna(e) {
     let x = e.touches ? e.touches[0].clientX : e.clientX;
     let y = e.touches ? e.touches[0].clientY : e.clientY;
@@ -40,7 +57,6 @@ function actualizarLinterna(e) {
 pantalla.addEventListener('mousemove', actualizarLinterna);
 pantalla.addEventListener('touchmove', actualizarLinterna);
 
-// 3. Lógica de los botones con sonido
 botonesOcultos.forEach(boton => {
     boton.addEventListener('click', () => {
         if (!boton.classList.contains('encontrado')) {
@@ -57,7 +73,6 @@ botonesOcultos.forEach(boton => {
     });
 });
 
-// 4. Secuencia de revelación
 function iniciarRevelacion() {
     linterna.classList.add('desactivada');
     botonesOcultos.forEach(b => b.style.opacity = '0');
@@ -79,31 +94,37 @@ function crearCorazon() {
 }
 
 // ==========================================
-// 5. TRANSICIÓN DIRECTA AL VIDEO Y PANTALLA COMPLETA
+// TRANSICIÓN AL VIDEO (CON ANIMACIÓN DE CARGA)
 // ==========================================
 btnEmpezar.addEventListener('click', () => {
-    
-    // Pedir pantalla completa al navegador
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch(e => console.log("Fullscreen bloqueado", e));
-    } else if (elem.webkitRequestFullscreen) { /* Safari en iPhone */
-        elem.webkitRequestFullscreen();
-    }
+    // Forzamos pantalla completa por si no se activó antes
+    activarPantallaCompleta();
 
-    // 1. Pantalla en negro
+    // 1. Activamos la pantalla negra
     capaOscuraFinal.classList.add('activo');
+    
+    // 2. Mostramos el mensaje de carga romántico
+    const mensajeCarga = document.getElementById('mensaje-carga');
+    if (mensajeCarga) {
+        mensajeCarga.style.display = 'flex';
+    }
+    
     clearInterval(intervaloCorazones);
     
-    // 2. Esperamos a que la pantalla esté negra y cambiamos de módulo
+    // 3. Esperamos 4 SEGUNDOS para que el aviso de Chrome desaparezca
     setTimeout(() => {
         document.getElementById('modulo-intro').style.display = 'none';
         document.getElementById('modulo-video').style.display = 'flex';
         
-        // 3. Quitamos la pantalla negra
+        // Quitamos la pantalla negra
         capaOscuraFinal.classList.remove('activo');
         
-        // 4. Reproducimos el video directamente
+        // Ocultamos el mensaje de carga suavemente
+        setTimeout(() => {
+            if (mensajeCarga) mensajeCarga.style.display = 'none';
+        }, 1000);
+        
+        // 4. Reproducimos el video directamente sin interrupciones visuales
         const videoSorpresa = document.getElementById('video-sorpresa');
         if (videoSorpresa) {
             let playPromise = videoSorpresa.play();
@@ -114,7 +135,6 @@ btnEmpezar.addEventListener('click', () => {
                 });
             }
             
-            // Sistema anti-fallos a los 11 segundos
             setTimeout(() => {
                 videoSorpresa.style.display = 'none';
                 const finalVideo = document.getElementById('contenedor-final-video');
@@ -126,19 +146,15 @@ btnEmpezar.addEventListener('click', () => {
                 }
             }, 11000);
         }
-    }, 1500); 
+    }, 4000); 
 });
 
-// ==========================================
-// 6. TRANSICIÓN A LA BÚSQUEDA DEL TESORO
-// ==========================================
 const btnSiguiente = document.getElementById('btn-siguiente-tesoro');
 if (btnSiguiente) {
     btnSiguiente.addEventListener('click', () => {
         capaOscuraFinal.classList.add('activo');
         
         setTimeout(() => {
-            // Ocultamos video, mostramos tesoro. Mantenemos pantalla completa para inmersión
             document.getElementById('modulo-video').style.display = 'none';
             document.getElementById('modulo-tesoro').style.display = 'flex';
             capaOscuraFinal.classList.remove('activo');
@@ -147,7 +163,7 @@ if (btnSiguiente) {
 }
 
 // ==========================================
-// 7. LÓGICA DE LAS 10 LLAVES SECRETAS
+// LÓGICA DE LAS 10 LLAVES SECRETAS
 // ==========================================
 const llavesSecretas = [7, 23, 2, 4, 69, 11, 50, 48, 37, 22];
 let llavesEncontradas = [];
@@ -180,32 +196,27 @@ teclas.forEach(tecla => {
 
             if (llavesSecretas.includes(numeroIngresado)) {
                 if (llavesEncontradas.includes(numeroIngresado)) {
-                    mostrarMensaje("Ya usaste esta llave, busca otra.", "#fbbf24"); // Amarillo
+                    mostrarMensaje("Ya usaste esta llave, busca otra.", "#fbbf24"); 
                 } else {
-                    // ¡Llave correcta!
                     llavesEncontradas.push(numeroIngresado);
-                    mostrarMensaje("¡Llave correcta! 🔓", "#4ade80"); // Verde
+                    mostrarMensaje("¡Llave correcta! 🔓", "#4ade80"); 
                     
-                    // Actualizar candadito a corazón
                     slotsLlaves[llavesEncontradas.length - 1].innerText = '❤️';
                     slotsLlaves[llavesEncontradas.length - 1].style.transform = 'scale(1.3)';
                     setTimeout(() => slotsLlaves[llavesEncontradas.length - 1].style.transform = 'scale(1)', 300);
 
-                    // ¿Ganó? Si ya encontró las 10
                     if (llavesEncontradas.length === 10) {
                         setTimeout(revelarCartaFinal, 1500);
                     }
                 }
             } else {
-                mostrarMensaje("Número incorrecto. Revisa bien.", "#f87171"); // Rojo
+                mostrarMensaje("Número incorrecto. Revisa bien.", "#f87171"); 
             }
             
-            // Limpiar input tras presionar OK
             inputActual = "";
             displayCodigo.innerText = "";
         } 
         else {
-            // Limitar a máximo 2 dígitos (las llaves son máximo el número 69)
             if (inputActual.length < 2) {
                 inputActual += valor;
                 displayCodigo.innerText = inputActual;
@@ -214,11 +225,7 @@ teclas.forEach(tecla => {
     });
 });
 
-// ==========================================
-// 8. REVELACIÓN DE LA CARTA FINAL
-// ==========================================
 function revelarCartaFinal() {
-    // Transición mágica final
     capaOscuraFinal.classList.add('activo');
     
     setTimeout(() => {
@@ -226,8 +233,6 @@ function revelarCartaFinal() {
         document.getElementById('carta-final').style.display = 'block';
         capaOscuraFinal.classList.remove('activo');
         
-        // Lluvia de corazones para celebrar el final
         setInterval(crearCorazon, 400); 
     }, 1500);
-    }
-            
+}
