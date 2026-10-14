@@ -1,5 +1,5 @@
 // ==========================================
-// PANTALLA COMPLETA CONTINUA
+// PANTALLA COMPLETA CONTINUA (RECUPERABLE)
 // ==========================================
 function asegurarPantallaCompleta() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -300,7 +300,7 @@ let movido = false;
 if (btnMenuFlotante) {
     btnMenuFlotante.addEventListener('touchstart', (e) => {
         arrastrando = true;
-        movido = false; // Asumimos que es un toque normal hasta que se mueva
+        movido = false; 
         const touch = e.touches[0];
         const rect = btnMenuFlotante.getBoundingClientRect();
         offsetX = touch.clientX - rect.left;
@@ -309,14 +309,15 @@ if (btnMenuFlotante) {
     }, {passive: false});
 
     document.addEventListener('touchmove', (e) => {
-        if (!arrastrando) return;
-        movido = true; // Si se movió, ya no es un "clic"
-        e.preventDefault(); // Evita que la pantalla se desplace
+        // SEGURIDAD: Si no empezó arrastrando el menú, salir de la función
+        if (!arrastrando) return; 
+        
+        movido = true; 
+        e.preventDefault(); 
         const touch = e.touches[0];
         let nuevaX = touch.clientX - offsetX;
         let nuevaY = touch.clientY - offsetY;
         
-        // Límites para que no se salga de la pantalla
         if (nuevaX < 0) nuevaX = 0;
         if (nuevaY < 0) nuevaY = 0;
         if (nuevaX + btnMenuFlotante.offsetWidth > window.innerWidth) nuevaX = window.innerWidth - btnMenuFlotante.offsetWidth;
@@ -324,15 +325,17 @@ if (btnMenuFlotante) {
         
         btnMenuFlotante.style.left = nuevaX + 'px';
         btnMenuFlotante.style.top = nuevaY + 'px';
-        btnMenuFlotante.style.bottom = 'auto'; // Resetea el bottom original
+        btnMenuFlotante.style.bottom = 'auto'; 
         btnMenuFlotante.style.right = 'auto';
     }, {passive: false});
 
     document.addEventListener('touchend', () => {
+        // SEGURIDAD: Si el toque terminó y no era del menú, salir
+        if (!arrastrando) return; 
+        
         arrastrando = false;
         btnMenuFlotante.classList.remove('arrastrando');
         
-        // Si no se movió casi nada, se considera un clic para abrir el menú
         if (!movido) {
             pantallaMenu.classList.add('activo');
             asegurarPantallaCompleta();
@@ -418,4 +421,4 @@ botonesNavMenu.forEach(btn => {
         asegurarPantallaCompleta();
     });
 });
-            
+                                        
