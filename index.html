@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="css/intro.css">
     <link rel="stylesheet" href="css/video.css">
     <link rel="stylesheet" href="css/tesoro.css">
+
+    <!-- Estilos para Avisos Inteligentes de Orientación -->
+    <style>
+        /* Oculta el aviso de "ponlo horizontal" si ya está horizontal */
+        @media (orientation: landscape) {
+            .aviso-horizontal { display: none !important; }
+        }
+        /* Oculta el aviso de "ponlo vertical" si ya está vertical */
+        @media (orientation: portrait) {
+            .aviso-vertical { display: none !important; }
+        }
+    </style>
 </head>
 <body>
 
@@ -29,8 +41,8 @@
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
             
-            <!-- Aviso antes del video -->
-            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-shadow: 0px 2px 4px rgba(0,0,0,0.8);">
+            <!-- Aviso inteligente: Desaparece solo si el teléfono ya está acostado -->
+            <p class="aviso-horizontal" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-shadow: 0px 2px 4px rgba(0,0,0,0.8);">
                 Recomendación: antes de presionar el botón, coloca el teléfono horizontalmente 📱🔄
             </p>
         </div>
@@ -43,7 +55,6 @@
          ========================================== -->
     <section id="modulo-video" style="display: none;">
         
-        <!-- Video ajustado para que no se recorte -->
         <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
         </video>
@@ -55,8 +66,8 @@
                 Continuar la aventura ✨
             </button>
             
-            <!-- Aviso para volver a vertical -->
-            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-shadow: 0px 2px 4px rgba(0,0,0,0.8);">
+            <!-- Aviso inteligente: Desaparece solo si el teléfono ya está de pie -->
+            <p class="aviso-vertical" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-shadow: 0px 2px 4px rgba(0,0,0,0.8);">
                 Recomendación: vuelve a colocar el teléfono verticalmente 📱⬇️
             </p>
         </div>
@@ -67,24 +78,26 @@
          ========================================== -->
     <section id="modulo-tesoro" style="display: none;">
         
-        <!-- Interfaz del candado y teclado -->
         <div id="interfaz-tesoro">
             <h2 class="titulo-tesoro">Las 10 Llaves Secretas</h2>
-            <p class="texto-tesoro">Revisa nuestros mensajes de las 11:11. Ingresa los números ocultos (en cualquier orden) para desbloquear la sorpresa final.</p>
             
-            <!-- Indicadores de llaves (10 candados) -->
+            <!-- INSTRUCCIONES DETALLADAS Y FECHAS -->
+            <p class="texto-tesoro" style="margin-bottom: 20px; font-size: 0.9rem;">
+                Busca en nuestro chat los mensajes de las <strong>11:11 pm</strong> en estas fechas:<br><br>
+                <span style="color: #e11d48; font-weight: bold; font-style: normal; font-size: 1.05rem;">11/10, 19/10, 27/10, 04/11, 12/11, 20/11, 28/11, 06/12, 14/12 y 22/12</span><br><br>
+                Los números están un poquito más abajo de cada mensaje. Ingrésalos aquí en cualquier orden:
+            </p>
+            
             <div id="contenedor-llaves">
                 <div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div>
                 <div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div>
             </div>
 
-            <!-- Pantalla donde se ve el número que escribe -->
             <div id="pantalla-codigo-tesoro">
                 <span id="codigo-actual"></span>
             </div>
             <p id="mensaje-feedback"></p>
 
-            <!-- Teclado Numérico -->
             <div id="teclado">
                 <button class="btn-tecla">1</button>
                 <button class="btn-tecla">2</button>
@@ -101,7 +114,6 @@
             </div>
         </div>
 
-        <!-- CARTA FINAL OCULTA -->
         <div id="carta-final" style="display: none;">
             <div class="pergamino">
                 <p>Solo quiero decirte que te amo con todo mi corazón y que eres el mejor regalo que Dios me pudo haber dado hoy.</p>
@@ -121,12 +133,16 @@
     <!-- ==========================================
          CAPA OSCURA GLOBAL PARA TRANSICIONES
          ========================================== -->
-    <div id="capa-oscura-final"></div>
+    <div id="capa-oscura-final">
+        <!-- Animación de carga para distraer durante el aviso de Chrome -->
+        <div id="mensaje-carga" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
+            <div class="corazon-latido" style="font-size: 4rem; margin-bottom: 20px;">❤️</div>
+            <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.2rem; font-style: italic; letter-spacing: 1px; font-family: inherit;">Preparando algo especial para ti...</p>
+        </div>
+    </div>
 
-    <!-- ==========================================
-         SCRIPTS UNIFICADOS (v=102 fuerza recarga)
-         ========================================== -->
-    <script src="js/intro.js?v=102"></script>
+    <!-- Cambié a v=104 para forzar actualización -->
+    <script src="js/intro.js?v=104"></script>
     
 </body>
 </html>
