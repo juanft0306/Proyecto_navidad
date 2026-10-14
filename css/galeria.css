@@ -1,0 +1,139 @@
+/* ==========================================
+   MÓDULO 4: GALERÍA DE REGALOS (ESTILO DS)
+   ========================================== */
+#modulo-galeria {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    z-index: 99998; /* Justo debajo del menú flotante */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.titulo-galeria {
+    color: #e11d48;
+    font-size: 2.2rem;
+    margin-top: 8vh;
+    margin-bottom: 2vh;
+    text-shadow: 0 4px 10px rgba(225, 29, 72, 0.5);
+    font-weight: bold;
+}
+
+.instruccion-galeria {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 3vh;
+}
+
+/* Contenedor principal que se desliza horizontalmente */
+.slider-paginas {
+    display: flex;
+    width: 100vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+}
+
+/* Ocultar barra de scroll estéticamente */
+.slider-paginas::-webkit-scrollbar { display: none; }
+.slider-paginas { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Cada página ocupa el 100% de la pantalla */
+.pagina-grid {
+    min-width: 100vw;
+    scroll-snap-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 15px;
+    padding: 0 5vw; /* Margen a los lados */
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   DISEÑO DEL DISQUETE / CARTUCHO
+   ========================================== */
+.disquete {
+    background: #334155;
+    border-radius: 12px 12px 4px 4px; /* Forma de cartucho */
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.5);
+    border: 2px solid #475569;
+    cursor: pointer;
+    transition: transform 0.2s;
+    user-select: none;
+}
+
+.disquete:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.4), 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* La etiqueta blanca del frente del cartucho */
+.caratula-container {
+    background: white;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caratula-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Para los que están bloqueados */
+.candado {
+    font-size: 2rem;
+    color: #94a3b8;
+}
+
+.titulo-disquete {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.disquete.bloqueado .titulo-disquete {
+    color: #94a3b8;
+}
+
+/* Toast de error */
+#toast-error {
+    position: fixed;
+    bottom: 100px;
+    background: rgba(225, 29, 72, 0.9);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 100005;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+#toast-error.activo {
+    opacity: 1;
+  }
