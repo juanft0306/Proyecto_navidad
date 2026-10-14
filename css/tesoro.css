@@ -8,15 +8,19 @@
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     z-index: 99999;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #interfaz-tesoro {
     text-align: center;
     width: 90%;
     max-width: 400px;
+    padding-top: 5vh;
+    padding-bottom: 120px; 
 }
 
 .titulo-tesoro {
@@ -84,6 +88,7 @@
     border-radius: 15px;
     cursor: pointer;
     backdrop-filter: blur(5px);
+    transition: all 0.2s ease;
 }
 
 .btn-tecla:active {
@@ -95,17 +100,58 @@
 .btn-ok { background: #e11d48; font-weight: bold; font-size: 1.2rem; border: none;}
 
 /* ==========================================
-   ESTILO DE LA CARTA FINAL (CORREGIDO)
+   ESTILO VENTANA FLOTANTE (CHULETA) - ¡SOLUCIONA EL DESCUADRE!
+   ========================================== */
+#registro-llaves {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 350px;
+    font-size: 1rem;
+    color: #fbbf24;
+    background: rgba(15, 23, 42, 0.98);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #fbbf24;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    line-height: 1.8;
+    z-index: 100005; /* Por encima de todo */
+    text-align: center;
+}
+
+#capa-oscura-ayuda {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 100004;
+    backdrop-filter: blur(3px);
+}
+
+#btn-cerrar-ayuda {
+    margin-top: 20px;
+    background: #fbbf24;
+    color: #0f172a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ==========================================
+   CARTA FINAL
    ========================================== */
 #carta-final {
     width: 90%;
     max-width: 500px;
-    max-height: 85vh; /* Esto evita que se corte por arriba */
-    overflow-y: auto; /* Permite hacer scroll dentro de la carta */
+    margin-top: 5vh;
+    margin-bottom: 120px;
     animation: aparecerCarta 2s forwards;
-    border-radius: 15px;
-    scrollbar-width: thin;
-    scrollbar-color: #e11d48 transparent;
 }
 
 .pergamino {
@@ -120,9 +166,7 @@
     line-height: 1.6;
 }
 
-.pergamino p {
-    margin-bottom: 15px;
-}
+.pergamino p { margin-bottom: 15px; }
 
 .firma {
     text-align: center;
