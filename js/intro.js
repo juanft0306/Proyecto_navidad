@@ -143,7 +143,6 @@ if (btnSiguiente) {
             document.getElementById('modulo-video').style.display = 'none';
             document.getElementById('modulo-tesoro').style.display = 'flex';
             
-            // Si ya había encontrado las llaves en esta sesión, muestra la carta directo
             if (llavesEncontradas.length === 10) {
                 document.getElementById('interfaz-tesoro').style.display = 'none';
                 document.getElementById('carta-final').style.display = 'block';
@@ -226,15 +225,19 @@ function revelarCartaFinal() {
         document.getElementById('interfaz-tesoro').style.display = 'none';
         document.getElementById('carta-final').style.display = 'block';
         capaOscuraFinal.classList.remove('activo');
+        
+        if (btnRegresarCarta) btnRegresarCarta.style.display = 'block';
+        
         setInterval(crearCorazon, 400); 
     }, 1500);
 }
 
 // ==========================================
-// BOTÓN DE AYUDA: MOSTRAR REGISTRO DE LLAVES
+// BOTÓN DE AYUDA Y REGRESAR A CARTA
 // ==========================================
 const btnVerLlaves = document.getElementById('btn-ver-llaves');
 const registroLlaves = document.getElementById('registro-llaves');
+const btnRegresarCarta = document.getElementById('btn-regresar-carta'); 
 
 if (btnVerLlaves) {
     btnVerLlaves.addEventListener('click', () => {
@@ -243,8 +246,15 @@ if (btnVerLlaves) {
             btnVerLlaves.innerText = 'Ocultar registro de llaves';
         } else {
             registroLlaves.style.display = 'none';
-            btnVerLlaves.innerText = '🗝️ Mostrar registro de llaves (Ayuda)';
+            btnVerLlaves.innerText = '🗝️ Mostrar registro de llaves';
         }
+    });
+}
+
+if (btnRegresarCarta) {
+    btnRegresarCarta.addEventListener('click', () => {
+        document.getElementById('interfaz-tesoro').style.display = 'none';
+        document.getElementById('carta-final').style.display = 'block';
     });
 }
 
@@ -258,6 +268,10 @@ if (btnCandados) {
     btnCandados.addEventListener('click', () => {
         document.getElementById('carta-final').style.display = 'none';
         document.getElementById('interfaz-tesoro').style.display = 'block';
+        
+        if (btnRegresarCarta) {
+            btnRegresarCarta.style.display = 'block';
+        }
     });
 }
 
@@ -317,6 +331,26 @@ botonesNavMenu.forEach(btn => {
         if (destino === 'linterna') {
             document.getElementById('modulo-intro').style.display = 'flex';
             
+            // === ESTO ES LO NUEVO: RESETEA LA LINTERNA AL ESTADO INICIAL ===
+            botonesEncontrados = 0;
+            haMovidoLinterna = false;
+            
+            linterna.classList.remove('desactivada');
+            linterna.style.setProperty('--x', `-1000px`);
+            linterna.style.setProperty('--y', `-1000px`);
+            
+            contenidoRevelado.classList.remove('activo');
+            instrucciones.classList.remove('oculto');
+            
+            botonesOcultos.forEach(b => {
+                b.classList.remove('encontrado');
+                b.style.opacity = '1';
+            });
+            posicionarBotones(); // Volver a esconderlos en lugares nuevos
+            
+            contenedorCorazones.innerHTML = ''; // Limpiar corazones viejos
+            // ===============================================================
+            
         } else if (destino === 'video') {
             document.getElementById('modulo-video').style.display = 'flex';
             if (video) video.play().catch(() => {});
@@ -334,7 +368,6 @@ botonesNavMenu.forEach(btn => {
         } else if (destino === 'tesoro') {
             document.getElementById('modulo-tesoro').style.display = 'flex';
             
-            // LÓGICA INTELIGENTE: Si ya lo resolvió, muestra la carta, sino, el teclado.
             if (llavesEncontradas.length === 10) {
                 document.getElementById('interfaz-tesoro').style.display = 'none';
                 document.getElementById('carta-final').style.display = 'block';
@@ -347,3 +380,4 @@ botonesNavMenu.forEach(btn => {
         asegurarPantallaCompleta();
     });
 });
+                                                 
