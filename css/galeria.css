@@ -5,7 +5,6 @@
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    /* Fondo con degradado profundo, cuadrícula retro y un destello rosado arriba */
     background: 
         radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.2) 0%, transparent 50%),
         repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px),
@@ -19,11 +18,7 @@
     overflow: hidden;
 }
 
-/* ==========================================
-   TÍTULO ANIMADO (GLOW UP)
-   ========================================== */
 .titulo-galeria {
-    /* Efecto de degradado que se mueve */
     background: linear-gradient(to right, #fb7185, #e11d48, #f43f5e, #fb7185);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -43,16 +38,13 @@
     to { background-position: 200% center; }
 }
 
-/* ==========================================
-   PÍLDORA DE INSTRUCCIÓN PALPITANTE
-   ========================================== */
 .instruccion-galeria {
     color: #cbd5e1;
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 4vh;
-    background: rgba(255, 255, 255, 0.08); /* Fondo tipo cristal */
+    background: rgba(255, 255, 255, 0.08);
     padding: 8px 25px;
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -66,9 +58,6 @@
     50% { transform: scale(1.05); opacity: 1; color: #ffffff; border-color: rgba(255, 255, 255, 0.3); }
 }
 
-/* ==========================================
-   CONTENEDORES DEL SLIDER
-   ========================================== */
 .slider-paginas {
     display: flex;
     width: 100vw;
@@ -127,7 +116,6 @@
     bottom: 2px;
 }
 
-/* La etiqueta blanca (Sticker) del juego */
 .caratula-container {
     background: #ffffff;
     width: 100%;
@@ -149,7 +137,6 @@
     object-fit: cover; 
 }
 
-/* Para los que están bloqueados */
 .candado {
     font-size: 2rem;
     color: #64748b;
@@ -169,7 +156,7 @@
 }
 
 .disquete.bloqueado {
-    background: #33333b; /* Más oscuros para diferenciarlos más */
+    background: #33333b;
     border-color: #1f1f22;
 }
 
@@ -181,9 +168,6 @@
     color: #94a3b8;
 }
 
-/* ==========================================
-   TOAST DE ERROR (MENSAJE BLOQUEADO)
-   ========================================== */
 #toast-error {
     position: fixed; 
     bottom: 100px; 
@@ -198,11 +182,77 @@
     pointer-events: none;
     transition: opacity 0.3s, transform 0.3s; 
     box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
-    transform: translateY(20px); /* Efecto de subir al aparecer */
+    transform: translateY(20px);
     border: 1px solid rgba(255,255,255,0.2);
     backdrop-filter: blur(5px);
 }
 #toast-error.activo { 
     opacity: 1; 
     transform: translateY(0);
+}
+
+/* ==========================================
+   INTERIOR DE LAS EXPERIENCIAS (MÓDULO 5)
+   ========================================== */
+.experiencia-interna {
+    padding: 80px 20px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.titulo-exp {
+    color: #fb7185;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
+}
+
+.texto-exp {
+    color: #cbd5e1;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 90%;
+    font-style: italic;
+}
+
+.contenedor-polaroids {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 20px 10px;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transform: rotate(-3deg);
+    transition: transform 0.3s;
+    width: 250px;
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(4deg);
+}
+
+.polaroid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.polaroid p {
+    color: #334155;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
 }
