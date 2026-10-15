@@ -157,7 +157,6 @@
                     <div class="caratula-container"><img src="assets/img/gato.jpg" class="caratula-img" alt="Foto"></div>
                     <p class="titulo-disquete">Gato Camarón</p>
                 </div>
-                <!-- FLORES AMARILLAS ACTUALIZADO CON SU VIDEO -->
                 <div class="disquete activo" data-id="flores" data-video="assets/videos/flores.mp4">
                     <div class="caratula-container"><img src="assets/img/flores.jpg" class="caratula-img" alt="Foto"></div>
                     <p class="titulo-disquete">Flores Amarillas</p>
@@ -183,6 +182,48 @@
 
         <div id="toast-error">Aún estamos construyendo este recuerdo... 🛠️</div>
         <audio id="sonido-error" src="assets/audios/error.mp3" preload="auto"></audio>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÓDULO 5: INTERIOR DE LOS REGALOS (EXPERIENCIAS) -->
+    <!-- ========================================== -->
+    <section id="modulo-experiencias" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; z-index: 99997; overflow-y: auto; padding-bottom: 50px;">
+        
+        <button id="btn-volver-galeria" style="position: sticky; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px); cursor: pointer; font-weight: bold;">
+            🔙 Volver a los cartuchos
+        </button>
+
+        <!-- 1. PINGÜINITO ROSADO -->
+        <div id="exp-pinguino" class="experiencia-interna" style="display: none;">
+            <h2 class="titulo-exp">Nuestro Pingüinito 🐧</h2>
+            <p class="texto-exp">Un pequeño detalle para acompañar tus rutinas de skincare y recordarte lo hermosa que eres todos los días.</p>
+            <div class="contenedor-polaroids">
+                <div class="polaroid">
+                    <img src="assets/img/pinguino.jpg" alt="Pingüinito">
+                    <p>El día que te lo di ❤️</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. OVEJITA Y FLOR -->
+        <div id="exp-oveja" class="experiencia-interna" style="display: none;">
+            <h2 class="titulo-exp">La Ovejita 🐑🌷</h2>
+        </div>
+
+        <!-- 3. GATO CAMARÓN -->
+        <div id="exp-gato" class="experiencia-interna" style="display: none;">
+            <h2 class="titulo-exp">Gato Camarón 🍤🐱</h2>
+        </div>
+
+        <!-- 4. FLORES AMARILLAS -->
+        <div id="exp-flores" class="experiencia-interna" style="display: none;">
+            <h2 class="titulo-exp">Tu Jardín Amarillo 🌻</h2>
+        </div>
+
+        <!-- 5. SOL DE RAPUNZEL -->
+        <div id="exp-cadena" class="experiencia-interna" style="display: none;">
+            <h2 class="titulo-exp">Mi Nuevo Sol ☀️</h2>
+        </div>
     </section>
 
     <!-- REPRODUCTOR DE VIDEO PARA LOS REGALOS -->
@@ -212,10 +253,9 @@
         </div>
     </div>
 
-    <!-- SCRIPTS MODULARIZADOS CON v=120 -->
-    <script src="js/intro.js?v=120"></script>
-    <script src="js/galeria.js?v=120"></script>
+    <!-- SCRIPTS MODULARIZADOS CON v=121 -->
+    <script src="js/intro.js?v=121"></script>
+    <script src="js/galeria.js?v=121"></script>
     
 </body>
 </html>
-    
