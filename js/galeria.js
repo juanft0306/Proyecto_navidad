@@ -87,10 +87,40 @@ function finalizarVideoRegalo() {
         if (capaOscura) capaOscura.classList.remove('activo');
         setTimeout(() => { if (mensajeCarga) mensajeCarga.style.display = 'none'; }, 1000);
         
-        // Aquí es donde cargaremos el interior de cada regalo más adelante
-        alert("¡Video terminado! Aquí cargaremos la experiencia interactiva de: " + regaloActual);
+        // Ocultar galería y mostrar módulo de experiencias
+        document.getElementById('modulo-galeria').style.display = 'none';
+        document.getElementById('modulo-experiencias').style.display = 'block';
+        
+        // Ocultar todas las experiencias internas
+        document.querySelectorAll('.experiencia-interna').forEach(exp => {
+            exp.style.display = 'none';
+        });
+        
+        // Mostrar SOLO la experiencia del regalo seleccionado
+        const expActiva = document.getElementById('exp-' + regaloActual);
+        if (expActiva) {
+            expActiva.style.display = 'flex';
+        }
+
     }, 4500); 
 }
 
 if (videoRegaloPlayer) videoRegaloPlayer.addEventListener('ended', finalizarVideoRegalo);
 if (btnSaltarVideoRegalo) btnSaltarVideoRegalo.addEventListener('click', finalizarVideoRegalo);
+
+// 4. Lógica para el botón "Volver a la Galería"
+const btnVolverGaleria = document.getElementById('btn-volver-galeria');
+
+if (btnVolverGaleria) {
+    btnVolverGaleria.addEventListener('click', () => {
+        const capaOscura = document.getElementById('capa-oscura-final');
+        if (capaOscura) capaOscura.classList.add('activo');
+
+        setTimeout(() => {
+            document.getElementById('modulo-experiencias').style.display = 'none';
+            document.getElementById('modulo-galeria').style.display = 'flex';
+            
+            if (capaOscura) capaOscura.classList.remove('activo');
+        }, 800);
+    });
+}
