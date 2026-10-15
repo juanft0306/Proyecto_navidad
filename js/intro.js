@@ -24,15 +24,12 @@ const capaOscuraFinal = document.getElementById('capa-oscura-final');
 const instrucciones = document.getElementById('instrucciones');
 const sonidoBoton = document.getElementById('sonido-boton');
 
-let botonesEncontrados = 0;
-let intervaloCorazones;
-let haMovidoLinterna = false;
+let botonesEncontrados = 0; let intervaloCorazones; let haMovidoLinterna = false;
 
 function posicionarBotones() {
     botonesOcultos.forEach(boton => {
-        const x = Math.floor(Math.random() * 75) + 10;
-        const y = Math.floor(Math.random() * 75) + 10;
-        boton.style.left = `${x}%`; boton.style.top = `${y}%`;
+        boton.style.left = `${Math.floor(Math.random() * 75) + 10}%`; 
+        boton.style.top = `${Math.floor(Math.random() * 75) + 10}%`;
     });
 }
 posicionarBotones();
@@ -40,8 +37,7 @@ posicionarBotones();
 function actualizarLinterna(e) {
     let x = e.touches ? e.touches[0].clientX : e.clientX;
     let y = e.touches ? e.touches[0].clientY : e.clientY;
-    linterna.style.setProperty('--x', `${x}px`);
-    linterna.style.setProperty('--y', `${y}px`);
+    linterna.style.setProperty('--x', `${x}px`); linterna.style.setProperty('--y', `${y}px`);
     if (!haMovidoLinterna) { instrucciones.classList.add('oculto'); haMovidoLinterna = true; }
 }
 
@@ -51,8 +47,7 @@ pantalla.addEventListener('touchmove', actualizarLinterna);
 botonesOcultos.forEach(boton => {
     boton.addEventListener('click', () => {
         if (!boton.classList.contains('encontrado')) {
-            boton.classList.add('encontrado');
-            botonesEncontrados++;
+            boton.classList.add('encontrado'); botonesEncontrados++;
             sonidoBoton.currentTime = 0; sonidoBoton.play().catch(e => console.log(e));
             if (botonesEncontrados === 3) iniciarRevelacion();
         }
@@ -60,31 +55,26 @@ botonesOcultos.forEach(boton => {
 });
 
 function iniciarRevelacion() {
-    linterna.classList.add('desactivada');
-    botonesOcultos.forEach(b => b.style.opacity = '0');
-    contenidoRevelado.classList.add('activo');
-    intervaloCorazones = setInterval(crearCorazon, 300);
+    linterna.classList.add('desactivada'); botonesOcultos.forEach(b => b.style.opacity = '0');
+    contenidoRevelado.classList.add('activo'); intervaloCorazones = setInterval(crearCorazon, 300);
 }
 
 function crearCorazon() {
-    const corazon = document.createElement('div');
-    corazon.classList.add('corazon-cayendo');
-    corazon.innerText = '❤️';
-    corazon.style.left = Math.random() * 100 + 'vw';
-    const size = Math.random() * 20 + 15;
-    corazon.style.fontSize = `${size}px`;
+    const corazon = document.createElement('div'); corazon.classList.add('corazon-cayendo');
+    corazon.innerText = '❤️'; corazon.style.left = Math.random() * 100 + 'vw';
+    corazon.style.fontSize = `${Math.random() * 20 + 15}px`;
     corazon.style.animationDuration = Math.random() * 3 + 3 + 's';
     contenedorCorazones.appendChild(corazon);
     setTimeout(() => { corazon.remove(); }, 6000);
 }
 
 // ==========================================
-// TRANSICIÓN AL VIDEO PRINCIPAL (Sorpresa)
+// TRANSICIÓN AL VIDEO PRINCIPAL
 // ==========================================
 const textoCargaDinamico = document.getElementById('texto-carga-dinamico');
 
 btnEmpezar.addEventListener('click', () => {
-    textoCargaDinamico.innerText = "Preparando algo especial para ti...";
+    if (textoCargaDinamico) textoCargaDinamico.innerText = "Preparando algo especial para ti...";
     capaOscuraFinal.classList.add('activo');
     const mensajeCarga = document.getElementById('mensaje-carga');
     if (mensajeCarga) mensajeCarga.style.display = 'flex';
@@ -104,7 +94,7 @@ btnEmpezar.addEventListener('click', () => {
                 videoSorpresa.style.display = 'none';
                 const finalVideo = document.getElementById('contenedor-final-video');
                 if (finalVideo) { finalVideo.style.display = 'block'; setTimeout(() => finalVideo.classList.add('activo'), 50); }
-            }, 11000); // DURACIÓN DE TU VIDEO PRINCIPAL
+            }, 11000);
         }
     }, 4000); 
 });
@@ -117,11 +107,9 @@ if (btnSiguiente) {
             document.getElementById('modulo-video').style.display = 'none';
             document.getElementById('modulo-tesoro').style.display = 'flex';
             if (llavesEncontradas.length === 10) {
-                document.getElementById('interfaz-tesoro').style.display = 'none';
-                document.getElementById('carta-final').style.display = 'block';
+                document.getElementById('interfaz-tesoro').style.display = 'none'; document.getElementById('carta-final').style.display = 'block';
             } else {
-                document.getElementById('interfaz-tesoro').style.display = 'block';
-                document.getElementById('carta-final').style.display = 'none';
+                document.getElementById('interfaz-tesoro').style.display = 'block'; document.getElementById('carta-final').style.display = 'none';
             }
             capaOscuraFinal.classList.remove('activo');
         }, 1500);
@@ -132,9 +120,7 @@ if (btnSiguiente) {
 // MÓDULO 3: LLAVES SECRETAS
 // ==========================================
 const llavesSecretas = [7, 23, 2, 4, 69, 11, 50, 48, 37, 22];
-let llavesEncontradas = [];
-let inputActual = "";
-
+let llavesEncontradas = []; let inputActual = "";
 const teclas = document.querySelectorAll('.btn-tecla');
 const displayCodigo = document.getElementById('codigo-actual');
 const slotsLlaves = document.querySelectorAll('.llave-slot');
@@ -174,8 +160,7 @@ teclas.forEach(tecla => {
 function revelarCartaFinal() {
     capaOscuraFinal.classList.add('activo');
     setTimeout(() => {
-        document.getElementById('interfaz-tesoro').style.display = 'none';
-        document.getElementById('carta-final').style.display = 'block';
+        document.getElementById('interfaz-tesoro').style.display = 'none'; document.getElementById('carta-final').style.display = 'block';
         capaOscuraFinal.classList.remove('activo');
         if (btnRegresarCarta) btnRegresarCarta.style.display = 'block';
         setInterval(crearCorazon, 400); 
@@ -188,116 +173,20 @@ const registroLlaves = document.getElementById('registro-llaves');
 const capaOscuraAyuda = document.getElementById('capa-oscura-ayuda');
 const btnRegresarCarta = document.getElementById('btn-regresar-carta'); 
 
-if (btnAbrirAyuda) {
-    btnAbrirAyuda.addEventListener('click', () => { registroLlaves.style.display = 'block'; capaOscuraAyuda.style.display = 'block'; });
-}
-if (btnCerrarAyuda) {
-    btnCerrarAyuda.addEventListener('click', () => { registroLlaves.style.display = 'none'; capaOscuraAyuda.style.display = 'none'; });
-}
-if (btnRegresarCarta) {
-    btnRegresarCarta.addEventListener('click', () => { document.getElementById('interfaz-tesoro').style.display = 'none'; document.getElementById('carta-final').style.display = 'block'; });
-}
+if (btnAbrirAyuda) { btnAbrirAyuda.addEventListener('click', () => { registroLlaves.style.display = 'block'; capaOscuraAyuda.style.display = 'block'; }); }
+if (btnCerrarAyuda) { btnCerrarAyuda.addEventListener('click', () => { registroLlaves.style.display = 'none'; capaOscuraAyuda.style.display = 'none'; }); }
+if (btnRegresarCarta) { btnRegresarCarta.addEventListener('click', () => { document.getElementById('interfaz-tesoro').style.display = 'none'; document.getElementById('carta-final').style.display = 'block'; }); }
+
 const btnCandados = document.getElementById('btn-candados');
 if (btnCandados) {
     btnCandados.addEventListener('click', () => {
-        document.getElementById('carta-final').style.display = 'none';
-        document.getElementById('interfaz-tesoro').style.display = 'block';
+        document.getElementById('carta-final').style.display = 'none'; document.getElementById('interfaz-tesoro').style.display = 'block';
         if (btnRegresarCarta) btnRegresarCarta.style.display = 'block';
     });
 }
 
 // ==========================================
-// DE LA CARTA -> A LA GALERÍA (MÓDULO 4)
-// ==========================================
-const btnSiguienteSorpresa = document.getElementById('btn-siguiente');
-if (btnSiguienteSorpresa) {
-    btnSiguienteSorpresa.addEventListener('click', () => {
-        textoCargaDinamico.innerText = "Abriendo el baúl de los recuerdos...";
-        capaOscuraFinal.classList.add('activo');
-        const mensajeCarga = document.getElementById('mensaje-carga');
-        if (mensajeCarga) mensajeCarga.style.display = 'flex';
-        
-        setTimeout(() => {
-            document.getElementById('modulo-tesoro').style.display = 'none';
-            document.getElementById('modulo-galeria').style.display = 'flex';
-            capaOscuraFinal.classList.remove('activo');
-            setTimeout(() => { if (mensajeCarga) mensajeCarga.style.display = 'none'; }, 1000);
-        }, 3000);
-    });
-}
-
-// ==========================================
-// MÓDULO 4: LÓGICA DE LA GALERÍA Y DISQUETES
-// ==========================================
-const disquetes = document.querySelectorAll('.disquete');
-const toastError = document.getElementById('toast-error');
-const sonidoError = document.getElementById('sonido-error');
-const videoRegaloPlayer = document.getElementById('video-regalo-player');
-const moduloVideoRegalo = document.getElementById('modulo-video-regalo');
-const btnSaltarVideoRegalo = document.getElementById('btn-saltar-video-regalo');
-let regaloActual = ""; // Para saber cuál regalo abrió
-
-disquetes.forEach(disquete => {
-    disquete.addEventListener('click', () => {
-        // Si está bloqueado
-        if (disquete.classList.contains('bloqueado')) {
-            if (sonidoError) { sonidoError.currentTime = 0; sonidoError.play().catch(e=>console.log(e)); }
-            toastError.classList.add('activo');
-            setTimeout(() => toastError.classList.remove('activo'), 2500);
-            return;
-        }
-
-        // Si está activo (tiene video y experiencia)
-        regaloActual = disquete.getAttribute('data-id');
-        const rutaVideo = disquete.getAttribute('data-video');
-        
-        // 1. Pantalla de carga (El sándwich inicial)
-        textoCargaDinamico.innerText = "Preparando tu recuerdo...\nTe recomiendo poner el teléfono en horizontal 📱🔄";
-        capaOscuraFinal.classList.add('activo');
-        const mensajeCarga = document.getElementById('mensaje-carga');
-        if (mensajeCarga) mensajeCarga.style.display = 'flex';
-
-        setTimeout(() => {
-            // Preparamos el video
-            videoRegaloPlayer.src = rutaVideo;
-            moduloVideoRegalo.style.display = 'block';
-            
-            // Quitamos la pantalla de carga negra
-            capaOscuraFinal.classList.remove('activo');
-            setTimeout(() => { if (mensajeCarga) mensajeCarga.style.display = 'none'; }, 1000);
-            
-            // Reproducimos
-            videoRegaloPlayer.play().catch(e => { videoRegaloPlayer.muted = true; videoRegaloPlayer.play(); });
-        }, 4500); // 4.5 segundos para que lea el aviso de girar
-    });
-});
-
-// Función para cuando termina el video (o se salta)
-function finalizarVideoRegalo() {
-    videoRegaloPlayer.pause();
-    moduloVideoRegalo.style.display = 'none';
-    
-    // 2. Pantalla de carga (El sándwich final)
-    textoCargaDinamico.innerText = "Cargando la experiencia...\nYa puedes volver a colocar el teléfono en vertical 📱⬇️";
-    capaOscuraFinal.classList.add('activo');
-    const mensajeCarga = document.getElementById('mensaje-carga');
-    if (mensajeCarga) mensajeCarga.style.display = 'flex';
-
-    setTimeout(() => {
-        // Aquí conectaremos con la mini-página de cada regalo.
-        // Por ahora lanzamos una alerta para comprobar que todo funciona.
-        capaOscuraFinal.classList.remove('activo');
-        setTimeout(() => { if (mensajeCarga) mensajeCarga.style.display = 'none'; }, 1000);
-        
-        alert("¡Video terminado! Aquí cargaremos la experiencia interactiva de: " + regaloActual);
-    }, 4500); // 4.5 segundos para que vuelva a girar
-}
-
-videoRegaloPlayer.addEventListener('ended', finalizarVideoRegalo);
-btnSaltarVideoRegalo.addEventListener('click', finalizarVideoRegalo);
-
-// ==========================================
-// LÓGICA DEL MENÚ DE NAVEGACIÓN Y ARRASTRE
+// ENRUTADOR: MENÚ FLOTANTE
 // ==========================================
 const btnMenuFlotante = document.getElementById('btn-menu-flotante');
 const pantallaMenu = document.getElementById('pantalla-menu');
@@ -350,6 +239,9 @@ botonesNavMenu.forEach(btn => {
         clearInterval(intervaloCorazones);
         const video = document.getElementById('video-sorpresa');
         const finalVideo = document.getElementById('contenedor-final-video');
+        const videoRegaloPlayer = document.getElementById('video-regalo-player');
+        const moduloVideoRegalo = document.getElementById('modulo-video-regalo');
+
         if (video) { video.pause(); video.currentTime = 0; video.style.display = 'block'; }
         if (finalVideo) { finalVideo.style.display = 'none'; finalVideo.classList.remove('activo'); }
         if (videoRegaloPlayer) { videoRegaloPlayer.pause(); moduloVideoRegalo.style.display = 'none'; }
@@ -383,3 +275,4 @@ botonesNavMenu.forEach(btn => {
         asegurarPantallaCompleta();
     });
 });
+            
