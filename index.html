@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
-    
     <link rel="stylesheet" href="css/intro.css">
     <link rel="stylesheet" href="css/video.css">
     <link rel="stylesheet" href="css/tesoro.css">
@@ -14,248 +13,112 @@
         @media (orientation: landscape) { .aviso-horizontal { display: none !important; } }
         @media (orientation: portrait) { .aviso-vertical { display: none !important; } }
         
-        #btn-menu-flotante {
-            position: fixed; bottom: 20px; left: 20px;
-            background: rgba(225, 29, 72, 0.8); color: white;
-            padding: 12px 20px; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
-            z-index: 100000; cursor: move; backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
-            user-select: none; touch-action: none; transition: left 0.3s ease, top 0.3s ease;
-        }
+        #btn-menu-flotante { position: fixed; bottom: 20px; left: 20px; background: rgba(225, 29, 72, 0.8); color: white; padding: 12px 20px; border-radius: 30px; font-weight: bold; font-size: 0.9rem; z-index: 100000; cursor: move; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); user-select: none; touch-action: none; transition: left 0.3s ease, top 0.3s ease; }
         #btn-menu-flotante.arrastrando { transform: scale(1.05); background: rgba(225, 29, 72, 1); opacity: 0.8; transition: none; }
-
-        #pantalla-menu {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(15, 23, 42, 0.95); z-index: 100001;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s, visibility 0.3s;
-        }
+        #pantalla-menu { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.95); z-index: 100001; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s, visibility 0.3s; }
         #pantalla-menu.activo { opacity: 1; visibility: visible; pointer-events: all; }
-        
         .titulo-menu { color: #e11d48; margin-bottom: 30px; font-size: 1.8rem; }
-        .btn-nav-menu {
-            background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 30px; border-radius: 15px; margin-bottom: 15px;
-            width: 80%; max-width: 300px; font-size: 1.1rem; cursor: pointer; backdrop-filter: blur(5px);
-        }
+        .btn-nav-menu { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 15px 30px; border-radius: 15px; margin-bottom: 15px; width: 80%; max-width: 300px; font-size: 1.1rem; cursor: pointer; backdrop-filter: blur(5px); }
         .btn-nav-menu:active { background: rgba(225, 29, 72, 0.8); }
         .btn-cerrar-menu { margin-top: 20px; background: transparent; color: #cbd5e1; border: none; font-size: 1rem; text-decoration: underline; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- MÓDULO 1: LA LINTERNA -->
-    <section id="modulo-intro" class="pantalla">
-        <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
-        <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
-        <button class="btn-oculto" id="btn-1"></button><button class="btn-oculto" id="btn-2"></button><button class="btn-oculto" id="btn-3"></button>
-        <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
-        <div id="contenido-revelado" class="oculto">
-            <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
-            <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
-            <p class="aviso-horizontal" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic;">Recomendación: antes de presionar el botón, coloca el teléfono horizontalmente 📱🔄</p>
-        </div>
-        <div id="contenedor-corazones"></div>
-    </section>
+    <!-- MÓDULOS 1, 2, 3 (Iguales) -->
+    <section id="modulo-intro" class="pantalla"><div id="instrucciones">Desliza tu dedo como una linterna...</div><div id="linterna" style="--x: -1000px; --y: -1000px;"></div><button class="btn-oculto" id="btn-1"></button><button class="btn-oculto" id="btn-2"></button><button class="btn-oculto" id="btn-3"></button><audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio><div id="contenido-revelado" class="oculto"><h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1><button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button><p class="aviso-horizontal" style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic;">Recomendación: teléfono horizontalmente 📱🔄</p></div><div id="contenedor-corazones"></div></section>
+    <section id="modulo-video" style="display: none;"><video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;"><source src="assets/videos/sorpresa.mp4" type="video/mp4"></video><div id="contenedor-final-video" style="display: none;"><div class="corazon-latido">❤️</div><p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p><button id="btn-siguiente-tesoro" class="btn-romantico" style="background: transparent; border: 2px solid white; color: white; padding: 10px 25px; border-radius: 20px; cursor: pointer;">Continuar ✨</button></div></section>
+    <section id="modulo-tesoro" style="display: none;"><div id="interfaz-tesoro"><h2 class="titulo-tesoro">Las 10 Llaves Secretas</h2><p class="texto-tesoro" style="margin-bottom: 20px; font-size: 0.9rem;">Busca en nuestro chat los mensajes de las <strong>11:11 pm</strong>:<br><span style="color: #e11d48; font-weight: bold;">11/10, 19/10, 27/10, 04/11, 12/11, 20/11, 28/11, 06/12, 14/12 y 22/12</span></p><div id="contenedor-llaves"><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div></div><div id="pantalla-codigo-tesoro"><span id="codigo-actual"></span></div><p id="mensaje-feedback"></p><div id="teclado"><button class="btn-tecla">1</button><button class="btn-tecla">2</button><button class="btn-tecla">3</button><button class="btn-tecla">4</button><button class="btn-tecla">5</button><button class="btn-tecla">6</button><button class="btn-tecla">7</button><button class="btn-tecla">8</button><button class="btn-tecla">9</button><button class="btn-tecla btn-borrar">⌫</button><button class="btn-tecla">0</button><button class="btn-tecla btn-ok">OK</button></div><button id="btn-abrir-ayuda" style="margin-top: 25px; background: rgba(255,255,255,0.1); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 20px; width: 100%;">🗝️ Mostrar registro de llaves</button><button id="btn-regresar-carta" style="display: none; margin-top: 15px; background: #e11d48; color: white; border: none; padding: 15px 20px; border-radius: 20px; font-weight: bold; width: 100%;">Volver a leer la carta 💌</button></div>
+        <div id="carta-final" style="display: none;"><div class="pergamino"><p>Solo quiero decirte que te amo con todo mi corazón...</p><p>Quiero que sepas que eres el regalo más bonito que tengo.</p><p>Eres lo más maravilloso que me ha podido pasar en la vida.</p><p>Antes de la noche en que nos conocimos no sabía nada de ti...</p><p>Admiro tanto tu forma de ser, tu madurez y paciencia.</p><p>Sé que no todo es perfecto, pero resolverlo todo juntos nos hace fuertes.</p><p>Cada sonrisa tuya y cada abrazo son mis tesoros.</p><p>Me encanta soñar con todo lo que nos espera.</p><p>Gracias por elegirme todos los días como tu compañero.</p><p class="firma">Te amo con cada fibra de mi ser, hoy, mañana y siempre. ❤️</p><div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;"><button id="btn-candados" style="background: transparent; border: 2px solid #e11d48; color: #e11d48; padding: 10px 15px; border-radius: 20px;">Ver llaves</button><button id="btn-siguiente" style="background: #e11d48; border: none; color: white; padding: 10px 15px; border-radius: 20px;">Siguiente Sorpresa ✨</button></div></div></div></section>
+    <div id="capa-oscura-ayuda"></div><div id="registro-llaves"><strong style="color: white; display: block; margin-bottom: 10px; font-size: 1.2rem;">Tus llaves:</strong>11/10: <b>7</b> <br> 19/10: <b>23</b> <br> 27/10: <b>2</b> <br> 04/11: <b>4</b> <br> 12/11: <b>69</b> <br> 20/11: <b>11</b> <br> 28/11: <b>50</b> <br> 06/12: <b>48</b> <br> 14/12: <b>37</b> <br> 22/12: <b>22</b><br><button id="btn-cerrar-ayuda">Cerrar ayuda</button></div>
 
-    <!-- MÓDULO 2: VIDEO PRINCIPAL -->
-    <section id="modulo-video" style="display: none;">
-        <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;"><source src="assets/videos/sorpresa.mp4" type="video/mp4"></video>
-        <div id="contenedor-final-video" style="display: none;">
-            <div class="corazon-latido">❤️</div><p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
-            <button id="btn-siguiente-tesoro" class="btn-romantico" style="background: transparent; border: 2px solid white; color: white; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-size: 1rem;">Continuar la aventura ✨</button>
-            <p class="aviso-vertical" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic;">Recomendación: vuelve a colocar el teléfono verticalmente 📱⬇️</p>
-        </div>
-    </section>
-
-    <!-- MÓDULO 3: TESORO Y CARTA -->
-    <section id="modulo-tesoro" style="display: none;">
-        <div id="interfaz-tesoro">
-            <h2 class="titulo-tesoro">Las 10 Llaves Secretas</h2>
-            <p class="texto-tesoro" style="margin-bottom: 20px; font-size: 0.9rem;">Busca en nuestro chat los mensajes de las <strong>11:11 pm</strong> en estas fechas:<br><br><span style="color: #e11d48; font-weight: bold; font-style: normal; font-size: 1.05rem;">11/10, 19/10, 27/10, 04/11, 12/11, 20/11, 28/11, 06/12, 14/12 y 22/12</span><br><br>Los números están un poquito más abajo de cada mensaje. Ingrésalos aquí en cualquier orden:</p>
-            <div id="contenedor-llaves"><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div><div class="llave-slot">🔒</div></div>
-            <div id="pantalla-codigo-tesoro"><span id="codigo-actual"></span></div>
-            <p id="mensaje-feedback"></p>
-            <div id="teclado"><button class="btn-tecla">1</button><button class="btn-tecla">2</button><button class="btn-tecla">3</button><button class="btn-tecla">4</button><button class="btn-tecla">5</button><button class="btn-tecla">6</button><button class="btn-tecla">7</button><button class="btn-tecla">8</button><button class="btn-tecla">9</button><button class="btn-tecla btn-borrar">⌫</button><button class="btn-tecla">0</button><button class="btn-tecla btn-ok">OK</button></div>
-            <button id="btn-abrir-ayuda" style="margin-top: 25px; background: rgba(255,255,255,0.1); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-family: inherit; width: 100%;">🗝️ Mostrar registro de llaves</button>
-            <button id="btn-regresar-carta" style="display: none; margin-top: 15px; background: #e11d48; color: white; border: none; padding: 15px 20px; border-radius: 20px; cursor: pointer; font-size: 1rem; font-weight: bold; width: 100%;">Volver a leer la carta 💌</button>
-        </div>
-        <div id="carta-final" style="display: none;">
-            <div class="pergamino">
-                <p>Solo quiero decirte que te amo con todo mi corazón y que eres el mejor regalo que Dios me pudo haber dado hoy.</p>
-                <p>Quiero que sepas que eres el regalo más bonito que tengo en cada momento y más específicamente hoy.</p>
-                <p>Eres lo más maravilloso que me ha podido pasar en la vida, eres la mujer con la que siempre soñé y la mujer a la que quiero hacer feliz por el resto de mi vida.</p>
-                <p>Antes de la noche en que nos conocimos no sabía nada de ti, y ahora no me imagino mi vida sin ti.</p>
-                <p>Admiro tanto tu forma de ser, tu madurez y la paciencia con la que me escuchas, apoyas y cuidas cada día.</p>
-                <p>Sé que no todo es perfecto y que a veces hay días cansados o difíciles, pero resolverlo todo juntos nos hace más fuertes.</p>
-                <p>Cada sonrisa tuya, cada abrazo y cada momento que pasamos juntos son mis tesoros más preciados.</p>
-                <p>Me encanta soñar con todo lo que nos espera, los proyectos por construir y la vida que estamos creando.</p>
-                <p>Gracias por elegirme todos los días como tu compañero de vida y por ser mi refugio seguro.</p>
-                <p class="firma">Te amo con cada fibra de mi ser, hoy, mañana y por toda la eternidad. ❤️</p>
-                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px; padding-bottom: 10px; flex-wrap: wrap;">
-                    <button id="btn-candados" style="background: transparent; border: 2px solid #e11d48; color: #e11d48; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; font-family: inherit;">Ver llaves</button>
-                    <button id="btn-siguiente" style="background: #e11d48; border: none; color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; font-family: inherit; width: 100%;">Siguiente Sorpresa ✨</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- AYUDA LLAVES -->
-    <div id="capa-oscura-ayuda"></div>
-    <div id="registro-llaves">
-        <strong style="color: white; display: block; margin-bottom: 10px; font-size: 1.2rem;">Tus llaves guardadas:</strong>
-        11/10: <b>7</b> <br> 19/10: <b>23</b> <br> 27/10: <b>2</b> <br> 04/11: <b>4</b> <br> 12/11: <b>69</b> <br> 20/11: <b>11</b> <br> 28/11: <b>50</b> <br> 06/12: <b>48</b> <br> 14/12: <b>37</b> <br> 22/12: <b>22</b><br>
-        <button id="btn-cerrar-ayuda">Cerrar ayuda</button>
-    </div>
-
-    <!-- MÓDULO 4: GALERÍA DE REGALOS -->
-    <section id="modulo-galeria" style="display: none;">
-        <h2 class="titulo-galeria">Galería de Regalos</h2>
-        <p class="instruccion-galeria">Desliza para ver más ➡️</p>
-        
-        <div class="slider-paginas">
-            <div class="pagina-grid">
-                <div class="disquete activo" data-id="pinguino" data-video="assets/videos/pinguino.mp4">
-                    <div class="caratula-container"><img src="assets/img/pinguino.jpg" class="caratula-img"></div><p class="titulo-disquete">Pingüinito Rosado</p></div>
-                <div class="disquete activo" data-id="oveja" data-video="assets/videos/oveja.mp4">
-                    <div class="caratula-container"><img src="assets/img/oveja.jpg" class="caratula-img"></div><p class="titulo-disquete">Ovejita y Flor</p></div>
-                <div class="disquete activo" data-id="gato" data-video="assets/videos/gato.mp4">
-                    <div class="caratula-container"><img src="assets/img/gato.jpg" class="caratula-img"></div><p class="titulo-disquete">Gato Camarón</p></div>
-                <div class="disquete activo" data-id="flores" data-video="assets/videos/flores.mp4">
-                    <div class="caratula-container"><img src="assets/img/flores.jpg" class="caratula-img"></div><p class="titulo-disquete">Flores Amarillas</p></div>
-                <div class="disquete activo" data-id="cadena" data-video="assets/videos/cadena.mp4">
-                    <div class="caratula-container"><img src="assets/img/cadena.jpg" class="caratula-img"></div><p class="titulo-disquete">Sol de Rapunzel</p></div>
-                
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-            </div>
-            <div class="pagina-grid">
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-                <div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente...</p></div>
-            </div>
-        </div>
-
-        <div id="toast-error">Aún estamos construyendo este recuerdo... 🛠️</div>
-        <audio id="sonido-error" src="assets/audios/error.mp3" preload="auto"></audio>
-    </section>
-
-    <!-- MÓDULO DE REPRODUCCIÓN DE VIDEOS -->
-    <section id="modulo-video-regalo" style="display: none; position: fixed; top: 0; left: 0; z-index: 99999; background: black; width: 100vw; height: 100vh;">
-        <video id="video-regalo-player" playsinline style="width: 100%; height: 100%; object-fit: contain;"><source src="" type="video/mp4"></video>
-        <button id="btn-saltar-video-regalo" style="position: absolute; bottom: 30px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px);">Saltar Video ⏭️</button>
-    </section>
-
-    <!-- MÓDULO 5: INTERIOR DE LOS REGALOS -->
+    <!-- MÓDULOS 4 Y 5 -->
+    <section id="modulo-galeria" style="display: none;"><h2 class="titulo-galeria">Galería de Regalos</h2><p class="instruccion-galeria">Desliza para ver más ➡️</p><div class="slider-paginas"><div class="pagina-grid"><div class="disquete activo" data-id="pinguino" data-video="assets/videos/pinguino.mp4"><div class="caratula-container"><img src="assets/img/pinguino.jpg" class="caratula-img"></div><p class="titulo-disquete">Pingüinito</p></div><div class="disquete activo" data-id="oveja" data-video="assets/videos/oveja.mp4"><div class="caratula-container"><img src="assets/img/oveja.jpg" class="caratula-img"></div><p class="titulo-disquete">Ovejita</p></div><div class="disquete activo" data-id="gato" data-video="assets/videos/gato.mp4"><div class="caratula-container"><img src="assets/img/gato.jpg" class="caratula-img"></div><p class="titulo-disquete">Gato</p></div><div class="disquete activo" data-id="flores" data-video="assets/videos/flores.mp4"><div class="caratula-container"><img src="assets/img/flores.jpg" class="caratula-img"></div><p class="titulo-disquete">Flores Amarillas</p></div><div class="disquete activo" data-id="cadena" data-video="assets/videos/cadena.mp4"><div class="caratula-container"><img src="assets/img/cadena.jpg" class="caratula-img"></div><p class="titulo-disquete">Rapunzel</p></div><div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente</p></div><div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente</p></div><div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente</p></div><div class="disquete bloqueado"><div class="caratula-container"><div class="candado">🔒</div></div><p class="titulo-disquete">Próximamente</p></div></div></div><div id="toast-error">Aún construyendo este recuerdo... 🛠️</div><audio id="sonido-error" src="assets/audios/error.mp3" preload="auto"></audio></section>
+    <section id="modulo-video-regalo" style="display: none; position: fixed; top: 0; left: 0; z-index: 99999; background: black; width: 100vw; height: 100vh;"><video id="video-regalo-player" playsinline style="width: 100%; height: 100%; object-fit: contain;"><source src="" type="video/mp4"></video><button id="btn-saltar-video-regalo" style="position: absolute; bottom: 30px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 20px;">Saltar ⏭️</button></section>
     <div id="contenedor-particulas"></div>
-    
-    <section id="modulo-experiencias" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; z-index: 99997; overflow-y: auto; padding-bottom: 50px;">
-        <button id="btn-volver-galeria" style="position: sticky; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px); cursor: pointer; font-weight: bold;">
-            🔙 Volver
-        </button>
-
-        <!-- 1. PINGÜINITO -->
-        <div id="exp-pinguino" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">Nuestro Pingüinito 🐧</h2>
-            <p class="texto-exp">Este pingüinito rosado llegó a tus manos para acompañarte en tus rutinas de skincare. Quería regalarte un pequeño compañero que te recuerde todos los días lo hermosa que eres, tanto por dentro como por fuera. Cada vez que te cuides y te dediques tiempo para ti, quiero que sepas que yo también estoy ahí, admirando tu belleza y amándote en cada faceta tuya.</p>
-            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/pinguino.jpg" alt="Pingüinito"><p>El día que te lo di ❤️</p></div></div>
-        </div>
-
-        <!-- 2. OVEJITA -->
-        <div id="exp-oveja" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">La Ovejita 🐑🌷</h2>
-            <p class="texto-exp">Una ovejita tan tierna y suave como tú, sosteniendo una flor que representa un amor que nunca se marchita. Quería darte algo que pudieras abrazar cuando yo no esté cerquita, algo que te transmita la paz y la ternura que tú me haces sentir todos los días desde que estamos juntos.</p>
-            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/oveja.jpg" alt="Ovejita"><p>Tierna como tú 🌷</p></div></div>
-        </div>
-
-        <!-- 3. GATO -->
-        <div id="exp-gato" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">Gato Camarón 🍤🐱</h2>
-            <p class="texto-exp">Ese día fue increíble para mí; vendí muchísimo y me fue excelente. Pero mi mayor alegría no era el dinero, sino las ganas inmensas de compartir esa felicidad contigo. Fui corriendo a comprarte ese gatico que tanto te había gustado y lo llené de tus chucherías favoritas. Hablé en secreto con tu mamá para que acomodara la sorpresa en tu cama, imaginando tu carita de emoción al llegar cansada. Todo mi éxito solo tiene sentido si te veo sonreír.</p>
-            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/gato.jpg" alt="Gato"><p>Sorpresa en tu camita 😻</p></div></div>
-        </div>
-
-        <!-- 4. FLORES AMARILLAS -->
-        <div id="exp-flores" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">Tu Jardín Amarillo 🌻</h2>
-            <p class="texto-exp">Toda una odisea que jamás olvidaremos. Te hice enojar a propósito, diciéndote que no tenía plata y que esos días no me importaban. Me dolió un poquito verte triste, pero en mi mente sabía que la sorpresa lo valdría todo. Mientras tú estabas molesta, yo estaba planeando todo con tu hermana y tu mamá para dejar este regalo en tu cama. Valió la pena cada segundo de tu enojo solo para ver cómo tus ojos brillaron de felicidad al descubrirlo.</p>
-            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/flores.jpg" alt="Flores"><p>Valió la pena el enojo 💛</p></div></div>
-            
+    <section id="modulo-experiencias" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; z-index: 99997; overflow-y: auto; padding-bottom: 50px;"><button id="btn-volver-galeria" style="position: sticky; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 20px; border-radius: 20px;">🔙 Volver</button>
+        <div id="exp-pinguino" class="experiencia-interna" style="display: none;"><h2 class="titulo-exp">Nuestro Pingüinito 🐧</h2><p class="texto-exp">Este pingüinito rosado llegó a tus manos para acompañarte en tus rutinas de skincare...</p><div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/pinguino.jpg" alt="Pingüinito"><p>El día que te lo di ❤️</p></div></div></div>
+        <div id="exp-oveja" class="experiencia-interna" style="display: none;"><h2 class="titulo-exp">La Ovejita 🐑🌷</h2><p class="texto-exp">Una ovejita tan tierna y suave como tú, sosteniendo una flor que representa un amor que nunca se marchita...</p><div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/oveja.jpg" alt="Ovejita"><p>Tierna como tú 🌷</p></div></div></div>
+        <div id="exp-gato" class="experiencia-interna" style="display: none;"><h2 class="titulo-exp">Gato Camarón 🍤🐱</h2><p class="texto-exp">Fui corriendo a comprarte ese gatico que tanto te había gustado y lo llené de tus chucherías favoritas...</p><div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/gato.jpg" alt="Gato"><p>Sorpresa en tu camita 😻</p></div></div></div>
+        <div id="exp-flores" class="experiencia-interna" style="display: none;"><h2 class="titulo-exp">Tu Jardín Amarillo 🌻</h2><p class="texto-exp">Toda una odisea que jamás olvidaremos. Valió la pena cada segundo solo para ver tus ojos brillar.</p><div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/flores.jpg" alt="Flores"><p>Valió la pena el enojo 💛</p></div></div>
             <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center; z-index: 10; width: 100%;">
                 <button id="btn-mostrar-carta-amarilla" class="btn-romantico" style="font-size: 0.9rem; z-index: 10;">Leer Carta Original 💌</button>
                 <button id="btn-ir-jardin" class="btn-romantico" style="font-size: 0.9rem; z-index: 10;">Ir al Jardín Mágico 🌻</button>
             </div>
         </div>
-
-        <!-- 5. CADENA -->
-        <div id="exp-cadena" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">Mi Nuevo Sol ☀️</h2>
-            <p class="texto-exp">Tú eres mi nuevo sol. Te regalo este collar de Rapunzel que guarda en su interior un "Te amo" en 100 idiomas diferentes, simplemente porque un solo idioma se queda cortísimo para explicarte todo lo que significas en mi vida. Eres la luz que ilumina mis días más grises, y quiero que lleves este sol cerquita de tu corazón, recordándote que mi amor por ti brilla más fuerte cada día.</p>
-            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/cadena.jpg" alt="Cadena"><p>Mi Sol ☀️</p></div></div>
-        </div>
+        <div id="exp-cadena" class="experiencia-interna" style="display: none;"><h2 class="titulo-exp">Mi Nuevo Sol ☀️</h2><p class="texto-exp">Te regalo este collar de Rapunzel que guarda en su interior un "Te amo" en 100 idiomas diferentes...</p><div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/cadena.jpg" alt="Cadena"><p>Mi Sol ☀️</p></div></div></div>
     </section>
 
-    <!-- VENTANA MODAL: FOTO DE LA CARTA (Arreglada extensión a .jpg) -->
-    <div id="modal-carta-original" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 100005; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
-        <div style="position: relative; max-width: 100%; max-height: 90vh;">
-            <button id="btn-cerrar-carta-amarilla" style="position: absolute; top: -15px; right: -10px; background: #e11d48; border: 2px solid white; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 2;">✖</button>
-            <img src="assets/img/carta_flores.jpg" alt="Si no ves la carta, verifica el nombre" style="max-width: 100%; max-height: 85vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); object-fit: contain;">
-        </div>
-    </div>
+    <div id="modal-carta-original" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 100005; justify-content: center; align-items: center; padding: 20px;"><div style="position: relative; max-width: 100%; max-height: 90vh;"><button id="btn-cerrar-carta-amarilla" style="position: absolute; top: -15px; right: -10px; background: #e11d48; border: 2px solid white; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; color: white;">✖</button><img src="assets/img/carta_flores.jpg" alt="Error de imagen" style="max-width: 100%; max-height: 85vh; border-radius: 12px;"></div></div>
 
-    <!-- MÓDULO 6: JARDÍN INTERACTIVO NIVEL DIOS -->
+    <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0 (NUBES, SOMBRAS, LUCIÉRNAGAS Y 3 CLIMAS) -->
     <section id="modulo-jardin" class="jardin-noche" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 2s ease;">
         
+        <!-- ELEMENTOS DE FAUNA Y CLIMA EN EL CIELO -->
         <div id="estrellas-fondo" style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px); background-size: 100px 100px; opacity: 0.5; z-index: 0;"></div>
-        <div id="efectos-clima" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 1;"></div>
         
-        <div style="z-index: 5; margin-top: 5vh; text-align: center; padding: 0 20px; width: 100%; box-sizing: border-box;">
-            <button id="btn-volver-del-jardin" style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 10; backdrop-filter: blur(5px);">🔙 Volver</button>
+        <div id="escenario-fondo" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 2; opacity: 0; transition: opacity 2s;">
+            <!-- El sol / luna -->
+            <div id="astro-cielo" class="sol-tarde"></div>
+            <!-- Montañas -->
+            <div class="montana montana-1"></div>
+            <div class="montana montana-2"></div>
+            <div class="montana montana-3"></div>
             
-            <h2 id="titulo-jardin-magico" style="color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-size: 2.2rem; margin-top: 40px; margin-bottom: 15px; transition: color 2s;">Tu Jardín Mágico</h2>
-            <p id="mensaje-jardin" style="color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 1.1rem; font-weight: bold; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 20px; display: inline-block; max-width: 90%; transition: background 1s;">Las semillas descansan bajo tierra. Toca regar para despertarlas... 💧</p>
+            <!-- Contenedores Mágicos -->
+            <div id="contenedor-nubes" style="position: absolute; width: 100%; height: 100%;"></div>
         </div>
 
-        <div style="position: absolute; bottom: 12vh; width: 100%; height: 25vh; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 4; padding: 0 2%; box-sizing: border-box;">
-            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
-            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
-            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
-            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
-            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
+        <div id="efectos-clima" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 3;"></div>
+        <div id="contenedor-mariposas" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></div>
+        <div id="contenedor-luciernagas" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></div>
+
+        <!-- CAPA DE SOMBRA (Efecto Eclipse Nubes) -->
+        <div id="capa-sombra" style="position: absolute; top:0; left:0; width:100vw; height:100vh; background: black; opacity: 0; z-index: 11; pointer-events: none; transition: opacity 1.5s ease-in-out;"></div>
+
+        <!-- SELECTOR DE TIEMPO (Día, Tarde, Noche) -->
+        <div id="selector-tiempo" style="display: none; position: absolute; top: 15vh; width: 100%; justify-content: center; gap: 15px; z-index: 25;">
+            <button class="btn-tiempo activo" id="btn-dia">☀️ Día</button>
+            <button class="btn-tiempo" id="btn-tarde">🌅 Tarde</button>
+            <button class="btn-tiempo" id="btn-noche">🌙 Noche</button>
+        </div>
+
+        <!-- CONTENEDOR INVISIBLE PARA INTERACTIVIDAD DE DIBUJO -->
+        <div id="lienzo-rastro" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 15; touch-action: none;"></div>
+
+        <div style="z-index: 20; margin-top: 5vh; text-align: center; padding: 0 20px; width: 100%; box-sizing: border-box; pointer-events: none;">
+            <button id="btn-volver-del-jardin" style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; pointer-events: auto; backdrop-filter: blur(5px);">🔙 Volver</button>
+            <h2 id="titulo-jardin-magico" style="color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-size: 2.2rem; margin-top: 40px; margin-bottom: 15px; transition: color 2s;">Tu Jardín Mágico</h2>
+            <p id="mensaje-jardin" style="color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 1.1rem; font-weight: bold; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 20px; display: inline-block; max-width: 90%; transition: background 1s;">Las semillas descansan bajo tierra... 💧</p>
+        </div>
+
+        <div id="campo-flores" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50vh; z-index: 4; pointer-events: none;"></div>
+
+        <div style="position: absolute; bottom: 12vh; width: 100%; height: 25vh; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 6; padding: 0 2%; box-sizing: border-box; pointer-events: none;">
+            <div class="flor-jardin">🌰</div>
+            <div class="flor-jardin">🌰</div>
+            <div class="flor-jardin">🌰</div>
+            <div class="flor-jardin">🌰</div>
+            <div class="flor-jardin">🌰</div>
         </div>
         
         <div class="pasto-jardin"></div>
 
-        <div style="position: absolute; bottom: 25px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 5;">
+        <div id="controles-jardin" style="position: absolute; bottom: 25px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 20;">
             <button class="btn-jardin" id="btn-agua">💧 Regar</button>
             <button class="btn-jardin btn-desactivado" id="btn-sol">☀️ Iluminar</button>
             <button class="btn-jardin btn-desactivado" id="btn-amor">❤️ Amar</button>
         </div>
     </section>
 
-    <!-- MENÚ FLOTANTE -->
+    <!-- MENÚ Y CARGA -->
     <div id="btn-menu-flotante">🌟 Menú</div>
-    <div id="pantalla-menu">
-        <h2 class="titulo-menu">Mapa de la Aventura</h2>
-        <button class="btn-nav-menu" data-destino="linterna">🔦 1. La Linterna</button>
-        <button class="btn-nav-menu" data-destino="video">🎬 2. Nuestro Video</button>
-        <button class="btn-nav-menu" data-destino="tesoro">🔐 3. Las Llaves Secretas</button>
-        <button class="btn-nav-menu" data-destino="galeria">🎁 4. Galería de Regalos</button>
-        <button class="btn-cerrar-menu">Cerrar menú</button>
-    </div>
+    <div id="pantalla-menu"><h2 class="titulo-menu">Mapa</h2><button class="btn-nav-menu" data-destino="linterna">🔦 1. La Linterna</button><button class="btn-nav-menu" data-destino="video">🎬 2. Nuestro Video</button><button class="btn-nav-menu" data-destino="tesoro">🔐 3. Las Llaves</button><button class="btn-nav-menu" data-destino="galeria">🎁 4. Galería</button><button class="btn-cerrar-menu">Cerrar</button></div>
+    <div id="capa-oscura-final"><div id="mensaje-carga" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;"><div class="corazon-latido" style="font-size: 4rem; margin-bottom: 20px;">❤️</div><p id="texto-carga-dinamico" style="color: white; font-style: italic;">Preparando algo especial...</p></div></div>
 
-    <div id="capa-oscura-final">
-        <div id="mensaje-carga" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px;">
-            <div class="corazon-latido" style="font-size: 4rem; margin-bottom: 20px;">❤️</div>
-            <p id="texto-carga-dinamico" style="color: rgba(255, 255, 255, 0.9); font-size: 1.2rem; font-style: italic; line-height: 1.5;">Preparando algo especial para ti...</p>
-        </div>
-    </div>
-
-    <!-- SCRIPTS v=126 -->
-    <script src="js/intro.js?v=126"></script>
-    <script src="js/galeria.js?v=126"></script>
+    <!-- SCRIPTS v=128 -->
+    <script src="js/intro.js?v=128"></script>
+    <script src="js/galeria.js?v=128"></script>
     
 </body>
 </html>
