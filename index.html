@@ -11,45 +11,101 @@
     <link rel="stylesheet" href="css/galeria.css">
 
     <style>
-        @media (orientation: landscape) { .aviso-horizontal { display: none !important; } }
-        @media (orientation: portrait) { .aviso-vertical { display: none !important; } }
+        @media (orientation: landscape) { 
+            .aviso-horizontal { display: none !important; } 
+        }
+        @media (orientation: portrait) { 
+            .aviso-vertical { display: none !important; } 
+        }
         
         #btn-menu-flotante {
-            position: fixed; bottom: 20px; left: 20px;
-            background: rgba(225, 29, 72, 0.8); color: white;
-            padding: 12px 20px; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
-            z-index: 100000; cursor: move; backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
-            user-select: none; touch-action: none; transition: left 0.3s ease, top 0.3s ease;
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px;
+            background: rgba(225, 29, 72, 0.8); 
+            color: white;
+            padding: 12px 20px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            font-size: 0.9rem;
+            z-index: 100000; 
+            cursor: move; 
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.2);
+            user-select: none; 
+            touch-action: none; 
+            transition: left 0.3s ease, top 0.3s ease;
         }
         #btn-menu-flotante.arrastrando { 
-            transform: scale(1.05); background: rgba(225, 29, 72, 1); opacity: 0.8; transition: none; 
+            transform: scale(1.05); 
+            background: rgba(225, 29, 72, 1); 
+            opacity: 0.8; 
+            transition: none; 
         }
 
         #pantalla-menu {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(15, 23, 42, 0.95); z-index: 100001;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s, visibility 0.3s;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95); 
+            z-index: 100001;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            opacity: 0; 
+            visibility: hidden; 
+            pointer-events: none; 
+            transition: opacity 0.3s, visibility 0.3s;
         }
         #pantalla-menu.activo { 
-            opacity: 1; visibility: visible; pointer-events: all; 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: all; 
         }
         
-        .titulo-menu { color: #e11d48; margin-bottom: 30px; font-size: 1.8rem; }
+        .titulo-menu { 
+            color: #e11d48; 
+            margin-bottom: 30px; 
+            font-size: 1.8rem; 
+        }
         
         .btn-nav-menu {
-            background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px 30px; border-radius: 15px; margin-bottom: 15px;
-            width: 80%; max-width: 300px; font-size: 1.1rem; cursor: pointer; backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.1); 
+            color: white; 
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 30px; 
+            border-radius: 15px; 
+            margin-bottom: 15px;
+            width: 80%; 
+            max-width: 300px; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            backdrop-filter: blur(5px);
         }
-        .btn-nav-menu:active { background: rgba(225, 29, 72, 0.8); }
-        .btn-cerrar-menu { margin-top: 20px; background: transparent; color: #cbd5e1; border: none; font-size: 1rem; text-decoration: underline; cursor: pointer; }
+        .btn-nav-menu:active { 
+            background: rgba(225, 29, 72, 0.8); 
+        }
+        
+        .btn-cerrar-menu { 
+            margin-top: 20px; 
+            background: transparent; 
+            color: #cbd5e1; 
+            border: none; 
+            font-size: 1rem; 
+            text-decoration: underline; 
+            cursor: pointer; 
+        }
     </style>
 </head>
 <body>
 
-    <!-- MÓDULO 1: LA LINTERNA -->
+    <!-- ========================================== -->
+    <!-- MÓDULO 1: LA LINTERNA                      -->
+    <!-- ========================================== -->
     <section id="modulo-intro" class="pantalla">
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
@@ -69,7 +125,9 @@
         <div id="contenedor-corazones"></div>
     </section>
 
-    <!-- MÓDULO 2: VIDEO PRINCIPAL -->
+    <!-- ========================================== -->
+    <!-- MÓDULO 2: VIDEO PRINCIPAL                  -->
+    <!-- ========================================== -->
     <section id="modulo-video" style="display: none;">
         <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
@@ -83,7 +141,9 @@
         </div>
     </section>
 
-    <!-- MÓDULO 3: TESORO Y CARTA -->
+    <!-- ========================================== -->
+    <!-- MÓDULO 3: TESORO Y CARTA                   -->
+    <!-- ========================================== -->
     <section id="modulo-tesoro" style="display: none;">
         
         <div id="interfaz-tesoro">
@@ -167,7 +227,9 @@
         <button id="btn-cerrar-ayuda">Cerrar ayuda</button>
     </div>
 
-    <!-- MÓDULO 4: GALERÍA DE REGALOS -->
+    <!-- ========================================== -->
+    <!-- MÓDULO 4: GALERÍA DE REGALOS               -->
+    <!-- ========================================== -->
     <section id="modulo-galeria" style="display: none;">
         <h2 class="titulo-galeria">Galería de Regalos</h2>
         <p class="instruccion-galeria">Desliza para ver más ➡️</p>
@@ -241,7 +303,9 @@
         <button id="btn-saltar-video-regalo" style="position: absolute; bottom: 30px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px);">Saltar Video ⏭️</button>
     </section>
 
-    <!-- MÓDULO 5: INTERIOR DE LOS REGALOS -->
+    <!-- ========================================== -->
+    <!-- MÓDULO 5: INTERIOR DE LOS REGALOS          -->
+    <!-- ========================================== -->
     <div id="contenedor-particulas"></div>
     
     <section id="modulo-experiencias" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; z-index: 99997; overflow-y: auto; padding-bottom: 50px;">
@@ -317,7 +381,7 @@
         </div>
     </section>
 
-    <!-- VENTANA MODAL: FOTO DE LA CARTA (CORREGIDA .jpg) -->
+    <!-- VENTANA MODAL: FOTO DE LA CARTA -->
     <div id="modal-carta-original" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 100005; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
         <div style="position: relative; max-width: 100%; max-height: 90vh;">
             <button id="btn-cerrar-carta-amarilla" style="position: absolute; top: -15px; right: -10px; background: #e11d48; border: 2px solid white; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 2;">✖</button>
@@ -327,7 +391,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0 (NUBES, SOMBRAS, LUCIÉRNAGAS Y 3 CLIMAS) -->
+    <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0 (NUBES, SOMBRAS, ETC)   -->
     <!-- ======================================================== -->
     <section id="modulo-jardin" class="jardin-noche" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 2s ease;">
         
@@ -341,7 +405,6 @@
             <div class="montana montana-1"></div>
             <div class="montana montana-2"></div>
             <div class="montana montana-3"></div>
-            
             <!-- Contenedores Mágicos -->
             <div id="contenedor-nubes" style="position: absolute; width: 100%; height: 100%;"></div>
         </div>
@@ -358,6 +421,12 @@
             <button class="btn-tiempo activo" id="btn-dia">☀️ Día</button>
             <button class="btn-tiempo" id="btn-tarde">🌅 Tarde</button>
             <button class="btn-tiempo" id="btn-noche">🌙 Noche</button>
+        </div>
+
+        <!-- BOTONES EXTRA: REINICIAR Y LIMPIAR TRAZOS (Esquina Superior Derecha) -->
+        <div id="controles-extras-jardin" style="display: none; position: absolute; top: 20px; right: 20px; flex-direction: column; gap: 10px; z-index: 30;">
+            <button id="btn-reiniciar-jardin" class="btn-sutil-jardin" title="Reiniciar Jardín">🔄 Reiniciar Todo</button>
+            <button id="btn-limpiar-rastro" class="btn-sutil-jardin" title="Borrar flores dibujadas">🧹 Limpiar Trazos</button>
         </div>
 
         <!-- CONTENEDOR INVISIBLE PARA INTERACTIVIDAD DE DIBUJO -->
@@ -389,7 +458,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- MENÚ FLOTANTE Y CARGA -->
+    <!-- MENÚ FLOTANTE Y CARGAS                                   -->
     <!-- ======================================================== -->
     <div id="btn-menu-flotante">🌟 Menú</div>
     
@@ -402,6 +471,7 @@
         <button class="btn-cerrar-menu">Cerrar menú</button>
     </div>
 
+    <!-- CARGA ESTÁNDAR GENERAL -->
     <div id="capa-oscura-final">
         <div id="mensaje-carga" style="display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; padding: 20px;">
             <div class="corazon-latido" style="font-size: 4rem; margin-bottom: 20px;">❤️</div>
@@ -409,9 +479,32 @@
         </div>
     </div>
 
-    <!-- SCRIPTS v=128 -->
-    <script src="js/intro.js?v=128"></script>
-    <script src="js/galeria.js?v=128"></script>
+    <!-- PANTALLA DE CARGA EXCLUSIVA DEL JARDÍN CON LAS INSTRUCCIONES -->
+    <div id="carga-jardin" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #020617; z-index: 100008; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px; box-sizing: border-box; transition: opacity 1s ease; opacity: 0;">
+        <div style="font-size: 5rem; animation: girar-flor 4s linear infinite;">🌻</div>
+        <h2 style="color: #fde047; margin-top: 20px; font-size: 1.8rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Preparando tu Jardín Mágico...</h2>
+        
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(253, 224, 71, 0.3); padding: 25px; border-radius: 15px; margin-top: 30px; max-width: 90%; backdrop-filter: blur(5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+            <p style="color: white; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.5;">
+                <span style="font-size: 1.8rem; display: block; margin-bottom: 10px;">📱🔄</span>
+                Para vivir la experiencia al máximo, te recomiendo colocar tu teléfono en <strong>horizontal</strong>.
+            </p>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+            <p style="color: #cbd5e1; font-size: 1rem; line-height: 1.5; font-style: italic;">
+                <strong style="color: #fde047;">✨ Un secreto mágico:</strong><br><br>
+                Cuando el jardín termine de florecer, <strong>toca la pantalla</strong> en cualquier lugar para plantar una flor, o <strong>desliza tu dedo sin soltarlo</strong> para crear un hermoso rastro.<br><br>
+                <span style="font-size: 0.9rem; color: #94a3b8; display: block; margin-top: 10px;">
+                    En la esquina superior derecha encontrarás dos botones sutiles:<br>
+                    <strong>🔄 Reiniciar Todo:</strong> Para vivir el crecimiento desde la semilla otra vez.<br>
+                    <strong>🧹 Limpiar Trazos:</strong> Para borrar solo las flores que hayas dibujado.
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/intro.js?v=129"></script>
+    <script src="js/galeria.js?v=129"></script>
     
 </body>
 </html>
