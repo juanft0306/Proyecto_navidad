@@ -2,7 +2,6 @@
 // MÓDULO 4: LÓGICA DE LA GALERÍA Y DISQUETES
 // ==========================================
 
-// 1. Conectar el botón de la carta final con la galería
 const btnSiguienteSorpresa = document.getElementById('btn-siguiente');
 
 if (btnSiguienteSorpresa) {
@@ -24,7 +23,41 @@ if (btnSiguienteSorpresa) {
     });
 }
 
-// 2. Lógica de los Disquetes y el Video
+// SISTEMA DE PARTÍCULAS 
+let intervaloParticulas;
+function iniciarParticulas(tipo) {
+    const contenedor = document.getElementById('contenedor-particulas');
+    if (!contenedor) return;
+    clearInterval(intervaloParticulas);
+    contenedor.innerHTML = '';
+    
+    let emojis = [];
+    if (tipo === 'pinguino') emojis = ['🐧', '💖', '✨'];
+    else if (tipo === 'oveja') emojis = ['🌷', '🌹', '✨'];
+    else if (tipo === 'gato') emojis = ['🐱', '🍤', '😻'];
+    else if (tipo === 'flores') emojis = ['🌻', '💛', '✨'];
+    else if (tipo === 'cadena') emojis = ['☀️', '💛', '✨'];
+
+    intervaloParticulas = setInterval(() => {
+        const p = document.createElement('div');
+        p.classList.add('particula');
+        p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        contenedor.appendChild(p);
+        
+        setTimeout(() => { p.remove(); }, 6000);
+    }, 400); // Cae una partícula nueva cada 400ms
+}
+
+function detenerParticulas() {
+    clearInterval(intervaloParticulas);
+    const contenedor = document.getElementById('contenedor-particulas');
+    if (contenedor) contenedor.innerHTML = '';
+}
+
+// Lógica de los Disquetes y el Video
 const disquetes = document.querySelectorAll('.disquete');
 const toastError = document.getElementById('toast-error');
 const sonidoError = document.getElementById('sonido-error');
@@ -36,7 +69,6 @@ let regaloActual = "";
 
 disquetes.forEach(disquete => {
     disquete.addEventListener('click', () => {
-        // Si está bloqueado
         if (disquete.classList.contains('bloqueado')) {
             if (sonidoError) { sonidoError.currentTime = 0; sonidoError.play().catch(e=>console.log(e)); }
             toastError.classList.add('activo');
@@ -44,7 +76,6 @@ disquetes.forEach(disquete => {
             return;
         }
 
-        // Si está activo
         regaloActual = disquete.getAttribute('data-id');
         const rutaVideo = disquete.getAttribute('data-video');
         
@@ -52,7 +83,6 @@ disquetes.forEach(disquete => {
         const capaOscura = document.getElementById('capa-oscura-final');
         const mensajeCarga = document.getElementById('mensaje-carga');
         
-        // 1er Sándwich: Pantalla de carga y girar a horizontal
         if (textoCarga) textoCarga.innerText = "Preparando tu recuerdo...\nTe recomiendo poner el teléfono en horizontal 📱🔄";
         if (capaOscura) capaOscura.classList.add('activo');
         if (mensajeCarga) mensajeCarga.style.display = 'flex';
@@ -69,7 +99,7 @@ disquetes.forEach(disquete => {
     });
 });
 
-// 3. Función para cuando termina (o se salta) el video
+// Función para cuando termina el video
 function finalizarVideoRegalo() {
     videoRegaloPlayer.pause();
     moduloVideoRegalo.style.display = 'none';
@@ -78,7 +108,6 @@ function finalizarVideoRegalo() {
     const capaOscura = document.getElementById('capa-oscura-final');
     const mensajeCarga = document.getElementById('mensaje-carga');
 
-    // 2do Sándwich: Pantalla de carga y volver a vertical
     if (textoCarga) textoCarga.innerText = "Cargando la experiencia...\nYa puedes volver a colocar el teléfono en vertical 📱⬇️";
     if (capaOscura) capaOscura.classList.add('activo');
     if (mensajeCarga) mensajeCarga.style.display = 'flex';
@@ -87,19 +116,15 @@ function finalizarVideoRegalo() {
         if (capaOscura) capaOscura.classList.remove('activo');
         setTimeout(() => { if (mensajeCarga) mensajeCarga.style.display = 'none'; }, 1000);
         
-        // Ocultar galería y mostrar módulo de experiencias
         document.getElementById('modulo-galeria').style.display = 'none';
         document.getElementById('modulo-experiencias').style.display = 'block';
         
-        // Ocultar todas las experiencias internas
-        document.querySelectorAll('.experiencia-interna').forEach(exp => {
-            exp.style.display = 'none';
-        });
+        document.querySelectorAll('.experiencia-interna').forEach(exp => { exp.style.display = 'none'; });
         
-        // Mostrar SOLO la experiencia del regalo seleccionado
         const expActiva = document.getElementById('exp-' + regaloActual);
         if (expActiva) {
             expActiva.style.display = 'flex';
+            iniciarParticulas(regaloActual); // Inicia la lluvia de emojis
         }
 
     }, 4500); 
@@ -108,7 +133,7 @@ function finalizarVideoRegalo() {
 if (videoRegaloPlayer) videoRegaloPlayer.addEventListener('ended', finalizarVideoRegalo);
 if (btnSaltarVideoRegalo) btnSaltarVideoRegalo.addEventListener('click', finalizarVideoRegalo);
 
-// 4. Lógica para el botón "Volver a la Galería"
+// Lógica para el botón "Volver a la Galería"
 const btnVolverGaleria = document.getElementById('btn-volver-galeria');
 
 if (btnVolverGaleria) {
@@ -117,6 +142,7 @@ if (btnVolverGaleria) {
         if (capaOscura) capaOscura.classList.add('activo');
 
         setTimeout(() => {
+            detenerParticulas(); // Detenemos los emojis
             document.getElementById('modulo-experiencias').style.display = 'none';
             document.getElementById('modulo-galeria').style.display = 'flex';
             
