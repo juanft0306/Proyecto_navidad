@@ -1,41 +1,288 @@
 /* ==========================================
    MÓDULOS GALERÍA Y EXPERIENCIAS
    ========================================== */
-#modulo-galeria { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.2) 0%, transparent 50%), repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px), linear-gradient(180deg, #0f172a 0%, #020617 100%); background-color: #0f172a; z-index: 99998; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
-.titulo-galeria { background: linear-gradient(to right, #fb7185, #e11d48, #f43f5e, #fb7185); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.4rem; margin-top: 8vh; margin-bottom: 1.5vh; font-weight: 900; filter: drop-shadow(0px 4px 10px rgba(225, 29, 72, 0.5)); animation: brilloTexto 3s linear infinite; text-align: center; }
-@keyframes brilloTexto { to { background-position: 200% center; } }
-.instruccion-galeria { color: #cbd5e1; font-size: 0.9rem; font-weight: 600; margin-bottom: 4vh; background: rgba(255, 255, 255, 0.08); padding: 8px 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); animation: latidoInstruccion 2s infinite ease-in-out; }
-@keyframes latidoInstruccion { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; color: white; } }
-.slider-paginas { display: flex; width: 100vw; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 20px; }
-.slider-paginas::-webkit-scrollbar { display: none; }
-.pagina-grid { min-width: 100vw; scroll-snap-align: center; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, auto); gap: 15px; padding: 0 6vw; box-sizing: border-box; }
-.disquete { background: #4a4a52; border-radius: 6px 22px 6px 6px; padding: 8px 6px 15px 6px; display: flex; flex-direction: column; align-items: center; box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 2px rgba(255,255,255,0.2), 3px 5px 12px rgba(0,0,0,0.7); border: 1px solid #2d2d30; cursor: pointer; transition: transform 0.2s; position: relative; user-select: none; }
-.disquete:active { transform: scale(0.92); }
-.caratula-container { background: white; width: 100%; aspect-ratio: 1 / 1; border-radius: 3px; overflow: hidden; margin-bottom: 4px; display: flex; justify-content: center; align-items: center; position: relative; }
-.caratula-img { width: 100%; height: 100%; object-fit: cover; }
-.candado { font-size: 2rem; color: #64748b; }
-.titulo-disquete { color: white; font-size: 0.65rem; font-weight: bold; text-align: center; margin-top: 4px; }
-.disquete.bloqueado { background: #33333b; border-color: #1f1f22; }
-.disquete.bloqueado .caratula-container { background: #cbd5e1; }
-.disquete.bloqueado .titulo-disquete { color: #94a3b8; }
-#toast-error { position: fixed; bottom: 100px; background: rgba(225, 29, 72, 0.95); color: white; padding: 12px 25px; border-radius: 30px; font-weight: bold; z-index: 100005; opacity: 0; pointer-events: none; transition: 0.3s; transform: translateY(20px); }
-#toast-error.activo { opacity: 1; transform: translateY(0); }
+#modulo-galeria { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background: radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.2) 0%, transparent 50%), 
+                repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px), 
+                repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px), 
+                linear-gradient(180deg, #0f172a 0%, #020617 100%); 
+    background-color: #0f172a; 
+    z-index: 99998; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    overflow: hidden; 
+}
 
-.experiencia-interna { padding: 80px 20px 40px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; position: relative; z-index: 2; }
-.titulo-exp { color: #fb7185; font-size: 2.2rem; margin-bottom: 15px; text-align: center; z-index: 2; }
-.texto-exp { color: #cbd5e1; font-size: 1.05rem; text-align: center; margin-bottom: 40px; line-height: 1.6; max-width: 90%; font-style: italic; z-index: 2; }
-.contenedor-polaroids { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; z-index: 2; }
-.polaroid { background: white; padding: 10px 10px 20px 10px; border-radius: 4px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transform: rotate(-3deg); width: 250px; }
-.polaroid:nth-child(even) { transform: rotate(4deg); }
-.polaroid img { width: 100%; height: 250px; object-fit: cover; }
-.polaroid p { color: #334155; text-align: center; margin-top: 15px; font-weight: bold; }
-#contenedor-particulas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; overflow: hidden; }
-.particula { position: absolute; top: -10vh; animation: caer linear infinite; opacity: 0.8; }
-@keyframes caer { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+.titulo-galeria { 
+    background: linear-gradient(to right, #fb7185, #e11d48, #f43f5e, #fb7185); 
+    background-size: 200% auto; 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    font-size: 2.4rem; 
+    margin-top: 8vh; 
+    margin-bottom: 1.5vh; 
+    font-weight: 900; 
+    filter: drop-shadow(0px 4px 10px rgba(225, 29, 72, 0.5)); 
+    animation: brilloTexto 3s linear infinite; 
+    text-align: center; 
+}
+
+@keyframes brilloTexto { 
+    to { background-position: 200% center; } 
+}
+
+.instruccion-galeria { 
+    color: #cbd5e1; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    margin-bottom: 4vh; 
+    background: rgba(255, 255, 255, 0.08); 
+    padding: 8px 25px; 
+    border-radius: 30px; 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(5px); 
+    animation: latidoInstruccion 2s infinite ease-in-out; 
+}
+
+@keyframes latidoInstruccion { 
+    0%, 100% { transform: scale(1); opacity: 0.8; } 
+    50% { transform: scale(1.05); opacity: 1; color: white; } 
+}
+
+.slider-paginas { 
+    display: flex; 
+    width: 100vw; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    scroll-behavior: smooth; 
+    padding-bottom: 20px; 
+}
+
+.slider-paginas::-webkit-scrollbar { 
+    display: none; 
+}
+
+.pagina-grid { 
+    min-width: 100vw; 
+    scroll-snap-align: center; 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(3, auto); 
+    gap: 15px; 
+    padding: 0 6vw; 
+    box-sizing: border-box; 
+}
+
+.disquete { 
+    background: #4a4a52; 
+    border-radius: 6px 22px 6px 6px; 
+    padding: 8px 6px 15px 6px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 2px rgba(255,255,255,0.2), 3px 5px 12px rgba(0,0,0,0.7); 
+    border: 1px solid #2d2d30; 
+    cursor: pointer; 
+    transition: transform 0.2s; 
+    position: relative; 
+    user-select: none; 
+}
+
+.disquete:active { 
+    transform: scale(0.92); 
+}
+
+.caratula-container { 
+    background: white; 
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    border-radius: 3px; 
+    overflow: hidden; 
+    margin-bottom: 4px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    position: relative; 
+}
+
+.caratula-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.candado { 
+    font-size: 2rem; 
+    color: #64748b; 
+}
+
+.titulo-disquete { 
+    color: white; 
+    font-size: 0.65rem; 
+    font-weight: bold; 
+    text-align: center; 
+    margin-top: 4px; 
+}
+
+.disquete.bloqueado { 
+    background: #33333b; 
+    border-color: #1f1f22; 
+}
+
+.disquete.bloqueado .caratula-container { 
+    background: #cbd5e1; 
+}
+
+.disquete.bloqueado .titulo-disquete { 
+    color: #94a3b8; 
+}
+
+#toast-error { 
+    position: fixed; 
+    bottom: 100px; 
+    background: rgba(225, 29, 72, 0.95); 
+    color: white; 
+    padding: 12px 25px; 
+    border-radius: 30px; 
+    font-weight: bold; 
+    z-index: 100005; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: 0.3s; 
+    transform: translateY(20px); 
+}
+
+#toast-error.activo { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.experiencia-interna { 
+    padding: 80px 20px 40px 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    min-height: 100vh; 
+    position: relative; 
+    z-index: 2; 
+}
+
+.titulo-exp { 
+    color: #fb7185; 
+    font-size: 2.2rem; 
+    margin-bottom: 15px; 
+    text-align: center; 
+    z-index: 2; 
+}
+
+.texto-exp { 
+    color: #cbd5e1; 
+    font-size: 1.05rem; 
+    text-align: center; 
+    margin-bottom: 40px; 
+    line-height: 1.6; 
+    max-width: 90%; 
+    font-style: italic; 
+    z-index: 2; 
+}
+
+.contenedor-polaroids { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px; 
+    z-index: 2; 
+}
+
+.polaroid { 
+    background: white; 
+    padding: 10px 10px 20px 10px; 
+    border-radius: 4px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
+    transform: rotate(-3deg); 
+    width: 250px; 
+}
+
+.polaroid:nth-child(even) { 
+    transform: rotate(4deg); 
+}
+
+.polaroid img { 
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+}
+
+.polaroid p { 
+    color: #334155; 
+    text-align: center; 
+    margin-top: 15px; 
+    font-weight: bold; 
+}
+
+#contenedor-particulas { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    pointer-events: none; 
+    z-index: 99999; 
+    overflow: hidden; 
+}
+
+.particula { 
+    position: absolute; 
+    top: -10vh; 
+    animation: caer linear infinite; 
+    opacity: 0.8; 
+}
+
+@keyframes caer { 
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; } 
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+}
 
 /* ==========================================
-   JARDÍN MÁGICO 4.0 (3 CLIMAS)
+   JARDÍN MÁGICO 4.0 (3 CLIMAS Y BOTONES SUTILES)
    ========================================== */
+
+/* Botones Extras Sutiles (Limpiar y Reiniciar) */
+.btn-sutil-jardin {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: auto;
+}
+
+.btn-sutil-jardin:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Animación pantalla de carga jardín */
+@keyframes girar-flor { 
+    0% { transform: rotate(0deg) scale(1); } 
+    50% { transform: rotate(180deg) scale(1.1); } 
+    100% { transform: rotate(360deg) scale(1); } 
+}
+
 .jardin-noche { background: linear-gradient(180deg, #020617 0%, #1e1b4b 100%); }
 .jardin-lluvia { background: linear-gradient(180deg, #1e293b 0%, #475569 100%); }
 
@@ -45,61 +292,276 @@
 .clima-noche { background: linear-gradient(180deg, #020617 0%, #0f172a 40%, #1e1b4b 100%); }
 
 /* ASTRO (Sol y Luna Dinámicos) */
-#astro-cielo { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 50%; transition: all 2s ease-in-out; z-index: 1; }
-.sol-dia { bottom: 65vh; width: 140px; height: 140px; background: radial-gradient(circle, #ffffff 0%, #fef08a 50%, #fde047 100%); box-shadow: 0 0 100px #fef08a, 0 0 200px #fde047; }
-.sol-tarde { bottom: 25vh; width: 160px; height: 160px; background: radial-gradient(circle, #fff7ed 0%, #fde047 50%, #f59e0b 100%); box-shadow: 0 0 80px #fef08a, 0 0 150px #f59e0b; }
-.luna-noche { bottom: 60vh; width: 100px; height: 100px; background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%); box-shadow: 0 0 50px #f1f5f9; }
+#astro-cielo { 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    border-radius: 50%; 
+    transition: all 2s ease-in-out; 
+    z-index: 1; 
+}
+
+.sol-dia { 
+    bottom: 65vh; 
+    width: 140px; 
+    height: 140px; 
+    background: radial-gradient(circle, #ffffff 0%, #fef08a 50%, #fde047 100%); 
+    box-shadow: 0 0 100px #fef08a, 0 0 200px #fde047; 
+}
+
+.sol-tarde { 
+    bottom: 25vh; 
+    width: 160px; 
+    height: 160px; 
+    background: radial-gradient(circle, #fff7ed 0%, #fde047 50%, #f59e0b 100%); 
+    box-shadow: 0 0 80px #fef08a, 0 0 150px #f59e0b; 
+}
+
+.luna-noche { 
+    bottom: 60vh; 
+    width: 100px; 
+    height: 100px; 
+    background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%); 
+    box-shadow: 0 0 50px #f1f5f9; 
+}
 
 /* Montañas Cambiantes */
-.montana { position: absolute; bottom: 15vh; border-radius: 100% 100% 0 0; transition: background 2s ease; }
+.montana { 
+    position: absolute; 
+    bottom: 15vh; 
+    border-radius: 100% 100% 0 0; 
+    transition: background 2s ease; 
+}
+
 .montana-1 { left: -15%; width: 60%; height: 25vh; z-index: 2; }
 .montana-2 { right: -20%; width: 70%; height: 35vh; z-index: 1; }
 .montana-3 { left: 20%; width: 50%; height: 18vh; z-index: 3; }
 
 /* Colores de montañas por clima */
-.clima-dia .montana-1 { background: #166534; } .clima-dia .montana-2 { background: #14532d; } .clima-dia .montana-3 { background: #22c55e; }
-.clima-tarde .montana-1 { background: #2d0d04; } .clima-tarde .montana-2 { background: #1a0802; } .clima-tarde .montana-3 { background: #3f1205; }
-.clima-noche .montana-1 { background: #020617; } .clima-noche .montana-2 { background: #000000; } .clima-noche .montana-3 { background: #0f172a; }
+.clima-dia .montana-1 { background: #166534; } 
+.clima-dia .montana-2 { background: #14532d; } 
+.clima-dia .montana-3 { background: #22c55e; }
+
+.clima-tarde .montana-1 { background: #2d0d04; } 
+.clima-tarde .montana-2 { background: #1a0802; } 
+.clima-tarde .montana-3 { background: #3f1205; }
+
+.clima-noche .montana-1 { background: #020617; } 
+.clima-noche .montana-2 { background: #000000; } 
+.clima-noche .montana-3 { background: #0f172a; }
 
 /* Pasto y su iluminación dinámica */
-.pasto-jardin { position: absolute; bottom: 0; width: 120%; left: -10%; height: 18vh; background: linear-gradient(180deg, #166534 0%, #064e3b 100%); border-top: 5px solid #22c55e; border-radius: 50% 50% 0 0 / 20px 20px 0 0; z-index: 5; transition: filter 2s ease; }
+.pasto-jardin { 
+    position: absolute; 
+    bottom: 0; 
+    width: 120%; 
+    left: -10%; 
+    height: 18vh; 
+    background: linear-gradient(180deg, #166534 0%, #064e3b 100%); 
+    border-top: 5px solid #22c55e; 
+    border-radius: 50% 50% 0 0 / 20px 20px 0 0; 
+    z-index: 5; 
+    transition: filter 2s ease; 
+}
+
 .clima-dia .pasto-jardin { filter: brightness(1.2); }
 .clima-tarde .pasto-jardin { filter: brightness(0.8); }
 .clima-noche .pasto-jardin { filter: brightness(0.2); }
 
 /* NUBES (Realistas con CSS) */
-.nube-magica { position: absolute; width: 120px; height: 40px; background: white; border-radius: 50px; filter: blur(3px) drop-shadow(0 10px 15px rgba(0,0,0,0.2)); opacity: 0.9; transition: opacity 2s ease; z-index: 5; }
-.nube-magica::before { content: ''; position: absolute; top: -30px; left: 15px; width: 60px; height: 60px; background: white; border-radius: 50%; }
-.nube-magica::after { content: ''; position: absolute; top: -20px; right: 20px; width: 50px; height: 50px; background: white; border-radius: 50%; }
-.clima-noche .nube-magica { opacity: 0.2; background: #94a3b8; }
+.nube-magica { 
+    position: absolute; 
+    width: 120px; 
+    height: 40px; 
+    background: white; 
+    border-radius: 50px; 
+    filter: blur(3px) drop-shadow(0 10px 15px rgba(0,0,0,0.2)); 
+    opacity: 0.9; 
+    transition: opacity 2s ease; 
+    z-index: 5; 
+}
+
+.nube-magica::before { 
+    content: ''; 
+    position: absolute; 
+    top: -30px; 
+    left: 15px; 
+    width: 60px; 
+    height: 60px; 
+    background: white; 
+    border-radius: 50%; 
+}
+
+.nube-magica::after { 
+    content: ''; 
+    position: absolute; 
+    top: -20px; 
+    right: 20px; 
+    width: 50px; 
+    height: 50px; 
+    background: white; 
+    border-radius: 50%; 
+}
+
+.clima-noche .nube-magica { 
+    opacity: 0.2; 
+    background: #94a3b8; 
+}
 
 /* MARIPOSAS Y LUCIÉRNAGAS */
-.mariposa { position: absolute; font-size: 1.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); z-index: 10; animation: aleteo 0.3s infinite alternate; }
-@keyframes aleteo { 0% { transform: scaleY(1); } 100% { transform: scaleY(0.4); } }
+.mariposa { 
+    position: absolute; 
+    font-size: 1.5rem; 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); 
+    z-index: 10; 
+    animation: aleteo 0.3s infinite alternate; 
+}
 
-.luciernaga { position: absolute; width: 6px; height: 6px; background: #fef08a; border-radius: 50%; box-shadow: 0 0 15px 4px #fde047; z-index: 10; animation: palpitar-luciernaga 2s infinite alternate ease-in-out; }
-@keyframes palpitar-luciernaga { 0% { opacity: 0.3; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.5); } }
+@keyframes aleteo { 
+    0% { transform: scaleY(1); } 
+    100% { transform: scaleY(0.4); } 
+}
+
+.luciernaga { 
+    position: absolute; 
+    width: 6px; 
+    height: 6px; 
+    background: #fef08a; 
+    border-radius: 50%; 
+    box-shadow: 0 0 15px 4px #fde047; 
+    z-index: 10; 
+    animation: palpitar-luciernaga 2s infinite alternate ease-in-out; 
+}
+
+@keyframes palpitar-luciernaga { 
+    0% { opacity: 0.3; transform: scale(0.8); } 
+    100% { opacity: 1; transform: scale(1.5); } 
+}
 
 /* EFECTO DE SOMBRA AL ECLIPSE */
-#capa-sombra.eclipse-activo { opacity: 0.55; } /* Oscurece el jardín cuando pasa la nube */
+#capa-sombra.eclipse-activo { 
+    opacity: 0.55; 
+}
 
 /* CONTROLES TIEMPO */
-.btn-tiempo { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); transition: 0.3s; }
-.btn-tiempo.activo { background: rgba(225, 29, 72, 0.8); border-color: #fb7185; transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+.btn-tiempo { 
+    background: rgba(255,255,255,0.2); 
+    border: 2px solid rgba(255,255,255,0.4); 
+    color: white; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    backdrop-filter: blur(5px); 
+    transition: 0.3s; 
+}
+
+.btn-tiempo.activo { 
+    background: rgba(225, 29, 72, 0.8); 
+    border-color: #fb7185; 
+    transform: scale(1.1); 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+}
 
 /* FLORES */
-.flor-jardin { font-size: clamp(2.5rem, 15vw, 5.5rem); transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); transform-origin: bottom center; width: 18%; text-align: center; }
-.flor-animada { animation: florecer 1.8s ease-out forwards; text-shadow: 0 5px 15px rgba(0,0,0,0.6); }
-.flor-campo { position: absolute; transform-origin: bottom center; transform: scale(0) rotate(-15deg); opacity: 0; transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; text-align: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8)); }
-.flor-campo.crecida { transform: scale(1) rotate(0deg); opacity: 1; }
-@keyframes florecer { 0% { transform: scale(0.5) rotate(-15deg); filter: brightness(0.5); } 50% { transform: scale(1.2) rotate(15deg); filter: brightness(1.2); } 100% { transform: scale(1) rotate(0deg); filter: brightness(1); } }
-.flor-rastro { position: absolute; pointer-events: none; transform: translate(-50%, -50%) scale(0) rotate(0deg); animation: nacer-rastro 1s ease-out forwards; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); z-index: 50; }
-@keyframes nacer-rastro { 0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); } 40% { transform: translate(-50%, -50%) scale(1.3) rotate(var(--rot)); } 100% { transform: translate(-50%, -50%) scale(1) rotate(var(--rot)); opacity: 0.8; } }
+.flor-jardin { 
+    font-size: clamp(2.5rem, 15vw, 5.5rem); 
+    transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+    transform-origin: bottom center; 
+    width: 18%; 
+    text-align: center; 
+}
 
-.btn-jardin { background: rgba(255,255,255,0.9); border: 2px solid #fbbf24; color: #333; font-size: 1.1rem; font-weight: bold; padding: 12px 20px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s, background 0.2s, opacity 0.3s; margin: 0 5px; pointer-events: auto; }
-.btn-jardin:active { transform: scale(0.9); }
-.btn-jardin.btn-desactivado { opacity: 0.5; filter: grayscale(100%); pointer-events: none; }
-.gota-agua { position: absolute; background: rgba(186, 230, 253, 0.8); width: 3px; height: 30px; border-radius: 5px; animation: llover linear forwards; }
-@keyframes llover { 0% { transform: translateY(-50px) rotate(10deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(10deg); opacity: 0; } }
-.rayo-sol { position: absolute; background: rgba(255, 235, 59, 0.25); width: 100vw; height: 100vh; animation: amanecer 2s ease-in-out forwards; mix-blend-mode: overlay; }
-@keyframes amanecer { 0% { opacity: 0; } 100% { opacity: 1; } }
+.flor-animada { 
+    animation: florecer 1.8s ease-out forwards; 
+    text-shadow: 0 5px 15px rgba(0,0,0,0.6); 
+}
+
+.flor-campo { 
+    position: absolute; 
+    transform-origin: bottom center; 
+    transform: scale(0) rotate(-15deg); 
+    opacity: 0; 
+    transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; 
+    text-align: center; 
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8)); 
+}
+
+.flor-campo.crecida { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+}
+
+@keyframes florecer { 
+    0% { transform: scale(0.5) rotate(-15deg); filter: brightness(0.5); } 
+    50% { transform: scale(1.2) rotate(15deg); filter: brightness(1.2); } 
+    100% { transform: scale(1) rotate(0deg); filter: brightness(1); } 
+}
+
+.flor-rastro { 
+    position: absolute; 
+    pointer-events: none; 
+    transform: translate(-50%, -50%) scale(0) rotate(0deg); 
+    animation: nacer-rastro 1s ease-out forwards; 
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); 
+    z-index: 50; 
+}
+
+@keyframes nacer-rastro { 
+    0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); } 
+    40% { transform: translate(-50%, -50%) scale(1.3) rotate(var(--rot)); } 
+    100% { transform: translate(-50%, -50%) scale(1) rotate(var(--rot)); opacity: 0.8; } 
+}
+
+.btn-jardin { 
+    background: rgba(255,255,255,0.9); 
+    border: 2px solid #fbbf24; 
+    color: #333; 
+    font-size: 1.1rem; 
+    font-weight: bold; 
+    padding: 12px 20px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+    transition: transform 0.2s, background 0.2s, opacity 0.3s; 
+    margin: 0 5px; 
+    pointer-events: auto; 
+}
+
+.btn-jardin:active { 
+    transform: scale(0.9); 
+}
+
+.btn-jardin.btn-desactivado { 
+    opacity: 0.5; 
+    filter: grayscale(100%); 
+    pointer-events: none; 
+}
+
+.gota-agua { 
+    position: absolute; 
+    background: rgba(186, 230, 253, 0.8); 
+    width: 3px; 
+    height: 30px; 
+    border-radius: 5px; 
+    animation: llover linear forwards; 
+}
+
+@keyframes llover { 
+    0% { transform: translateY(-50px) rotate(10deg); opacity: 1; } 
+    100% { transform: translateY(100vh) rotate(10deg); opacity: 0; } 
+}
+
+.rayo-sol { 
+    position: absolute; 
+    background: rgba(255, 235, 59, 0.25); 
+    width: 100vw; 
+    height: 100vh; 
+    animation: amanecer 2s ease-in-out forwards; 
+    mix-blend-mode: overlay; 
+}
+
+@keyframes amanecer { 
+    0% { opacity: 0; } 
+    100% { opacity: 1; } 
+   }
