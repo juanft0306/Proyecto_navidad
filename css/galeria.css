@@ -2,257 +2,128 @@
    MÓDULO 4: GALERÍA DE REGALOS (ESTÉTICA PREMIUM)
    ========================================== */
 #modulo-galeria {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: 
-        radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.2) 0%, transparent 50%),
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 50% 15%, rgba(225, 29, 72, 0.2) 0%, transparent 50%),
         repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px),
         repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.03) 21px),
         linear-gradient(180deg, #0f172a 0%, #020617 100%);
-    background-color: #0f172a;
-    z-index: 99998;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
+    background-color: #0f172a; z-index: 99998; display: flex; flex-direction: column;
+    align-items: center; overflow: hidden;
 }
 
 .titulo-galeria {
     background: linear-gradient(to right, #fb7185, #e11d48, #f43f5e, #fb7185);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 2.4rem;
-    margin-top: 8vh;
-    margin-bottom: 1.5vh;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    filter: drop-shadow(0px 4px 10px rgba(225, 29, 72, 0.5));
-    animation: brilloTexto 3s linear infinite;
-    text-align: center;
+    background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    font-size: 2.4rem; margin-top: 8vh; margin-bottom: 1.5vh; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 2px; filter: drop-shadow(0px 4px 10px rgba(225, 29, 72, 0.5));
+    animation: brilloTexto 3s linear infinite; text-align: center;
 }
-
-@keyframes brilloTexto {
-    to { background-position: 200% center; }
-}
+@keyframes brilloTexto { to { background-position: 200% center; } }
 
 .instruccion-galeria {
-    color: #cbd5e1;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 4vh;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 8px 25px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(5px);
-    animation: latidoInstruccion 2s infinite ease-in-out;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: #cbd5e1; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+    margin-bottom: 4vh; background: rgba(255, 255, 255, 0.08); padding: 8px 25px;
+    border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+    animation: latidoInstruccion 2s infinite ease-in-out; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-
 @keyframes latidoInstruccion {
     0%, 100% { transform: scale(1); opacity: 0.8; }
     50% { transform: scale(1.05); opacity: 1; color: #ffffff; border-color: rgba(255, 255, 255, 0.3); }
 }
 
 .slider-paginas {
-    display: flex;
-    width: 100vw;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 20px;
+    display: flex; width: 100vw; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px;
 }
-
 .slider-paginas::-webkit-scrollbar { display: none; }
 .slider-paginas { -ms-overflow-style: none; scrollbar-width: none; }
-
 .pagina-grid {
-    min-width: 100vw;
-    scroll-snap-align: center;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, auto);
-    gap: 15px;
-    padding: 0 6vw; 
-    box-sizing: border-box;
+    min-width: 100vw; scroll-snap-align: center; display: grid;
+    grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, auto);
+    gap: 15px; padding: 0 6vw; box-sizing: border-box;
 }
 
-/* ==========================================
-   DISEÑO DEL CARTUCHO TIPO NINTENDO DS REAL
-   ========================================== */
+/* CARTUCHOS */
 .disquete {
-    background: #4a4a52; 
-    border-radius: 6px 22px 6px 6px; 
-    padding: 8px 6px 15px 6px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 
-        inset -2px -2px 5px rgba(0,0,0,0.5), 
-        inset 2px 2px 2px rgba(255,255,255,0.2), 
-        3px 5px 12px rgba(0,0,0,0.7);
-    border: 1px solid #2d2d30;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative; 
-    user-select: none;
+    background: #4a4a52; border-radius: 6px 22px 6px 6px; padding: 8px 6px 15px 6px; 
+    display: flex; flex-direction: column; align-items: center;
+    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 2px rgba(255,255,255,0.2), 3px 5px 12px rgba(0,0,0,0.7);
+    border: 1px solid #2d2d30; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; user-select: none;
 }
-
-.disquete:active {
-    transform: scale(0.92);
-    box-shadow: 1px 2px 5px rgba(0,0,0,0.6);
-}
-
-.disquete::after {
-    content: "▼";
-    color: #262628;
-    font-size: 0.5rem;
-    position: absolute;
-    bottom: 2px;
-}
+.disquete:active { transform: scale(0.92); box-shadow: 1px 2px 5px rgba(0,0,0,0.6); }
+.disquete::after { content: "▼"; color: #262628; font-size: 0.5rem; position: absolute; bottom: 2px; }
 
 .caratula-container {
-    background: #ffffff;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 4px;
-    border: 1px solid #a1a1aa;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    background: #ffffff; width: 100%; aspect-ratio: 1 / 1; border-radius: 3px;
+    overflow: hidden; margin-bottom: 4px; border: 1px solid #a1a1aa;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.2); display: flex; justify-content: center;
+    align-items: center; position: relative;
 }
-
-.caratula-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-}
-
-.candado {
-    font-size: 2rem;
-    color: #64748b;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
+.caratula-img { width: 100%; height: 100%; object-fit: cover; }
+.candado { font-size: 2rem; color: #64748b; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
 
 .titulo-disquete {
-    color: white;
-    font-size: 0.65rem; 
-    font-weight: bold;
-    text-align: center;
-    line-height: 1.1;
-    width: 100%;
-    margin-top: 4px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    color: white; font-size: 0.65rem; font-weight: bold; text-align: center;
+    line-height: 1.1; width: 100%; margin-top: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     font-family: sans-serif;
 }
 
-.disquete.bloqueado {
-    background: #33333b;
-    border-color: #1f1f22;
-}
-
-.disquete.bloqueado .caratula-container {
-    background: #cbd5e1;
-}
-
-.disquete.bloqueado .titulo-disquete {
-    color: #94a3b8;
-}
+.disquete.bloqueado { background: #33333b; border-color: #1f1f22; }
+.disquete.bloqueado .caratula-container { background: #cbd5e1; }
+.disquete.bloqueado .titulo-disquete { color: #94a3b8; }
 
 #toast-error {
-    position: fixed; 
-    bottom: 100px; 
-    background: rgba(225, 29, 72, 0.95);
-    color: white; 
-    padding: 12px 25px; 
-    border-radius: 30px; 
-    font-weight: bold;
-    font-size: 0.95rem; 
-    z-index: 100005; 
-    opacity: 0; 
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s; 
-    box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
-    transform: translateY(20px);
-    border: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(5px);
+    position: fixed; bottom: 100px; background: rgba(225, 29, 72, 0.95);
+    color: white; padding: 12px 25px; border-radius: 30px; font-weight: bold;
+    font-size: 0.95rem; z-index: 100005; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s; box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
+    transform: translateY(20px); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
 }
-#toast-error.activo { 
-    opacity: 1; 
-    transform: translateY(0);
-}
+#toast-error.activo { opacity: 1; transform: translateY(0); }
 
 /* ==========================================
    INTERIOR DE LAS EXPERIENCIAS (MÓDULO 5)
    ========================================== */
 .experiencia-interna {
-    padding: 80px 20px 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    padding: 80px 20px 40px 20px; display: flex; flex-direction: column;
+    align-items: center; min-height: 100vh; position: relative; z-index: 2;
 }
 
 .titulo-exp {
-    color: #fb7185;
-    font-size: 2.2rem;
-    margin-bottom: 15px;
-    text-align: center;
-    text-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
+    color: #fb7185; font-size: 2.2rem; margin-bottom: 15px; text-align: center;
+    text-shadow: 0 4px 10px rgba(225, 29, 72, 0.4); z-index: 2;
 }
 
 .texto-exp {
-    color: #cbd5e1;
-    font-size: 1rem;
-    text-align: center;
-    margin-bottom: 40px;
-    line-height: 1.6;
-    max-width: 90%;
-    font-style: italic;
+    color: #cbd5e1; font-size: 1rem; text-align: center; margin-bottom: 40px;
+    line-height: 1.6; max-width: 90%; font-style: italic; z-index: 2;
 }
 
 .contenedor-polaroids {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; z-index: 2;
 }
 
 .polaroid {
-    background: white;
-    padding: 10px 10px 20px 10px;
-    border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    transform: rotate(-3deg);
-    transition: transform 0.3s;
-    width: 250px;
+    background: white; padding: 10px 10px 20px 10px; border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); transform: rotate(-3deg);
+    transition: transform 0.3s; width: 250px;
 }
+.polaroid:nth-child(even) { transform: rotate(4deg); }
+.polaroid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
+.polaroid p { color: #334155; text-align: center; margin-top: 15px; font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: bold; font-size: 0.9rem; }
 
-.polaroid:nth-child(even) {
-    transform: rotate(4deg);
+/* ==========================================
+   SISTEMA DE PARTÍCULAS CAYENDO
+   ========================================== */
+#contenedor-particulas {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 99996; overflow: hidden;
 }
-
-.polaroid img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
+.particula {
+    position: absolute; top: -10vh; animation: caer linear infinite; opacity: 0.8;
 }
-
-.polaroid p {
-    color: #334155;
-    text-align: center;
-    margin-top: 15px;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    font-weight: bold;
-    font-size: 0.9rem;
+@keyframes caer {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
