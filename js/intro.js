@@ -275,4 +275,37 @@ botonesNavMenu.forEach(btn => {
         asegurarPantallaCompleta();
     });
 });
-            
+
+// ==========================================
+// CORRECCIÓN: EVITAR QUE EL MENÚ SE PIERDA AL GIRAR LA PANTALLA
+// ==========================================
+window.addEventListener('resize', () => {
+    const btnMenu = document.getElementById('btn-menu-flotante');
+    if (btnMenu) {
+        // Obtenemos la posición y el tamaño actuales del botón
+        const rect = btnMenu.getBoundingClientRect();
+        let nuevaX = rect.left;
+        let nuevaY = rect.top;
+        
+        // Verificamos si el botón se salió por la derecha
+        if (nuevaX + rect.width > window.innerWidth) {
+            nuevaX = window.innerWidth - rect.width - 20; // 20px de margen
+        }
+        
+        // Verificamos si el botón se salió por abajo
+        if (nuevaY + rect.height > window.innerHeight) {
+            nuevaY = window.innerHeight - rect.height - 20; // 20px de margen
+        }
+        
+        // Verificamos si el botón quedó en valores negativos (se salió por arriba o por la izquierda)
+        if (nuevaX < 20) nuevaX = 20;
+        if (nuevaY < 20) nuevaY = 20;
+        
+        // Aplicamos la nueva posición corregida
+        btnMenu.style.left = nuevaX + 'px';
+        btnMenu.style.top = nuevaY + 'px';
+        btnMenu.style.bottom = 'auto'; 
+        btnMenu.style.right = 'auto';
+    }
+});
+    
