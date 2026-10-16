@@ -20,9 +20,9 @@
             padding: 12px 20px; border-radius: 30px; font-weight: bold; font-size: 0.9rem;
             z-index: 100000; cursor: move; backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
-            user-select: none; touch-action: none;
+            user-select: none; touch-action: none; transition: left 0.3s ease, top 0.3s ease;
         }
-        #btn-menu-flotante.arrastrando { transform: scale(1.05); background: rgba(225, 29, 72, 1); opacity: 0.8; }
+        #btn-menu-flotante.arrastrando { transform: scale(1.05); background: rgba(225, 29, 72, 1); opacity: 0.8; transition: none; }
 
         #pantalla-menu {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -142,6 +142,7 @@
         <audio id="sonido-error" src="assets/audios/error.mp3" preload="auto"></audio>
     </section>
 
+    <!-- MÓDULO DE REPRODUCCIÓN DE VIDEOS -->
     <section id="modulo-video-regalo" style="display: none; position: fixed; top: 0; left: 0; z-index: 99999; background: black; width: 100vw; height: 100vh;">
         <video id="video-regalo-player" playsinline style="width: 100%; height: 100%; object-fit: contain;"><source src="" type="video/mp4"></video>
         <button id="btn-saltar-video-regalo" style="position: absolute; bottom: 30px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px);">Saltar Video ⏭️</button>
@@ -151,7 +152,6 @@
     <div id="contenedor-particulas"></div>
     
     <section id="modulo-experiencias" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0f172a; z-index: 99997; overflow-y: auto; padding-bottom: 50px;">
-        
         <button id="btn-volver-galeria" style="position: sticky; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(5px); cursor: pointer; font-weight: bold;">
             🔙 Volver
         </button>
@@ -160,38 +160,30 @@
         <div id="exp-pinguino" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Nuestro Pingüinito 🐧</h2>
             <p class="texto-exp">Este pingüinito rosado llegó a tus manos para acompañarte en tus rutinas de skincare. Quería regalarte un pequeño compañero que te recuerde todos los días lo hermosa que eres, tanto por dentro como por fuera. Cada vez que te cuides y te dediques tiempo para ti, quiero que sepas que yo también estoy ahí, admirando tu belleza y amándote en cada faceta tuya.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid"><img src="assets/img/pinguino.jpg" alt="Pingüinito"><p>El día que te lo di ❤️</p></div>
-            </div>
+            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/pinguino.jpg" alt="Pingüinito"><p>El día que te lo di ❤️</p></div></div>
         </div>
 
         <!-- 2. OVEJITA -->
         <div id="exp-oveja" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">La Ovejita 🐑🌷</h2>
             <p class="texto-exp">Una ovejita tan tierna y suave como tú, sosteniendo una flor que representa un amor que nunca se marchita. Quería darte algo que pudieras abrazar cuando yo no esté cerquita, algo que te transmita la paz y la ternura que tú me haces sentir todos los días desde que estamos juntos.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid"><img src="assets/img/oveja.jpg" alt="Ovejita"><p>Tierna como tú 🌷</p></div>
-            </div>
+            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/oveja.jpg" alt="Ovejita"><p>Tierna como tú 🌷</p></div></div>
         </div>
 
         <!-- 3. GATO -->
         <div id="exp-gato" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Gato Camarón 🍤🐱</h2>
             <p class="texto-exp">Ese día fue increíble para mí; vendí muchísimo y me fue excelente. Pero mi mayor alegría no era el dinero, sino las ganas inmensas de compartir esa felicidad contigo. Fui corriendo a comprarte ese gatico que tanto te había gustado y lo llené de tus chucherías favoritas. Hablé en secreto con tu mamá para que acomodara la sorpresa en tu cama, imaginando tu carita de emoción al llegar cansada. Todo mi éxito solo tiene sentido si te veo sonreír.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid"><img src="assets/img/gato.jpg" alt="Gato"><p>Sorpresa en tu camita 😻</p></div>
-            </div>
+            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/gato.jpg" alt="Gato"><p>Sorpresa en tu camita 😻</p></div></div>
         </div>
 
         <!-- 4. FLORES AMARILLAS -->
         <div id="exp-flores" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Tu Jardín Amarillo 🌻</h2>
             <p class="texto-exp">Toda una odisea que jamás olvidaremos. Te hice enojar a propósito, diciéndote que no tenía plata y que esos días no me importaban. Me dolió un poquito verte triste, pero en mi mente sabía que la sorpresa lo valdría todo. Mientras tú estabas molesta, yo estaba planeando todo con tu hermana y tu mamá para dejar este regalo en tu cama. Valió la pena cada segundo de tu enojo solo para ver cómo tus ojos brillaron de felicidad al descubrirlo.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid"><img src="assets/img/flores.jpg" alt="Flores"><p>Valió la pena el enojo 💛</p></div>
-            </div>
+            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/flores.jpg" alt="Flores"><p>Valió la pena el enojo 💛</p></div></div>
             
-            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center; z-index: 10;">
+            <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; justify-content: center; z-index: 10; width: 100%;">
                 <button id="btn-mostrar-carta-amarilla" class="btn-romantico" style="font-size: 0.9rem; z-index: 10;">Leer Carta Original 💌</button>
                 <button id="btn-ir-jardin" class="btn-romantico" style="font-size: 0.9rem; z-index: 10;">Ir al Jardín Mágico 🌻</button>
             </div>
@@ -201,49 +193,42 @@
         <div id="exp-cadena" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Mi Nuevo Sol ☀️</h2>
             <p class="texto-exp">Tú eres mi nuevo sol. Te regalo este collar de Rapunzel que guarda en su interior un "Te amo" en 100 idiomas diferentes, simplemente porque un solo idioma se queda cortísimo para explicarte todo lo que significas en mi vida. Eres la luz que ilumina mis días más grises, y quiero que lleves este sol cerquita de tu corazón, recordándote que mi amor por ti brilla más fuerte cada día.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid"><img src="assets/img/cadena.jpg" alt="Cadena"><p>Mi Sol ☀️</p></div>
-            </div>
+            <div class="contenedor-polaroids"><div class="polaroid"><img src="assets/img/cadena.jpg" alt="Cadena"><p>Mi Sol ☀️</p></div></div>
         </div>
     </section>
 
-    <!-- VENTANA MODAL: FOTO EXACTA DE LA CARTA ORIGINAL -->
+    <!-- VENTANA MODAL: FOTO DE LA CARTA (Arreglada extensión a .jpg) -->
     <div id="modal-carta-original" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 100005; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
         <div style="position: relative; max-width: 100%; max-height: 90vh;">
             <button id="btn-cerrar-carta-amarilla" style="position: absolute; top: -15px; right: -10px; background: #e11d48; border: 2px solid white; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 2;">✖</button>
-            <!-- AQUÍ SE CARGA LA IMAGEN ORIGINAL DE TU CARTA -->
-            <img src="assets/img/carta_flores.png" alt="Carta Original" style="max-width: 100%; max-height: 85vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); object-fit: contain;">
+            <img src="assets/img/carta_flores.jpg" alt="Si no ves la carta, verifica el nombre" style="max-width: 100%; max-height: 85vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); object-fit: contain;">
         </div>
     </div>
 
-    <!-- MÓDULO 6: EL JARDÍN INTERACTIVO (MINIJUEGO) -->
-    <section id="modulo-jardin" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #1e3a8a; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 1.5s ease;">
+    <!-- MÓDULO 6: JARDÍN INTERACTIVO NIVEL DIOS -->
+    <section id="modulo-jardin" class="jardin-noche" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 2s ease;">
         
-        <!-- Efectos de Lluvia, Sol y Corazones -->
+        <div id="estrellas-fondo" style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px); background-size: 100px 100px; opacity: 0.5; z-index: 0;"></div>
         <div id="efectos-clima" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 1;"></div>
         
-        <!-- Textos del cielo -->
-        <div style="z-index: 2; margin-top: 5vh; text-align: center; padding: 0 20px; width: 100%; box-sizing: border-box;">
+        <div style="z-index: 5; margin-top: 5vh; text-align: center; padding: 0 20px; width: 100%; box-sizing: border-box;">
             <button id="btn-volver-del-jardin" style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; z-index: 10; backdrop-filter: blur(5px);">🔙 Volver</button>
             
-            <h2 style="color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-size: 2.2rem; margin-top: 40px; margin-bottom: 15px;">Tu Jardín Mágico</h2>
-            <p id="mensaje-jardin" style="color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 1.1rem; font-weight: bold; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 20px; display: inline-block; max-width: 90%;">Las semillas están dormidas bajo tierra. Necesitan agua para despertar... 💧</p>
+            <h2 id="titulo-jardin-magico" style="color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-size: 2.2rem; margin-top: 40px; margin-bottom: 15px; transition: color 2s;">Tu Jardín Mágico</h2>
+            <p id="mensaje-jardin" style="color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 1.1rem; font-weight: bold; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 20px; display: inline-block; max-width: 90%; transition: background 1s;">Las semillas descansan bajo tierra. Toca regar para despertarlas... 💧</p>
         </div>
 
-        <!-- Zona de plantación -->
-        <div style="position: absolute; bottom: 130px; width: 100%; height: 150px; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 2; padding: 0 5%; box-sizing: border-box;">
-            <div class="flor-jardin" style="font-size: 2.5rem; transition: all 1s ease-out; transform-origin: bottom;">🌰</div>
-            <div class="flor-jardin" style="font-size: 2.5rem; transition: all 1s ease-out; transform-origin: bottom;">🌰</div>
-            <div class="flor-jardin" style="font-size: 2.5rem; transition: all 1s ease-out; transform-origin: bottom;">🌰</div>
-            <div class="flor-jardin" style="font-size: 2.5rem; transition: all 1s ease-out; transform-origin: bottom;">🌰</div>
-            <div class="flor-jardin" style="font-size: 2.5rem; transition: all 1s ease-out; transform-origin: bottom;">🌰</div>
+        <div style="position: absolute; bottom: 12vh; width: 100%; height: 25vh; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 4; padding: 0 2%; box-sizing: border-box;">
+            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
+            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
+            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
+            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
+            <div class="flor-jardin" style="transform-origin: bottom center;">🌰</div>
         </div>
         
-        <!-- Suelo visual de tierra -->
-        <div style="position: absolute; bottom: 0; width: 100%; height: 140px; background: #5c4033; z-index: 1; border-top: 15px solid #4a332a;"></div>
+        <div class="pasto-jardin"></div>
 
-        <!-- Panel de Herramientas -->
-        <div style="position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 3;">
+        <div style="position: absolute; bottom: 25px; width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 5;">
             <button class="btn-jardin" id="btn-agua">💧 Regar</button>
             <button class="btn-jardin btn-desactivado" id="btn-sol">☀️ Iluminar</button>
             <button class="btn-jardin btn-desactivado" id="btn-amor">❤️ Amar</button>
@@ -268,9 +253,9 @@
         </div>
     </div>
 
-    <!-- SCRIPTS v=124 para evitar el caché -->
-    <script src="js/intro.js?v=124"></script>
-    <script src="js/galeria.js?v=124"></script>
+    <!-- SCRIPTS v=126 -->
+    <script src="js/intro.js?v=126"></script>
+    <script src="js/galeria.js?v=126"></script>
     
 </body>
 </html>
