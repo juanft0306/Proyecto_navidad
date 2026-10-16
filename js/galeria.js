@@ -185,13 +185,12 @@ function iniciarGeneradoresMagicos() {
     
     // Generador de Nubes (cada 4 a 7 segundos)
     intNubes = setInterval(crearNube, 6000);
-    crearNube(); // Crea una de inmediato
+    crearNube(); 
 
     // Generador de Fauna
     intMariposas = setInterval(crearMariposa, 3000);
     intLuciernagas = setInterval(crearLuciernaga, 800);
     
-    // Inicia el radar de eclipses (Colisiones)
     loopColision = requestAnimationFrame(detectarEclipse);
 }
 
@@ -209,21 +208,17 @@ function crearNube() {
     const nube = document.createElement('div');
     nube.className = 'nube-magica';
     
-    // Altura aleatoria (cruzan por donde está el sol/luna)
     const posY = Math.random() * 40 + 20; 
     nube.style.bottom = posY + 'vh';
     
-    // Tamaño aleatorio
     const escala = Math.random() * 0.8 + 0.8;
     nube.style.transform = `scale(${escala})`;
 
-    // Decide si sale de izquierda o derecha
     const deIzquierda = Math.random() > 0.5;
     nube.style.left = deIzquierda ? '-150px' : '100vw';
     contenedor.appendChild(nube);
 
-    // Animación de cruce
-    const duracion = Math.random() * 10000 + 15000; // Entre 15 y 25 segundos cruzando
+    const duracion = Math.random() * 10000 + 15000; 
     const destino = deIzquierda ? window.innerWidth + 150 : -150;
     
     const animacion = nube.animate([
@@ -235,13 +230,13 @@ function crearNube() {
 }
 
 function crearMariposa() {
-    if (climaActual === 'noche') return; // En la noche duermen
+    if (climaActual === 'noche') return; 
     const contenedor = document.getElementById('contenedor-mariposas');
     const m = document.createElement('div');
     m.className = 'mariposa'; m.innerText = '🦋';
     
     m.style.left = '-50px';
-    m.style.bottom = (Math.random() * 30 + 15) + 'vh'; // Vuelan bajito
+    m.style.bottom = (Math.random() * 30 + 15) + 'vh'; 
     contenedor.appendChild(m);
     
     const anim = m.animate([
@@ -254,18 +249,16 @@ function crearMariposa() {
 function crearLuciernaga() {
     if (climaActual !== 'noche') {
         document.getElementById('contenedor-luciernagas').innerHTML = '';
-        return; // Solo salen de noche
+        return; 
     }
     const contenedor = document.getElementById('contenedor-luciernagas');
     const l = document.createElement('div');
     l.className = 'luciernaga';
     
-    // Aparecen en posiciones aleatorias cerca del pasto
     l.style.left = Math.random() * 100 + 'vw';
     l.style.bottom = Math.random() * 40 + 'vh';
     contenedor.appendChild(l);
     
-    // Flotan aleatoriamente y desaparecen
     const xMove = (Math.random() * 100) - 50;
     const yMove = (Math.random() * 100) - 50;
     
@@ -287,13 +280,11 @@ function detectarEclipse() {
         const capaSombra = document.getElementById('capa-sombra');
         let hayEclipse = false;
 
-        // Solo hay sombra si es de Día o Tarde (La luna no da sombra fuerte)
         if (astro && (climaActual === 'dia' || climaActual === 'tarde')) {
             const rectAstro = astro.getBoundingClientRect();
             
             nubes.forEach(nube => {
                 const rectNube = nube.getBoundingClientRect();
-                // Formula de colisión 2D
                 if (!(rectAstro.right < rectNube.left || 
                       rectAstro.left > rectNube.right || 
                       rectAstro.bottom < rectNube.top || 
@@ -306,10 +297,10 @@ function detectarEclipse() {
         if (hayEclipse) { capaSombra.classList.add('eclipse-activo'); } 
         else { capaSombra.classList.remove('eclipse-activo'); }
     }
-    loopColision = requestAnimationFrame(detectarEclipse); // Repite infinito
+    loopColision = requestAnimationFrame(detectarEclipse); 
 }
 
-// RASTRO DE FLORES (Dedo mágico)
+// RASTRO DE FLORES (Solo flores amarillas, sin destellos)
 let lastX = 0, lastY = 0; let rastroFlores = [];
 function dibujarRastro(x, y) {
     if (pasoJardin !== 3) return; 
@@ -318,7 +309,7 @@ function dibujarRastro(x, y) {
     lastX = x; lastY = y;
     
     const lienzo = document.getElementById('lienzo-rastro');
-    const emojis = ['🌻', '🌼', '✨'];
+    const emojis = ['🌻', '🌼']; // Solo flores amarillas puras
     const f = document.createElement('div');
     f.className = 'flor-rastro'; f.innerText = emojis[Math.floor(Math.random() * emojis.length)];
     f.style.left = x + 'px'; f.style.top = y + 'px';
