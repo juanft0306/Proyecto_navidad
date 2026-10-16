@@ -391,7 +391,7 @@
 
 
     <!-- ======================================================== -->
-    <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0 (NUBES, SOMBRAS, ETC)   -->
+    <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0                         -->
     <!-- ======================================================== -->
     <section id="modulo-jardin" class="jardin-noche" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 2s ease;">
         
@@ -479,32 +479,40 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE CARGA EXCLUSIVA DEL JARDÍN CON LAS INSTRUCCIONES -->
-    <div id="carga-jardin" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #020617; z-index: 100008; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 25px; box-sizing: border-box; transition: opacity 1s ease; opacity: 0;">
-        <div style="font-size: 5rem; animation: girar-flor 4s linear infinite;">🌻</div>
-        <h2 style="color: #fde047; margin-top: 20px; font-size: 1.8rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Preparando tu Jardín Mágico...</h2>
+    <!-- PANTALLA DE CARGA EXCLUSIVA DEL JARDÍN CON LAS INSTRUCCIONES (AHORA CON SCROLL) -->
+    <div id="carga-jardin" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #020617; z-index: 100008; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box; transition: opacity 1s ease; opacity: 0; overflow-y: auto;">
         
-        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(253, 224, 71, 0.3); padding: 25px; border-radius: 15px; margin-top: 30px; max-width: 90%; backdrop-filter: blur(5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-            <p style="color: white; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.5;">
-                <span style="font-size: 1.8rem; display: block; margin-bottom: 10px;">📱🔄</span>
-                Para vivir la experiencia al máximo, te recomiendo colocar tu teléfono en <strong>horizontal</strong>.
-            </p>
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
-            <p style="color: #cbd5e1; font-size: 1rem; line-height: 1.5; font-style: italic;">
-                <strong style="color: #fde047;">✨ Un secreto mágico:</strong><br><br>
-                Cuando el jardín termine de florecer, <strong>toca la pantalla</strong> en cualquier lugar para plantar una flor, o <strong>desliza tu dedo sin soltarlo</strong> para crear un hermoso rastro.<br><br>
-                <span style="font-size: 0.9rem; color: #94a3b8; display: block; margin-top: 10px;">
-                    En la esquina superior derecha encontrarás dos botones sutiles:<br>
-                    <strong>🔄 Reiniciar Todo:</strong> Para vivir el crecimiento desde la semilla otra vez.<br>
-                    <strong>🧹 Limpiar Trazos:</strong> Para borrar solo las flores que hayas dibujado.
-                </span>
-            </p>
+        <!-- Este contenedor interno permite que no se corte por arriba cuando hay scroll -->
+        <div style="margin: auto 0; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;">
+            
+            <div class="girasol-carga" style="animation: girar-flor 4s linear infinite;">🌻</div>
+            <h2 class="titulo-carga-jardin" style="color: #fde047; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Preparando tu Jardín Mágico...</h2>
+            
+            <div class="cuadro-instrucciones-jardin" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(253, 224, 71, 0.3); border-radius: 15px; backdrop-filter: blur(5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+                <p class="texto-carga-1" style="color: white; line-height: 1.5;">
+                    <span style="display: block; margin-bottom: 5px;">📱🔄</span>
+                    Para vivir la experiencia al máximo, te recomiendo colocar tu teléfono en <strong>horizontal</strong>.
+                </p>
+                
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+                
+                <p class="texto-carga-2" style="color: #cbd5e1; line-height: 1.5; font-style: italic;">
+                    <strong style="color: #fde047;">✨ Un secreto mágico:</strong><br><br>
+                    Cuando el jardín termine de florecer, <strong>toca la pantalla</strong> en cualquier lugar para plantar una flor, o <strong>desliza tu dedo sin soltarlo</strong> para crear un hermoso rastro.<br><br>
+                    <span class="texto-carga-3" style="color: #94a3b8; display: block; margin-top: 10px;">
+                        En la esquina superior derecha encontrarás dos botones sutiles:<br>
+                        <strong>🔄 Reiniciar Todo:</strong> Para vivir el crecimiento desde la semilla otra vez.<br>
+                        <strong>🧹 Limpiar Trazos:</strong> Para borrar solo las flores que hayas dibujado.
+                    </span>
+                </p>
+            </div>
+
         </div>
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/intro.js?v=129"></script>
-    <script src="js/galeria.js?v=129"></script>
+    <script src="js/intro.js?v=130"></script>
+    <script src="js/galeria.js?v=130"></script>
     
 </body>
 </html>
