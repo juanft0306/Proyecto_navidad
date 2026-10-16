@@ -1,5 +1,5 @@
 /* ==========================================
-   MÓDULO 4: GALERÍA DE REGALOS (ESTÉTICA PREMIUM)
+   MÓDULO 4: GALERÍA DE REGALOS 
    ========================================== */
 #modulo-galeria {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -31,99 +31,81 @@
     50% { transform: scale(1.05); opacity: 1; color: #ffffff; border-color: rgba(255, 255, 255, 0.3); }
 }
 
-.slider-paginas {
-    display: flex; width: 100vw; overflow-x: auto; scroll-snap-type: x mandatory;
-    scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px;
-}
+.slider-paginas { display: flex; width: 100vw; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
 .slider-paginas::-webkit-scrollbar { display: none; }
 .slider-paginas { -ms-overflow-style: none; scrollbar-width: none; }
-.pagina-grid {
-    min-width: 100vw; scroll-snap-align: center; display: grid;
-    grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, auto);
-    gap: 15px; padding: 0 6vw; box-sizing: border-box;
-}
+.pagina-grid { min-width: 100vw; scroll-snap-align: center; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, auto); gap: 15px; padding: 0 6vw; box-sizing: border-box; }
 
-/* CARTUCHOS */
-.disquete {
-    background: #4a4a52; border-radius: 6px 22px 6px 6px; padding: 8px 6px 15px 6px; 
-    display: flex; flex-direction: column; align-items: center;
-    box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 2px rgba(255,255,255,0.2), 3px 5px 12px rgba(0,0,0,0.7);
-    border: 1px solid #2d2d30; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-    position: relative; user-select: none;
-}
+.disquete { background: #4a4a52; border-radius: 6px 22px 6px 6px; padding: 8px 6px 15px 6px; display: flex; flex-direction: column; align-items: center; box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), inset 2px 2px 2px rgba(255,255,255,0.2), 3px 5px 12px rgba(0,0,0,0.7); border: 1px solid #2d2d30; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; user-select: none; }
 .disquete:active { transform: scale(0.92); box-shadow: 1px 2px 5px rgba(0,0,0,0.6); }
 .disquete::after { content: "▼"; color: #262628; font-size: 0.5rem; position: absolute; bottom: 2px; }
 
-.caratula-container {
-    background: #ffffff; width: 100%; aspect-ratio: 1 / 1; border-radius: 3px;
-    overflow: hidden; margin-bottom: 4px; border: 1px solid #a1a1aa;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.2); display: flex; justify-content: center;
-    align-items: center; position: relative;
-}
+.caratula-container { background: #ffffff; width: 100%; aspect-ratio: 1 / 1; border-radius: 3px; overflow: hidden; margin-bottom: 4px; border: 1px solid #a1a1aa; box-shadow: inset 0 0 4px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; position: relative; }
 .caratula-img { width: 100%; height: 100%; object-fit: cover; }
 .candado { font-size: 2rem; color: #64748b; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
 
-.titulo-disquete {
-    color: white; font-size: 0.65rem; font-weight: bold; text-align: center;
-    line-height: 1.1; width: 100%; margin-top: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-    font-family: sans-serif;
-}
+.titulo-disquete { color: white; font-size: 0.65rem; font-weight: bold; text-align: center; line-height: 1.1; width: 100%; margin-top: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); font-family: sans-serif; }
 
 .disquete.bloqueado { background: #33333b; border-color: #1f1f22; }
 .disquete.bloqueado .caratula-container { background: #cbd5e1; }
 .disquete.bloqueado .titulo-disquete { color: #94a3b8; }
 
-#toast-error {
-    position: fixed; bottom: 100px; background: rgba(225, 29, 72, 0.95);
-    color: white; padding: 12px 25px; border-radius: 30px; font-weight: bold;
-    font-size: 0.95rem; z-index: 100005; opacity: 0; pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s; box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
-    transform: translateY(20px); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
-}
+#toast-error { position: fixed; bottom: 100px; background: rgba(225, 29, 72, 0.95); color: white; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 0.95rem; z-index: 100005; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4); transform: translateY(20px); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px); }
 #toast-error.activo { opacity: 1; transform: translateY(0); }
 
 /* ==========================================
-   INTERIOR DE LAS EXPERIENCIAS (MÓDULO 5)
+   INTERIOR DE LAS EXPERIENCIAS 
    ========================================== */
-.experiencia-interna {
-    padding: 80px 20px 40px 20px; display: flex; flex-direction: column;
-    align-items: center; min-height: 100vh; position: relative; z-index: 2;
-}
-
-.titulo-exp {
-    color: #fb7185; font-size: 2.2rem; margin-bottom: 15px; text-align: center;
-    text-shadow: 0 4px 10px rgba(225, 29, 72, 0.4); z-index: 2;
-}
-
-.texto-exp {
-    color: #cbd5e1; font-size: 1rem; text-align: center; margin-bottom: 40px;
-    line-height: 1.6; max-width: 90%; font-style: italic; z-index: 2;
-}
-
-.contenedor-polaroids {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; z-index: 2;
-}
-
-.polaroid {
-    background: white; padding: 10px 10px 20px 10px; border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5); transform: rotate(-3deg);
-    transition: transform 0.3s; width: 250px;
-}
+.experiencia-interna { padding: 80px 20px 40px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; position: relative; z-index: 2; }
+.titulo-exp { color: #fb7185; font-size: 2.2rem; margin-bottom: 15px; text-align: center; text-shadow: 0 4px 10px rgba(225, 29, 72, 0.4); z-index: 2; }
+.texto-exp { color: #cbd5e1; font-size: 1.05rem; text-align: center; margin-bottom: 40px; line-height: 1.6; max-width: 90%; font-style: italic; z-index: 2; }
+.contenedor-polaroids { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; z-index: 2; }
+.polaroid { background: white; padding: 10px 10px 20px 10px; border-radius: 4px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transform: rotate(-3deg); transition: transform 0.3s; width: 250px; }
 .polaroid:nth-child(even) { transform: rotate(4deg); }
 .polaroid img { width: 100%; height: 250px; object-fit: cover; border-radius: 2px; }
 .polaroid p { color: #334155; text-align: center; margin-top: 15px; font-family: 'Comic Sans MS', cursive, sans-serif; font-weight: bold; font-size: 0.9rem; }
 
 /* ==========================================
-   SISTEMA DE PARTÍCULAS CAYENDO
+   PARTÍCULAS DE LOS REGALOS
    ========================================== */
-#contenedor-particulas {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 99996; overflow: hidden;
+#contenedor-particulas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; overflow: hidden; }
+.particula { position: absolute; top: -10vh; animation: caer linear infinite; opacity: 0.8; }
+@keyframes caer { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
+/* ==========================================
+   JARDÍN MÁGICO Y MINIJUEGO
+   ========================================== */
+.btn-jardin {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #fbbf24;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background 0.2s, opacity 0.3s;
 }
-.particula {
-    position: absolute; top: -10vh; animation: caer linear infinite; opacity: 0.8;
+.btn-jardin:active { transform: scale(0.9); }
+.btn-jardin.btn-desactivado { opacity: 0.5; filter: grayscale(100%); pointer-events: none; }
+
+.gota-agua {
+    position: absolute; background: rgba(135, 206, 235, 0.8);
+    width: 4px; height: 20px; border-radius: 50%;
+    animation: llover 1s linear forwards;
 }
-@keyframes caer {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+@keyframes llover { 0% { transform: translateY(-20px); opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
+
+.rayo-sol {
+    position: absolute; background: rgba(255, 235, 59, 0.25);
+    width: 100vw; height: 100vh; animation: amanecer 2s ease-in-out forwards;
 }
+@keyframes amanecer { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+@keyframes florecer {
+    0% { transform: scale(0.5) rotate(-10deg); filter: brightness(0.5); }
+    50% { transform: scale(1.3) rotate(10deg); filter: brightness(1.2); }
+    100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+}
+.flor-animada { animation: florecer 1.5s ease-out forwards; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
