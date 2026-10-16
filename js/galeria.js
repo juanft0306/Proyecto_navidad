@@ -163,7 +163,7 @@ document.addEventListener('click', function(e) {
         if (modalCarta) modalCarta.style.display = 'none'; 
     }
     
-    // Botón Ir al Jardín Mágico (CON PANTALLA DE CARGA Y EXPLICACIÓN DE BOTONES SUTILES)
+    // Botón Ir al Jardín Mágico (CON PANTALLA DE CARGA LARGA Y SCROLLABLE)
     if (e.target.closest('#btn-ir-jardin')) { 
         const pantallaCargaJardin = document.getElementById('carga-jardin');
         if (pantallaCargaJardin) { 
@@ -171,7 +171,7 @@ document.addEventListener('click', function(e) {
             setTimeout(() => pantallaCargaJardin.style.opacity = '1', 50); 
         }
         
-        // 8.5 segundos para que pueda leer las instrucciones con calma
+        // 15 SEGUNDOS para que pueda leer las instrucciones con calma y girar el teléfono
         setTimeout(() => { 
             detenerParticulas(); 
             document.getElementById('modulo-experiencias').style.display = 'none'; 
@@ -182,7 +182,7 @@ document.addEventListener('click', function(e) {
                 pantallaCargaJardin.style.opacity = '0'; 
                 setTimeout(() => pantallaCargaJardin.style.display = 'none', 1000); 
             } 
-        }, 8500); 
+        }, 15000); 
     }
     
     // Botón Volver del Jardín Mágico a la Historia
@@ -198,13 +198,13 @@ document.addEventListener('click', function(e) {
         }, 1000); 
     }
 
-    // NUEVO: Botón Sutil - Limpiar el rastro de flores dibujadas
+    // Botón Sutil - Limpiar el rastro de flores dibujadas
     if (e.target.closest('#btn-limpiar-rastro')) {
         document.getElementById('lienzo-rastro').innerHTML = '';
         rastroFlores = [];
     }
 
-    // NUEVO: Botón Sutil - Reiniciar el jardín desde cero
+    // Botón Sutil - Reiniciar el jardín desde cero
     if (e.target.closest('#btn-reiniciar-jardin')) {
         resetJardin();
     }
@@ -225,10 +225,10 @@ function resetJardin() {
     document.getElementById('escenario-fondo').style.opacity = '0';
     document.getElementById('campo-flores').innerHTML = ''; 
     document.getElementById('lienzo-rastro').innerHTML = ''; 
-    rastroFlores = []; // Limpiamos el array de flores dibujadas
+    rastroFlores = []; 
     document.getElementById('selector-tiempo').style.display = 'none';
     document.getElementById('controles-jardin').style.display = 'flex';
-    document.getElementById('controles-extras-jardin').style.display = 'none'; // Ocultamos los botones sutiles
+    document.getElementById('controles-extras-jardin').style.display = 'none'; 
     document.getElementById('titulo-jardin-magico').style.display = 'block';
     document.getElementById('mensaje-jardin').style.display = 'inline-block';
     
@@ -354,7 +354,7 @@ document.addEventListener('click', function(e) {
             document.getElementById('mensaje-jardin').style.display = 'none';
             
             document.getElementById('selector-tiempo').style.display = 'flex'; 
-            document.getElementById('controles-extras-jardin').style.display = 'flex'; // Mostramos botones sutiles
+            document.getElementById('controles-extras-jardin').style.display = 'flex'; 
             
             iniciarGeneradoresMagicos();
         }, 4000);
