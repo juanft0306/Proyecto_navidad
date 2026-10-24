@@ -142,25 +142,17 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- MÓDULO 3: TESORO Y CARTA                   -->
+    <!-- MÓDULO 3: CÓDIGO DE 4 DÍGITOS Y CARTA      -->
     <!-- ========================================== -->
     <section id="modulo-tesoro" style="display: none;">
         
         <div id="interfaz-tesoro">
-            <h2 class="titulo-tesoro">Las 10 Llaves Secretas</h2>
-            <p class="texto-tesoro" style="margin-bottom: 20px; font-size: 0.9rem;">
-                Busca en nuestro chat los mensajes de las <strong>11:11 pm</strong> en estas fechas:<br><br>
-                <span style="color: #e11d48; font-weight: bold; font-style: normal; font-size: 1.05rem;">11/10, 19/10, 27/10, 04/11, 12/11, 20/11, 28/11, 06/12, 14/12 y 22/12</span><br><br>
-                Los números están un poquito más abajo de cada mensaje. Ingrésalos aquí en cualquier orden:
+            <h2 class="titulo-tesoro">El Código Secreto</h2>
+            <p class="texto-tesoro" style="margin-bottom: 20px; font-size: 1rem;">
+                Ingresa el código mágico de 4 dígitos para desbloquear nuestra carta:
             </p>
             
-            <div id="contenedor-llaves">
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
+            <div id="contenedor-llaves" style="justify-content: center; gap: 15px; margin-bottom: 20px;">
                 <div class="llave-slot">🔒</div>
                 <div class="llave-slot">🔒</div>
                 <div class="llave-slot">🔒</div>
@@ -168,7 +160,7 @@
             </div>
             
             <div id="pantalla-codigo-tesoro"><span id="codigo-actual"></span></div>
-            <p id="mensaje-feedback"></p>
+            <p id="mensaje-feedback" style="height: 20px; margin-bottom: 10px; font-weight: bold;"></p>
             
             <div id="teclado">
                 <button class="btn-tecla">1</button>
@@ -184,9 +176,6 @@
                 <button class="btn-tecla">0</button>
                 <button class="btn-tecla btn-ok">OK</button>
             </div>
-            
-            <button id="btn-abrir-ayuda" style="margin-top: 25px; background: rgba(255,255,255,0.1); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.3); padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-family: inherit; width: 100%;">🗝️ Mostrar registro de llaves</button>
-            <button id="btn-regresar-carta" style="display: none; margin-top: 15px; background: #e11d48; color: white; border: none; padding: 15px 20px; border-radius: 20px; cursor: pointer; font-size: 1rem; font-weight: bold; width: 100%;">Volver a leer la carta 💌</button>
         </div>
 
         <div id="carta-final" style="display: none;">
@@ -202,30 +191,12 @@
                 <p>Gracias por elegirme todos los días como tu compañero de vida y por ser mi refugio seguro.</p>
                 <p class="firma">Te amo con cada fibra de mi ser, hoy, mañana y por toda la eternidad. ❤️</p>
                 
-                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px; padding-bottom: 10px; flex-wrap: wrap;">
-                    <button id="btn-candados" style="background: transparent; border: 2px solid #e11d48; color: #e11d48; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; font-family: inherit;">Ver llaves</button>
-                    <button id="btn-siguiente" style="background: #e11d48; border: none; color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; font-family: inherit; width: 100%;">Siguiente Sorpresa ✨</button>
+                <div style="display: flex; justify-content: center; margin-top: 30px; padding-bottom: 10px;">
+                    <button id="btn-siguiente" style="background: #e11d48; border: none; color: white; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 1rem; font-weight: bold; font-family: inherit; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Siguiente Sorpresa ✨</button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- AYUDA LLAVES -->
-    <div id="capa-oscura-ayuda"></div>
-    <div id="registro-llaves">
-        <strong style="color: white; display: block; margin-bottom: 10px; font-size: 1.2rem;">Tus llaves guardadas:</strong>
-        11/10: <b>7</b> <br> 
-        19/10: <b>23</b> <br> 
-        27/10: <b>2</b> <br> 
-        04/11: <b>4</b> <br> 
-        12/11: <b>69</b> <br> 
-        20/11: <b>11</b> <br> 
-        28/11: <b>50</b> <br> 
-        06/12: <b>48</b> <br> 
-        14/12: <b>37</b> <br> 
-        22/12: <b>22</b><br>
-        <button id="btn-cerrar-ayuda">Cerrar ayuda</button>
-    </div>
 
     <!-- ========================================== -->
     <!-- MÓDULO 4: GALERÍA DE REGALOS               -->
@@ -252,9 +223,11 @@
                     <div class="caratula-container"><img src="assets/img/flores.jpg" class="caratula-img"></div>
                     <p class="titulo-disquete">Flores Amarillas</p>
                 </div>
-                <div class="disquete activo" data-id="cadena" data-video="assets/videos/cadena.mp4">
-                    <div class="caratula-container"><img src="assets/img/cadena.jpg" class="caratula-img"></div>
-                    <p class="titulo-disquete">Sol de Rapunzel</p>
+                
+                <!-- Regalo de Rapunzel Oculto Temporalmente -->
+                <div class="disquete bloqueado" data-id="cadena-oculta">
+                    <div class="caratula-container"><div class="candado">🔒</div></div>
+                    <p class="titulo-disquete">Próximamente...</p>
                 </div>
                 
                 <div class="disquete bloqueado">
@@ -367,18 +340,6 @@
                 <button id="btn-ir-jardin" class="btn-romantico" style="font-size: 0.9rem; z-index: 10;">Ir al Jardín Mágico 🌻</button>
             </div>
         </div>
-
-        <!-- 5. CADENA -->
-        <div id="exp-cadena" class="experiencia-interna" style="display: none;">
-            <h2 class="titulo-exp">Mi Nuevo Sol ☀️</h2>
-            <p class="texto-exp">Tú eres mi nuevo sol. Te regalo este collar de Rapunzel que guarda en su interior un "Te amo" en 100 idiomas diferentes, simplemente porque un solo idioma se queda cortísimo para explicarte todo lo que significas en mi vida. Eres la luz que ilumina mis días más grises, y quiero que lleves este sol cerquita de tu corazón, recordándote que mi amor por ti brilla más fuerte cada día.</p>
-            <div class="contenedor-polaroids">
-                <div class="polaroid">
-                    <img src="assets/img/cadena.jpg" alt="Cadena">
-                    <p>Mi Sol ☀️</p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- VENTANA MODAL: FOTO DE LA CARTA -->
@@ -388,7 +349,6 @@
             <img src="assets/img/carta_flores.jpg" alt="Si no ves la carta, verifica que se llame carta_flores.jpg en tu carpeta img" style="max-width: 100%; max-height: 85vh; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); object-fit: contain;">
         </div>
     </div>
-
 
     <!-- ======================================================== -->
     <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0                         -->
@@ -466,7 +426,7 @@
         <h2 class="titulo-menu">Mapa de la Aventura</h2>
         <button class="btn-nav-menu" data-destino="linterna">🔦 1. La Linterna</button>
         <button class="btn-nav-menu" data-destino="video">🎬 2. Nuestro Video</button>
-        <button class="btn-nav-menu" data-destino="tesoro">🔐 3. Las Llaves Secretas</button>
+        <button class="btn-nav-menu" data-destino="tesoro">💌 3. Nuestra Carta</button>
         <button class="btn-nav-menu" data-destino="galeria">🎁 4. Galería de Regalos</button>
         <button class="btn-cerrar-menu">Cerrar menú</button>
     </div>
@@ -479,23 +439,17 @@
         </div>
     </div>
 
-    <!-- PANTALLA DE CARGA EXCLUSIVA DEL JARDÍN CON LAS INSTRUCCIONES (AHORA CON SCROLL) -->
+    <!-- PANTALLA DE CARGA EXCLUSIVA DEL JARDÍN -->
     <div id="carga-jardin" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #020617; z-index: 100008; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box; transition: opacity 1s ease; opacity: 0; overflow-y: auto;">
-        
-        <!-- Este contenedor interno permite que no se corte por arriba cuando hay scroll -->
         <div style="margin: auto 0; padding: 30px 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; box-sizing: border-box;">
-            
             <div class="girasol-carga" style="animation: girar-flor 4s linear infinite;">🌻</div>
             <h2 class="titulo-carga-jardin" style="color: #fde047; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">Preparando tu Jardín Mágico...</h2>
-            
             <div class="cuadro-instrucciones-jardin" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(253, 224, 71, 0.3); border-radius: 15px; backdrop-filter: blur(5px); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
                 <p class="texto-carga-1" style="color: white; line-height: 1.5;">
                     <span style="display: block; margin-bottom: 5px;">📱🔄</span>
                     Para vivir la experiencia al máximo, te recomiendo colocar tu teléfono en <strong>horizontal</strong>.
                 </p>
-                
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
-                
                 <p class="texto-carga-2" style="color: #cbd5e1; line-height: 1.5; font-style: italic;">
                     <strong style="color: #fde047;">✨ Un secreto mágico:</strong><br><br>
                     Cuando el jardín termine de florecer, <strong>toca la pantalla</strong> en cualquier lugar para plantar una flor, o <strong>desliza tu dedo sin soltarlo</strong> para crear un hermoso rastro.<br><br>
@@ -506,13 +460,12 @@
                     </span>
                 </p>
             </div>
-
         </div>
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/intro.js?v=130"></script>
-    <script src="js/galeria.js?v=130"></script>
+    <script src="js/intro.js?v=132"></script>
+    <script src="js/galeria.js?v=132"></script>
     
 </body>
 </html>
