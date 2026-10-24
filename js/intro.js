@@ -16,33 +16,30 @@ document.addEventListener('touchstart', activarPantallaCompleta, { once: true })
 document.addEventListener('click', activarPantallaCompleta, { once: true });
 
 // ==========================================
-// LINTERNA Y BOTONES OCULTOS
+// LINTERNA Y BOTONES OCULTOS (SIN BRILLO AUTOMÁTICO)
 // ==========================================
 const linterna = document.getElementById('linterna');
 const introSection = document.getElementById('modulo-intro');
 
-// Posiciones fijas dentro del recuadro
+// Posiciones 100% seguras, jamás se saldrán de la pantalla.
 const posicionesSeguras = [
     { left: '22vw', top: '28vh' },
     { left: '68vw', top: '35vh' },
     { left: '45vw', top: '70vh' }
 ];
 
-document.querySelectorAll('.btn-oculto').forEach((btn, index) => {
-    btn.style.left = posicionesSeguras[index].left;
-    btn.style.top = posicionesSeguras[index].top;
-    btn.style.position = 'absolute';
-    btn.style.zIndex = '10';
-});
-
-// A los 12 segundos, encendemos un reborde blanco punteado como pista visual
-setTimeout(() => {
-    document.querySelectorAll('.btn-oculto:not(.encontrado)').forEach(btn => {
-        btn.classList.add('ayuda-visual');
+function prepararLinterna() {
+    document.querySelectorAll('.btn-oculto').forEach((btn, index) => {
+        btn.classList.remove('encontrado');
+        btn.style.background = 'transparent';
+        btn.style.left = posicionesSeguras[index].left;
+        btn.style.top = posicionesSeguras[index].top;
+        btn.style.position = 'absolute';
+        btn.style.zIndex = '10';
     });
-}, 12000);
+}
+prepararLinterna();
 
-// Movimiento de linterna
 introSection.addEventListener('mousemove', e => {
     linterna.style.setProperty('--x', e.clientX + 'px');
     linterna.style.setProperty('--y', e.clientY + 'px');
@@ -54,12 +51,12 @@ introSection.addEventListener('touchmove', e => {
 
 let botonesEncontrados = 0;
 const sonidoBoton = document.getElementById('sonido-boton');
+let victoriaAlcanzada = false;
 
 document.querySelectorAll('.btn-oculto').forEach(btn => {
     btn.addEventListener('click', function() {
         if(!this.classList.contains('encontrado')) {
             this.classList.add('encontrado');
-            this.classList.remove('ayuda-visual');
             this.style.background = 'rgba(225, 29, 72, 0.8)';
             if(sonidoBoton) { 
                 sonidoBoton.currentTime = 0; 
@@ -67,7 +64,8 @@ document.querySelectorAll('.btn-oculto').forEach(btn => {
             }
             botonesEncontrados++;
             
-            if(botonesEncontrados === 3) {
+            if(botonesEncontrados === 3 && !victoriaAlcanzada) {
+                victoriaAlcanzada = true;
                 const revelado = document.getElementById('contenido-revelado');
                 revelado.style.opacity = '1';
                 revelado.style.visibility = 'visible';
@@ -78,42 +76,71 @@ document.querySelectorAll('.btn-oculto').forEach(btn => {
 });
 
 // ==========================================
-// TRANSICIÓN AL VIDEO (INICIO INMEDIATO, SIN CONTROLES)
+// TRANSICIÓN AL VIDEO CON PANTALLAS DE CARGA
 // ==========================================
+const capaCarga = document.getElementById('capa-oscura-final');
+let videoFinalizado = false;
+const vid = document.getElementById('video-sorpresa');
+const contenedorFinalVideo = document.getElementById('contenedor-final-video');
+
 document.getElementById('btn-empezar').addEventListener('click', () => {
-    document.getElementById('modulo-intro').style.display = 'none';
-    const moduloVideo = document.getElementById('modulo-video');
-    moduloVideo.style.display = 'block';
+    // 1. Mostrar pantalla de carga
+    capaCarga.style.display = 'flex';
     
-    const vid = document.getElementById('video-sorpresa');
-    
-    // Obligatorio llamar a play() INMEDIATAMENTE dentro del evento de click,
-    // de lo contrario, navegadores estrictos lo bloquean.
-    let playPromise = vid.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.log("Reproducción automática con sonido bloqueada, muteando...", error);
-            vid.muted = true;
-            vid.play();
-        });
+    // 2. Esperar 1.5 segundos para la magia
+    setTimeout(() => {
+        document.getElementById('modulo-intro').style.display = 'none';
+        document.getElementById('modulo-video').style.display = 'block';
+        
+        capaCarga.style.display = 'none'; // Quitar carga
+        
+        // Reproducción forzada sin controles
+        let playPromise = vid.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Mute preventivo por navegador estricto...", error);
+                vid.muted = true;
+                vid.play();
+            });
+        }
+    }, 1500);
+});
+
+// Solución "Infalible" para cuando termine el video
+function mostrarFinalVideo() {
+    if(!videoFinalizado) {
+        videoFinalizado = true;
+        contenedorFinalVideo.style.display = 'flex';
+    }
+}
+
+// Escuchamos el evento nativo 'ended'
+vid.addEventListener('ended', mostrarFinalVideo);
+
+// Respaldo de seguridad: verificamos el tiempo constantemente. 
+// Si queda menos de 0.5 segundos para acabar, lanzamos la pantalla del corazón.
+vid.addEventListener('timeupdate', () => {
+    if (vid.currentTime > 0 && vid.duration > 0 && vid.currentTime >= (vid.duration - 0.5)) {
+        mostrarFinalVideo();
     }
 });
 
-// Cuando termina el video, aparece la capa con el corazón latiendo y el botón
-document.getElementById('video-sorpresa').addEventListener('ended', () => {
-    document.getElementById('contenedor-final-video').style.display = 'flex';
-});
-
+// Continuar de Video a Tesoro (con pantalla de carga)
 document.getElementById('btn-siguiente-tesoro').addEventListener('click', () => {
-    document.getElementById('modulo-video').style.display = 'none';
-    document.getElementById('modulo-tesoro').style.display = 'block';
+    capaCarga.style.display = 'flex';
+    
+    setTimeout(() => {
+        document.getElementById('modulo-video').style.display = 'none';
+        document.getElementById('modulo-tesoro').style.display = 'block';
+        capaCarga.style.display = 'none';
+    }, 1500);
 });
 
 // ==========================================
 // EL CÓDIGO SECRETO (4 DÍGITOS)
 // ==========================================
 let codigoIngresado = "";
-const CODIGO_CORRECTO = "2412"; // ⚠️ CAMBIA ESTE CÓDIGO AL QUE PREFIERAS ⚠️
+const CODIGO_CORRECTO = "2412"; // ⚠️ CAMBIA ESTE CÓDIGO ⚠️
 
 const slots = document.querySelectorAll('.llave-slot');
 const feedback = document.getElementById('mensaje-feedback');
@@ -138,7 +165,6 @@ document.querySelectorAll('.btn-tecla').forEach(btn => {
             codigoIngresado = codigoIngresado.slice(0, -1);
             feedback.innerText = "";
         } else if (this.classList.contains('btn-ok')) {
-            
             if (codigoIngresado === CODIGO_CORRECTO) {
                 document.getElementById('interfaz-tesoro').style.display = 'none';
                 document.getElementById('carta-final').style.display = 'block';
@@ -147,7 +173,6 @@ document.querySelectorAll('.btn-tecla').forEach(btn => {
                 feedback.style.color = "#fb7185";
                 codigoIngresado = "";
             }
-            
         } else {
             if(codigoIngresado.length < 4) {
                 codigoIngresado += this.innerText;
@@ -165,6 +190,15 @@ const btnMenu = document.getElementById('btn-menu-flotante');
 const pantallaMenu = document.getElementById('pantalla-menu');
 let isDragging = false;
 let startX, startY, initialX, initialY;
+
+// Si gira el teléfono, regresamos el botón a su sitio para que no se pierda
+window.addEventListener('resize', () => {
+    if (btnMenu) {
+        btnMenu.style.top = 'auto';
+        btnMenu.style.left = '20px';
+        btnMenu.style.bottom = '20px';
+    }
+});
 
 if (btnMenu) {
     btnMenu.addEventListener('touchstart', dragStart);
@@ -195,7 +229,6 @@ function dragStart(e) {
 function drag(e) {
     if (startX === undefined || startY === undefined) return;
     let currentX, currentY;
-    
     if (e.type === 'touchmove') {
         currentX = e.touches[0].clientX;
         currentY = e.touches[0].clientY;
@@ -203,7 +236,6 @@ function drag(e) {
         currentX = e.clientX;
         currentY = e.clientY;
     }
-    
     let dx = currentX - startX;
     let dy = currentY - startY;
     
@@ -225,14 +257,29 @@ function dragEnd(e) {
     }, 100);
 }
 
+// Navegación del Menú (CON REINICIO PERFECTO DE LA LINTERNA)
 document.querySelectorAll('.btn-nav-menu').forEach(btn => {
     btn.addEventListener('click', function() {
         pantallaMenu.classList.remove('activo');
         const dest = this.getAttribute('data-destino');
+        
         document.querySelectorAll('section[id^="modulo-"]').forEach(s => s.style.display = 'none');
         document.getElementById('modulo-' + dest).style.display = 'block';
+        
         if (dest === 'intro') {
-            document.getElementById('modulo-intro').style.display = 'flex';
+            // Reiniciamos por completo el juego de la linterna
+            botonesEncontrados = 0;
+            victoriaAlcanzada = false;
+            prepararLinterna(); // Las vuelve a colocar seguras y transparentes
+            
+            const revelado = document.getElementById('contenido-revelado');
+            revelado.style.opacity = '0';
+            revelado.style.visibility = 'hidden';
+            revelado.style.pointerEvents = 'none';
+            
+            // Si navega de regreso desde otro lado, reiniciamos el video también
+            videoFinalizado = false;
+            contenedorFinalVideo.style.display = 'none';
         }
     });
 });
@@ -243,3 +290,4 @@ if (btnCerrarMenu) {
         pantallaMenu.classList.remove('activo');
     });
 }
+                
