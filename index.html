@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Etiquetas para forzar el modo Pantalla Completa y App Nativa -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -115,16 +114,17 @@
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
         
+        <!-- Los botones ahora tienen posiciones fijas y seguras manejadas desde el JS -->
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
         
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
         
-        <div id="contenido-revelado" class="oculto">
+        <div id="contenido-revelado" class="oculto" style="display: none; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1000;">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
-            <p class="aviso-horizontal" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic;">Recomendación: antes de presionar el botón, coloca el teléfono horizontalmente 📱🔄</p>
+            <p class="aviso-horizontal" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-align: center; max-width: 80%;">Recomendación: antes de presionar el botón, coloca el teléfono horizontalmente 📱🔄</p>
         </div>
         
         <div id="contenedor-corazones"></div>
@@ -133,13 +133,13 @@
     <!-- ========================================== -->
     <!-- MÓDULO 2: VIDEO PRINCIPAL                  -->
     <!-- ========================================== -->
-    <section id="modulo-video" style="display: none;">
-        <!-- Se agregó preload="auto" para forzar la carga del video antes de reproducirlo -->
-        <video id="video-sorpresa" playsinline preload="auto" style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
+    <section id="modulo-video" style="display: none; position: relative;">
+        <!-- Se activaron los controles para evitar que el video se congele y ella pueda reproducirlo -->
+        <video id="video-sorpresa" playsinline controls style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
         </video>
         
-        <div id="contenedor-final-video" style="display: none;">
+        <div id="contenedor-final-video" style="display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); flex-direction: column; justify-content: center; align-items: center; z-index: 50;">
             <div class="corazon-latido">❤️</div>
             <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
             <button id="btn-siguiente-tesoro" class="btn-romantico" style="background: transparent; border: 2px solid white; color: white; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-size: 1rem;">Continuar la aventura ✨</button>
@@ -158,11 +158,12 @@
                 Ingresa el código mágico de 4 dígitos para desbloquear nuestra carta:
             </p>
             
-            <div id="contenedor-llaves" style="justify-content: center; gap: 15px; margin-bottom: 20px;">
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
-                <div class="llave-slot">🔒</div>
+            <!-- CONTENEDOR DE LLAVES CORREGIDO CON FLEXBOX ABSOLUTO -->
+            <div id="contenedor-llaves" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; width: 100%;">
+                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
+                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
+                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
+                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
             </div>
             
             <div id="pantalla-codigo-tesoro"><span id="codigo-actual"></span></div>
@@ -470,8 +471,8 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/intro.js?v=134"></script>
-    <script src="js/galeria.js?v=134"></script>
+    <script src="js/intro.js?v=135"></script>
+    <script src="js/galeria.js?v=135"></script>
     
 </body>
 </html>
