@@ -2,7 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Etiquetas para forzar el modo Pantalla Completa y App Nativa -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
     <title>Para ti...</title>
     
     <link rel="stylesheet" href="css/intro.css">
@@ -129,7 +134,8 @@
     <!-- MÓDULO 2: VIDEO PRINCIPAL                  -->
     <!-- ========================================== -->
     <section id="modulo-video" style="display: none;">
-        <video id="video-sorpresa" playsinline style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
+        <!-- Se agregó preload="auto" para forzar la carga del video antes de reproducirlo -->
+        <video id="video-sorpresa" playsinline preload="auto" style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
         </video>
         
@@ -464,8 +470,8 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/intro.js?v=132"></script>
-    <script src="js/galeria.js?v=132"></script>
+    <script src="js/intro.js?v=134"></script>
+    <script src="js/galeria.js?v=134"></script>
     
 </body>
 </html>
