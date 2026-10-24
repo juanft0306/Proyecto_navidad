@@ -1,163 +1,182 @@
 /* ==========================================
-   MÓDULO 3: CÓDIGO SECRETO Y CARTA
+   MÓDULO 3: BÚSQUEDA DEL TESORO
    ========================================== */
 #modulo-tesoro {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #0f172a;
-    z-index: 99998;
-    display: flex;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    z-index: 99999;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    color: white;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #interfaz-tesoro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    padding-top: 5vh;
+    padding-bottom: 120px; 
 }
 
 .titulo-tesoro {
-    color: #fb7185;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    text-align: center;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    font-size: 1.8rem;
+    color: #e11d48;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
 }
 
 .texto-tesoro {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
     color: #cbd5e1;
-    font-size: 1.1rem;
-    text-align: center;
-    margin-bottom: 25px;
-    max-width: 90%;
-    line-height: 1.5;
+    font-style: italic;
 }
 
-/* 4 candados centrados perfectamente */
 #contenedor-llaves {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-    width: 100%;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .llave-slot {
-    width: 60px;
-    height: 70px;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+
+#pantalla-codigo-tesoro {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #e11d48;
+    border-radius: 10px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-    transition: transform 0.2s, background 0.3s;
-}
-
-.llave-slot.activa {
-    background: rgba(225, 29, 72, 0.2);
-    border-color: #fb7185;
-    box-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin-bottom: 5px;
 }
 
 #mensaje-feedback {
-    height: 25px;
-    margin-bottom: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    height: 20px;
+    font-size: 0.9rem;
     font-weight: bold;
-    text-align: center;
-    font-size: 1.1rem;
+    margin-bottom: 15px;
 }
 
-/* Teclado numérico cuadrado y centrado */
 #teclado {
     display: grid;
-    grid-template-columns: repeat(3, 80px);
-    gap: 15px;
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
 }
 
 .btn-tecla {
-    padding: 15px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
+    font-size: 1.5rem;
+    padding: 12px 0;
     border-radius: 15px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: transform 0.1s, background 0.2s;
-    touch-action: manipulation;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s ease;
 }
 
 .btn-tecla:active {
-    transform: scale(0.9);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(225, 29, 72, 0.8);
+    transform: scale(0.95);
 }
 
-.btn-tecla.btn-ok {
-    background: #e11d48;
-    border-color: #fb7185;
-    color: white;
+.btn-borrar { background: rgba(0, 0, 0, 0.4); font-size: 1.2rem; }
+.btn-ok { background: #e11d48; font-weight: bold; font-size: 1.2rem; border: none;}
+
+/* ==========================================
+   ESTILO VENTANA FLOTANTE (CHULETA) - ¡SOLUCIONA EL DESCUADRE!
+   ========================================== */
+#registro-llaves {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 350px;
+    font-size: 1rem;
+    color: #fbbf24;
+    background: rgba(15, 23, 42, 0.98);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #fbbf24;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    line-height: 1.8;
+    z-index: 100005; /* Por encima de todo */
+    text-align: center;
 }
 
-.btn-tecla.btn-ok:active {
-    background: #be123c;
+#capa-oscura-ayuda {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 100004;
+    backdrop-filter: blur(3px);
 }
 
-.btn-tecla.btn-borrar {
-    background: rgba(255, 255, 255, 0.1);
+#btn-cerrar-ayuda {
+    margin-top: 20px;
+    background: #fbbf24;
+    color: #0f172a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-/* La Carta (Pergamino) */
+/* ==========================================
+   CARTA FINAL
+   ========================================== */
 #carta-final {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background: #0f172a;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 5vh;
+    margin-bottom: 120px;
+    animation: aparecerCarta 2s forwards;
 }
 
 .pergamino {
-    background: #fdfbf7;
-    padding: 35px 25px;
-    border-radius: 8px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 50px rgba(230, 210, 170, 0.5);
-    max-width: 95%;
-    width: 450px;
-    position: relative;
-    color: #334155;
-    font-family: 'Georgia', serif;
-    font-size: 1.05rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: left;
+    font-family: serif;
+    font-size: 1.1rem;
     line-height: 1.6;
-    background-image: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
 }
 
-.pergamino p {
-    margin-bottom: 15px;
-    text-align: justify;
-}
+.pergamino p { margin-bottom: 15px; }
 
-.pergamino .firma {
+.firma {
+    text-align: center;
     font-weight: bold;
-    font-style: italic;
-    text-align: right;
-    margin-top: 25px;
+    font-size: 1.2rem;
     color: #e11d48;
+    margin-top: 25px;
+}
+
+@keyframes aparecerCarta {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
