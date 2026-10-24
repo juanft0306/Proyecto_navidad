@@ -1,5 +1,5 @@
 // ==========================================
-// PANTALLA COMPLETA Y MODO APP SILENCIOSO
+// PANTALLA COMPLETA SILENCIOSA
 // ==========================================
 function activarPantallaCompleta() {
     try {
@@ -7,28 +7,25 @@ function activarPantallaCompleta() {
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
             if (doc.requestFullscreen) { doc.requestFullscreen(); }
             else if (doc.webkitRequestFullscreen) { doc.webkitRequestFullscreen(); }
-            else if (doc.msRequestFullscreen) { doc.msRequestFullscreen(); }
         }
     } catch (e) {
-        console.log("El dispositivo no soporta pantalla completa automática.");
+        console.log("Modo app nativo activo");
     }
 }
-
-// Se activa al tocar la pantalla para que sea natural
 document.addEventListener('touchstart', activarPantallaCompleta, { once: true });
 document.addEventListener('click', activarPantallaCompleta, { once: true });
 
 // ==========================================
-// LINTERNA Y BOTONES OCULTOS (POSICIONES SEGURAS)
+// LINTERNA Y BOTONES OCULTOS
 // ==========================================
 const linterna = document.getElementById('linterna');
 const introSection = document.getElementById('modulo-intro');
 
-// Posiciones 100% seguras para que nunca salgan de la pantalla
+// Posiciones fijas dentro del recuadro
 const posicionesSeguras = [
-    { left: '20vw', top: '30vh' },
-    { left: '70vw', top: '25vh' },
-    { left: '45vw', top: '75vh' }
+    { left: '22vw', top: '28vh' },
+    { left: '68vw', top: '35vh' },
+    { left: '45vw', top: '70vh' }
 ];
 
 document.querySelectorAll('.btn-oculto').forEach((btn, index) => {
@@ -38,7 +35,14 @@ document.querySelectorAll('.btn-oculto').forEach((btn, index) => {
     btn.style.zIndex = '10';
 });
 
-// Movimiento de la linterna (Mouse y Táctil)
+// A los 12 segundos, encendemos un reborde blanco punteado como pista visual
+setTimeout(() => {
+    document.querySelectorAll('.btn-oculto:not(.encontrado)').forEach(btn => {
+        btn.classList.add('ayuda-visual');
+    });
+}, 12000);
+
+// Movimiento de linterna
 introSection.addEventListener('mousemove', e => {
     linterna.style.setProperty('--x', e.clientX + 'px');
     linterna.style.setProperty('--y', e.clientY + 'px');
@@ -50,12 +54,12 @@ introSection.addEventListener('touchmove', e => {
 
 let botonesEncontrados = 0;
 const sonidoBoton = document.getElementById('sonido-boton');
-let victoriaAlcanzada = false;
 
 document.querySelectorAll('.btn-oculto').forEach(btn => {
     btn.addEventListener('click', function() {
         if(!this.classList.contains('encontrado')) {
             this.classList.add('encontrado');
+            this.classList.remove('ayuda-visual');
             this.style.background = 'rgba(225, 29, 72, 0.8)';
             if(sonidoBoton) { 
                 sonidoBoton.currentTime = 0; 
@@ -63,37 +67,18 @@ document.querySelectorAll('.btn-oculto').forEach(btn => {
             }
             botonesEncontrados++;
             
-            if(botonesEncontrados === 3 && !victoriaAlcanzada) {
-                victoriaAlcanzada = true;
-                // Forzamos la aparición del mensaje final para asegurar que no falle
+            if(botonesEncontrados === 3) {
                 const revelado = document.getElementById('contenido-revelado');
-                revelado.classList.remove('oculto');
-                revelado.style.display = 'flex';
                 revelado.style.opacity = '1';
                 revelado.style.visibility = 'visible';
+                revelado.style.pointerEvents = 'all';
             }
         }
     });
 });
 
 // ==========================================
-// AYUDA AUTOMÁTICA: Enciende un botón a los 10s y otro a los 20s
-// ==========================================
-function revelarBotonAutomatico() {
-    if (botonesEncontrados >= 3) return;
-    const botonesNoEncontrados = document.querySelectorAll('.btn-oculto:not(.encontrado)');
-    if (botonesNoEncontrados.length > 0) {
-        botonesNoEncontrados[0].click(); 
-    }
-}
-
-// Primer salvavidas a los 10 segundos
-setTimeout(() => revelarBotonAutomatico(), 10000);
-// Segundo salvavidas a los 20 segundos
-setTimeout(() => revelarBotonAutomatico(), 20000);
-
-// ==========================================
-// TRANSICIÓN AL VIDEO (CORREGIDA PARA MÓVILES)
+// TRANSICIÓN AL VIDEO (INICIO INMEDIATO, SIN CONTROLES)
 // ==========================================
 document.getElementById('btn-empezar').addEventListener('click', () => {
     document.getElementById('modulo-intro').style.display = 'none';
@@ -102,19 +87,19 @@ document.getElementById('btn-empezar').addEventListener('click', () => {
     
     const vid = document.getElementById('video-sorpresa');
     
-    // Le damos 200ms al teléfono para procesar el cambio de pantalla antes de reproducir
-    setTimeout(() => {
-        let playPromise = vid.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log("Forzando video muteado por seguridad móvil...", error);
-                vid.muted = true;
-                vid.play();
-            });
-        }
-    }, 200);
+    // Obligatorio llamar a play() INMEDIATAMENTE dentro del evento de click,
+    // de lo contrario, navegadores estrictos lo bloquean.
+    let playPromise = vid.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log("Reproducción automática con sonido bloqueada, muteando...", error);
+            vid.muted = true;
+            vid.play();
+        });
+    }
 });
 
+// Cuando termina el video, aparece la capa con el corazón latiendo y el botón
 document.getElementById('video-sorpresa').addEventListener('ended', () => {
     document.getElementById('contenedor-final-video').style.display = 'flex';
 });
@@ -128,7 +113,7 @@ document.getElementById('btn-siguiente-tesoro').addEventListener('click', () => 
 // EL CÓDIGO SECRETO (4 DÍGITOS)
 // ==========================================
 let codigoIngresado = "";
-const CODIGO_CORRECTO = "2412"; // ⚠️ ¡CAMBIA ESTE CÓDIGO AL NÚMERO QUE QUIERAS! ⚠️
+const CODIGO_CORRECTO = "2412"; // ⚠️ CAMBIA ESTE CÓDIGO AL QUE PREFIERAS ⚠️
 
 const slots = document.querySelectorAll('.llave-slot');
 const feedback = document.getElementById('mensaje-feedback');
@@ -138,8 +123,8 @@ function actualizarPantallaTesoro() {
         if(index < codigoIngresado.length) {
             slot.innerText = "🗝️"; 
             slot.classList.add('activa');
-            slot.style.transform = "scale(1.2)";
-            setTimeout(() => slot.style.transform = "scale(1)", 200);
+            slot.style.transform = "scale(1.1)";
+            setTimeout(() => slot.style.transform = "scale(1)", 150);
         } else {
             slot.innerText = "🔒";
             slot.classList.remove('activa');
@@ -155,11 +140,9 @@ document.querySelectorAll('.btn-tecla').forEach(btn => {
         } else if (this.classList.contains('btn-ok')) {
             
             if (codigoIngresado === CODIGO_CORRECTO) {
-                // Código Correcto: Muestra la carta
                 document.getElementById('interfaz-tesoro').style.display = 'none';
                 document.getElementById('carta-final').style.display = 'block';
             } else {
-                // Código Incorrecto
                 feedback.innerText = "Código incorrecto, intenta de nuevo.";
                 feedback.style.color = "#fb7185";
                 codigoIngresado = "";
