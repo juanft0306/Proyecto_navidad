@@ -103,6 +103,18 @@
             text-decoration: underline; 
             cursor: pointer; 
         }
+
+        /* Reborde blanco como ayuda visual */
+        .btn-oculto.ayuda-visual {
+            border: 2px dashed rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            animation: latidoAyuda 1.5s infinite;
+        }
+        @keyframes latidoAyuda {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -114,14 +126,14 @@
         <div id="instrucciones">Desliza tu dedo como una linterna y encuentra los 3 botones perdidos en la oscuridad...</div>
         <div id="linterna" style="--x: -1000px; --y: -1000px;"></div>
         
-        <!-- Los botones ahora tienen posiciones fijas y seguras manejadas desde el JS -->
         <button class="btn-oculto" id="btn-1"></button>
         <button class="btn-oculto" id="btn-2"></button>
         <button class="btn-oculto" id="btn-3"></button>
         
         <audio id="sonido-boton" src="assets/audios/boton.mp3" preload="auto"></audio>
         
-        <div id="contenido-revelado" class="oculto" style="display: none; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1000;">
+        <!-- Ahora oculto limpiamente sin conflictos -->
+        <div id="contenido-revelado" style="opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.8s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100vw; height: 100vh; position: absolute; top: 0; left: 0; z-index: 1000; background: rgba(15, 23, 42, 0.9);">
             <h1 class="mensaje-amor">Eres la luz que ilumina mi vida...</h1>
             <button id="btn-empezar" class="btn-romantico">Empezar la experiencia</button>
             <p class="aviso-horizontal" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic; text-align: center; max-width: 80%;">Recomendación: antes de presionar el botón, coloca el teléfono horizontalmente 📱🔄</p>
@@ -133,17 +145,17 @@
     <!-- ========================================== -->
     <!-- MÓDULO 2: VIDEO PRINCIPAL                  -->
     <!-- ========================================== -->
-    <section id="modulo-video" style="display: none; position: relative;">
-        <!-- Se activaron los controles para evitar que el video se congele y ella pueda reproducirlo -->
-        <video id="video-sorpresa" playsinline controls style="width: 100vw; height: 100vh; object-fit: contain; background: black;">
+    <section id="modulo-video" style="display: none; position: relative; width: 100vw; height: 100vh; background: black;">
+        <!-- Sin "controls" para que el reproductor sea invisible, como lo tenías antes -->
+        <video id="video-sorpresa" playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain;">
             <source src="assets/videos/sorpresa.mp4" type="video/mp4">
         </video>
         
-        <div id="contenedor-final-video" style="display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); flex-direction: column; justify-content: center; align-items: center; z-index: 50;">
-            <div class="corazon-latido">❤️</div>
-            <p class="frase-video">Cada segundo a tu lado es mi momento favorito...</p>
+        <!-- Pantalla que salta inmediatamente al terminar el video -->
+        <div id="contenedor-final-video" style="display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); flex-direction: column; justify-content: center; align-items: center; z-index: 50;">
+            <div class="corazon-latido" style="font-size: 4rem; margin-bottom: 20px;">❤️</div>
+            <p class="frase-video" style="color: white; font-size: 1.2rem; font-style: italic; margin-bottom: 30px; text-align: center;">Cada segundo a tu lado es mi momento favorito...</p>
             <button id="btn-siguiente-tesoro" class="btn-romantico" style="background: transparent; border: 2px solid white; color: white; padding: 10px 25px; border-radius: 20px; cursor: pointer; font-size: 1rem;">Continuar la aventura ✨</button>
-            <p class="aviso-vertical" style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-top: 15px; font-style: italic;">Recomendación: vuelve a colocar el teléfono verticalmente 📱⬇️</p>
         </div>
     </section>
 
@@ -154,20 +166,19 @@
         
         <div id="interfaz-tesoro">
             <h2 class="titulo-tesoro">El Código Secreto</h2>
-            <p class="texto-tesoro" style="margin-bottom: 20px; font-size: 1rem;">
+            <p class="texto-tesoro">
                 Ingresa el código mágico de 4 dígitos para desbloquear nuestra carta:
             </p>
             
-            <!-- CONTENEDOR DE LLAVES CORREGIDO CON FLEXBOX ABSOLUTO -->
-            <div id="contenedor-llaves" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; width: 100%;">
-                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
-                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
-                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
-                <div class="llave-slot" style="width: 50px; height: 60px; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.1); border-radius: 10px; border: 1px solid rgba(255,255,255,0.3);">🔒</div>
+            <div id="contenedor-llaves">
+                <div class="llave-slot">🔒</div>
+                <div class="llave-slot">🔒</div>
+                <div class="llave-slot">🔒</div>
+                <div class="llave-slot">🔒</div>
             </div>
             
             <div id="pantalla-codigo-tesoro"><span id="codigo-actual"></span></div>
-            <p id="mensaje-feedback" style="height: 20px; margin-bottom: 10px; font-weight: bold;"></p>
+            <p id="mensaje-feedback"></p>
             
             <div id="teclado">
                 <button class="btn-tecla">1</button>
@@ -231,7 +242,6 @@
                     <p class="titulo-disquete">Flores Amarillas</p>
                 </div>
                 
-                <!-- Regalo de Rapunzel Oculto Temporalmente -->
                 <div class="disquete bloqueado" data-id="cadena-oculta">
                     <div class="caratula-container"><div class="candado">🔒</div></div>
                     <p class="titulo-disquete">Próximamente...</p>
@@ -241,21 +251,6 @@
                     <div class="caratula-container"><div class="candado">🔒</div></div>
                     <p class="titulo-disquete">Próximamente...</p>
                 </div>
-                <div class="disquete bloqueado">
-                    <div class="caratula-container"><div class="candado">🔒</div></div>
-                    <p class="titulo-disquete">Próximamente...</p>
-                </div>
-                <div class="disquete bloqueado">
-                    <div class="caratula-container"><div class="candado">🔒</div></div>
-                    <p class="titulo-disquete">Próximamente...</p>
-                </div>
-                <div class="disquete bloqueado">
-                    <div class="caratula-container"><div class="candado">🔒</div></div>
-                    <p class="titulo-disquete">Próximamente...</p>
-                </div>
-            </div>
-            
-            <div class="pagina-grid">
                 <div class="disquete bloqueado">
                     <div class="caratula-container"><div class="candado">🔒</div></div>
                     <p class="titulo-disquete">Próximamente...</p>
@@ -294,7 +289,6 @@
             🔙 Volver
         </button>
 
-        <!-- 1. PINGÜINITO -->
         <div id="exp-pinguino" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Nuestro Pingüinito 🐧</h2>
             <p class="texto-exp">Este pingüinito rosado llegó a tus manos para acompañarte en tus rutinas de skincare. Quería regalarte un pequeño compañero que te recuerde todos los días lo hermosa que eres, tanto por dentro como por fuera. Cada vez que te cuides y te dediques tiempo para ti, quiero que sepas que yo también estoy ahí, admirando tu belleza y amándote en cada faceta tuya.</p>
@@ -306,7 +300,6 @@
             </div>
         </div>
 
-        <!-- 2. OVEJITA -->
         <div id="exp-oveja" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">La Ovejita 🐑🌷</h2>
             <p class="texto-exp">Una ovejita tan tierna y suave como tú, sosteniendo una flor que representa un amor que nunca se marchita. Quería darte algo que pudieras abrazar cuando yo no esté cerquita, algo que te transmita la paz y la ternura que tú me haces sentir todos los días desde que estamos juntos.</p>
@@ -318,7 +311,6 @@
             </div>
         </div>
 
-        <!-- 3. GATO -->
         <div id="exp-gato" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Gato Camarón 🍤🐱</h2>
             <p class="texto-exp">Ese día fue increíble para mí; vendí muchísimo y me fue excelente. Pero mi mayor alegría no era el dinero, sino las ganas inmensas de compartir esa felicidad contigo. Fui corriendo a comprarte ese gatico que tanto te había gustado y lo llené de tus chucherías favoritas. Hablé en secreto con tu mamá para que acomodara la sorpresa en tu cama, imaginando tu carita de emoción al llegar cansada. Todo mi éxito solo tiene sentido si te veo sonreír.</p>
@@ -330,7 +322,6 @@
             </div>
         </div>
 
-        <!-- 4. FLORES AMARILLAS -->
         <div id="exp-flores" class="experiencia-interna" style="display: none;">
             <h2 class="titulo-exp">Tu Jardín Amarillo 🌻</h2>
             <p class="texto-exp">Toda una odisea que jamás olvidaremos. Te hice enojar a propósito, diciéndote que no tenía plata y que esos días no me importaban. Me dolió un poquito verte triste, pero en mi mente sabía que la sorpresa lo valdría todo. Mientras tú estabas molesta, yo estaba planeando todo con tu hermana y tu mamá para dejar este regalo en tu cama. Valió la pena cada segundo de tu enojo solo para ver cómo tus ojos brillaron de felicidad al descubrirlo.</p>
@@ -361,42 +352,32 @@
     <!-- MÓDULO 6: JARDÍN INTERACTIVO 4.0                         -->
     <!-- ======================================================== -->
     <section id="modulo-jardin" class="jardin-noche" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100000; flex-direction: column; justify-content: space-between; align-items: center; overflow: hidden; transition: background 2s ease;">
-        
-        <!-- ELEMENTOS DE FAUNA Y CLIMA EN EL CIELO -->
         <div id="estrellas-fondo" style="position: absolute; top:0; left:0; width:100%; height:100%; background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px); background-size: 100px 100px; opacity: 0.5; z-index: 0;"></div>
         
         <div id="escenario-fondo" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 2; opacity: 0; transition: opacity 2s;">
-            <!-- El sol / luna -->
             <div id="astro-cielo" class="sol-tarde"></div>
-            <!-- Montañas -->
             <div class="montana montana-1"></div>
             <div class="montana montana-2"></div>
             <div class="montana montana-3"></div>
-            <!-- Contenedores Mágicos -->
             <div id="contenedor-nubes" style="position: absolute; width: 100%; height: 100%;"></div>
         </div>
 
         <div id="efectos-clima" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 3;"></div>
         <div id="contenedor-mariposas" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></div>
         <div id="contenedor-luciernagas" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></div>
-
-        <!-- CAPA DE SOMBRA (Efecto Eclipse Nubes) -->
         <div id="capa-sombra" style="position: absolute; top:0; left:0; width:100vw; height:100vh; background: black; opacity: 0; z-index: 11; pointer-events: none; transition: opacity 1.5s ease-in-out;"></div>
 
-        <!-- SELECTOR DE TIEMPO (Día, Tarde, Noche) -->
         <div id="selector-tiempo" style="display: none; position: absolute; top: 15vh; width: 100%; justify-content: center; gap: 15px; z-index: 25;">
             <button class="btn-tiempo activo" id="btn-dia">☀️ Día</button>
             <button class="btn-tiempo" id="btn-tarde">🌅 Tarde</button>
             <button class="btn-tiempo" id="btn-noche">🌙 Noche</button>
         </div>
 
-        <!-- BOTONES EXTRA: REINICIAR Y LIMPIAR TRAZOS (Esquina Superior Derecha) -->
         <div id="controles-extras-jardin" style="display: none; position: absolute; top: 20px; right: 20px; flex-direction: column; gap: 10px; z-index: 30;">
             <button id="btn-reiniciar-jardin" class="btn-sutil-jardin" title="Reiniciar Jardín">🔄 Reiniciar Todo</button>
             <button id="btn-limpiar-rastro" class="btn-sutil-jardin" title="Borrar flores dibujadas">🧹 Limpiar Trazos</button>
         </div>
 
-        <!-- CONTENEDOR INVISIBLE PARA INTERACTIVIDAD DE DIBUJO -->
         <div id="lienzo-rastro" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index: 15; touch-action: none;"></div>
 
         <div style="z-index: 20; margin-top: 5vh; text-align: center; padding: 0 20px; width: 100%; box-sizing: border-box; pointer-events: none;">
@@ -471,8 +452,8 @@
     </div>
 
     <!-- SCRIPTS -->
-    <script src="js/intro.js?v=135"></script>
-    <script src="js/galeria.js?v=135"></script>
+    <script src="js/intro.js?v=137"></script>
+    <script src="js/galeria.js?v=137"></script>
     
 </body>
 </html>
