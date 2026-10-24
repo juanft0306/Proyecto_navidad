@@ -1,8 +1,32 @@
 // ==========================================
-// LINTERNA Y BOTONES OCULTOS
+// PANTALLA COMPLETA Y MODO APP
+// ==========================================
+function activarPantallaCompleta() {
+    const doc = document.documentElement;
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (doc.requestFullscreen) { doc.requestFullscreen(); }
+        else if (doc.webkitRequestFullscreen) { doc.webkitRequestFullscreen(); }
+        else if (doc.msRequestFullscreen) { doc.msRequestFullscreen(); }
+    }
+}
+
+// Se activa silenciosamente en el momento que toca o interactúa con la pantalla
+document.addEventListener('touchstart', activarPantallaCompleta, { once: true });
+document.addEventListener('click', activarPantallaCompleta, { once: true });
+
+// ==========================================
+// LINTERNA, POSICIONAMIENTO Y BOTONES OCULTOS
 // ==========================================
 const linterna = document.getElementById('linterna');
 const introSection = document.getElementById('modulo-intro');
+
+// Aseguramos que los botones siempre aparezcan dentro del marco seguro de la pantalla (entre el 15% y 85%)
+document.querySelectorAll('.btn-oculto').forEach(btn => {
+    const randomX = Math.floor(Math.random() * 70) + 15;
+    const randomY = Math.floor(Math.random() * 70) + 15;
+    btn.style.left = randomX + 'vw';
+    btn.style.top = randomY + 'vh';
+});
 
 // Movimiento de la linterna (Mouse y Táctil)
 introSection.addEventListener('mousemove', e => {
@@ -22,24 +46,59 @@ document.querySelectorAll('.btn-oculto').forEach(btn => {
         if(!this.classList.contains('encontrado')) {
             this.classList.add('encontrado');
             this.style.background = 'rgba(225, 29, 72, 0.8)';
-            if(sonidoBoton) { sonidoBoton.currentTime = 0; sonidoBoton.play().catch(e => console.log(e)); }
+            if(sonidoBoton) { 
+                sonidoBoton.currentTime = 0; 
+                sonidoBoton.play().catch(e => console.log(e)); 
+            }
             botonesEncontrados++;
             
             if(botonesEncontrados === 3) {
                 document.getElementById('contenido-revelado').classList.remove('oculto');
+                clearInterval(intervaloAyuda); // Apagamos la ayuda si ya ganó
             }
         }
     });
 });
 
+// Ayudante de 10 segundos: si se estanca, revelamos un botón automáticamente
+let intervaloAyuda = setInterval(() => {
+    if (botonesEncontrados >= 3) {
+        clearInterval(intervaloAyuda);
+        return;
+    }
+    // Buscar el primer botón que aún no haya sido encontrado
+    const botonesNoEncontrados = document.querySelectorAll('.btn-oculto:not(.encontrado)');
+    if (botonesNoEncontrados.length > 0) {
+        // Simulamos un click para que suene y se ponga rojo solo
+        botonesNoEncontrados[0].click();
+    }
+}, 10000); // 10000 milisegundos = 10 segundos
+
 // ==========================================
-// TRANSICIÓN AL VIDEO
+// TRANSICIÓN AL VIDEO (MEJORADA PARA MÓVILES)
 // ==========================================
 document.getElementById('btn-empezar').addEventListener('click', () => {
     document.getElementById('modulo-intro').style.display = 'none';
-    document.getElementById('modulo-video').style.display = 'block';
+    
+    const moduloVideo = document.getElementById('modulo-video');
+    moduloVideo.style.display = 'block';
+    
     const vid = document.getElementById('video-sorpresa');
-    vid.play().catch(e => { vid.muted = true; vid.play(); });
+    
+    // Forzamos la carga del video
+    vid.load();
+    
+    // Intentamos reproducir el video de forma robusta
+    let playPromise = vid.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log("El autoplay con sonido fue bloqueado, intentando sin sonido...", error);
+            // Si el iPhone/Android lo bloquea, lo muteamos temporalmente para que arranque sí o sí
+            vid.muted = true;
+            vid.play();
+        });
+    }
 });
 
 document.getElementById('video-sorpresa').addEventListener('ended', () => {
@@ -195,4 +254,3 @@ if (btnCerrarMenu) {
         pantallaMenu.classList.remove('activo');
     });
 }
-
